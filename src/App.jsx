@@ -8,6 +8,8 @@ import {
   Menu,
   X,
 } from "lucide-react";
+import SkillsSection from "./Components/SkillsSection";
+import EducationSection from "./Components/EducationSection";
 
 function App() {
   const [isVisible, setIsVisible] = useState(false);
@@ -260,75 +262,10 @@ function App() {
           </div>
         </section>
         {/* Skills Section */}
-        <section
-          id="skills"
-          className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900/30 backdrop-blur-sm relative"
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-900/50 via-pink-900/50 to-purple-900/50 animate-gradient" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_0%,transparent_100%)] animate-pulse" />
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl font-bold mb-16 bg-gradient-to-r from-white to-white text-transparent bg-clip-text text-center">
-              Technical Skills
-            </h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-              {skills.map((skill, index) => (
-                <div
-                  key={index}
-                  className="p-6 rounded-xl bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 transform hover:scale-105 hover:border-purple-500/50 transition-all duration-300"
-                >
-                  <h3 className="text-lg font-semibold text-center text-gray-200">
-                    {skill}
-                  </h3>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <SkillsSection />
         {/* Education & Certificates Combined Section */}
-        <section id="education" className="py-20 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
-            <div>
-              <h2 className="text-4xl font-bold mb-12 bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
-                Education
-              </h2>
-              <div className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 rounded-xl p-8 hover:border-purple-500/50 transition-all duration-300">
-                <h3 className="text-2xl font-bold mb-4">Bachelor of Science</h3>
-                <p className="text-xl text-purple-300 mb-2">Biotechnology</p>
-                <p className="text-gray-300 mb-2">
-                  Mangalmay Institute of Engineering and Technology
-                </p>
-                <p className="text-gray-300">Greater Noida</p>
-                <p className="text-gray-400 mt-4">Aug 2018 – Sep 2021</p>
-              </div>
-            </div>
-
-            <div>
-              <h2 className="text-4xl font-bold mb-12 bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
-                Certificates
-              </h2>
-              <div className="space-y-6">
-                {certificates.map((cert, index) => (
-                  <div
-                    key={index}
-                    className="p-8 rounded-xl bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300"
-                  >
-                    <h3 className="text-xl font-bold mb-4 text-purple-300">
-                      {cert.title}
-                    </h3>
-                    <p className="text-gray-300 mb-6">{cert.description}</p>
-                    <a
-                      href={cert.link}
-                      className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors"
-                    >
-                      View Certificate <ExternalLink className="ml-2 w-4 h-4" />
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-        {/* Contact Section */}
+        <EducationSection />
+        {/* Contac  t Section */}
         <section
           id="contact"
           className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900/30 backdrop-blur-sm"
@@ -370,7 +307,7 @@ function App() {
 
       {/* Footer */}
       <footer className="bg-gray-900/80 backdrop-blur-md border-t border-gray-800">
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div>
