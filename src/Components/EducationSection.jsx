@@ -67,7 +67,7 @@ const EducationSection = () => {
         {/* Education Column */}
         <motion.div variants={itemVariants}>
           <motion.h2
-            className={`text-5xl ${gradientTextClass} mb-12`}
+            className={`text-5xl titillium-web-bold ${gradientTextClass} mb-12`}
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
@@ -80,7 +80,7 @@ const EducationSection = () => {
             transition={{ type: "spring", stiffness: 400, damping: 20 }}
           >
             <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl blur opacity-30 group-hover:opacity-100 transition duration-1000"></div>
-            <div className="relative bg-gray-900 backdrop-blur-xl border border-gray-700/50 rounded-xl p-8 hover:border-purple-500/50 transition-all duration-300">
+            <div className="relative outfit-about bg-gray-900 backdrop-blur-xl border border-gray-700/50 rounded-xl p-8 hover:border-purple-500/50 transition-all duration-300">
               <motion.h3
                 className="text-2xl font-bold mb-4 text-white"
                 initial={{ opacity: 0, x: -20 }}
@@ -108,14 +108,14 @@ const EducationSection = () => {
         {/* Certificates Column */}
         <motion.div variants={itemVariants}>
           <motion.h2
-            className={`text-5xl ${gradientTextClass} mb-12`}
+            className={`text-5xl titillium-web-bold ${gradientTextClass} mb-12`}
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
             Certificates
           </motion.h2>
 
-          <motion.div className="space-y-6" variants={containerVariants}>
+          <motion.div className="space-y-6 outfit-about" variants={containerVariants}>
             {certificates.map((cert, index) => (
               <motion.div
                 key={index}
@@ -132,7 +132,7 @@ const EducationSection = () => {
                   <p className="text-gray-300 mb-6">{cert.description}</p>
                   <motion.a
                     href={cert.link}
-                    className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors"
+                    className="inline-flex hover:underline items-center text-purple-400 hover:text-purple-300 transition-colors"
                     whileHover={{ x: 5 }}
                     whileTap={{ scale: 0.98 }}
                   >

@@ -88,14 +88,14 @@ const SkillsSection = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-purple-400 text-transparent bg-clip-text animate-gradient">
+          <h2 className="text-5xl titillium-web-bold font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-purple-400 text-transparent bg-clip-text animate-gradient">
             Technical Skills
           </h2>
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="mt-4 text-gray-300 text-lg"
+            className="mt-4 titillium-web-bold text-gray-300 text-lg"
           >
             Technologies I work with to bring ideas to life
           </motion.p>
@@ -106,7 +106,7 @@ const SkillsSection = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8"
+          className="grid titillium-web-bold grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8"
         >
           {skills.map((skill, index) => (
             <motion.div

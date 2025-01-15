@@ -230,12 +230,12 @@ function App() {
             }`}
           >
             <div className="relative inline-block">
-              <h1 className="text-6xl sm:text-8xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-amber-500 to-purple-400 text-transparent bg-clip-text animate-gradient relative z-10">
+              <h1 className="text-6xl ubuntu-medium sm:text-8xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-amber-500 to-purple-400 text-transparent bg-clip-text animate-gradient relative z-10">
                 Sourabh Saini
               </h1>
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 filter blur-3xl opacity-30 animate-pulse" />
             </div>
-            <h2 className="text-2xl sm:text-4xl text-orange-500 font-semibold mb-8">
+            <h2 className="text-2xl ubuntu-medium sm:text-4xl text-orange-500 font-semibold mb-8">
               Frontend Developer
             </h2>
             <div className="flex justify-center space-x-6">
@@ -282,7 +282,7 @@ function App() {
                   : "translate-y-10 opacity-0"
               }`}
             >
-              <h2 className="text-7xl font-bold mb-16 text-center">
+              <h2 className="text-7xl titillium-web-bold font-bold mb-16 text-center">
                 <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-orange-500 text-transparent bg-clip-text">
                   About Me
                 </span>
@@ -298,7 +298,7 @@ function App() {
                         : "-translate-x-10 opacity-0"
                     }`}
                   >
-                    <p className="text-2xl font-light leading-relaxed text-gray-300 mb-6">
+                    <p className="text-2xl outfit-about font-light leading-relaxed text-gray-300 mb-6">
                       <span className="text-3xl font-semibold text-purple-400">
                         Hello!
                       </span>{" "}
@@ -342,10 +342,10 @@ function App() {
                         : "translate-y-10 opacity-0"
                     }`}
                   >
-                    <h3 className="text-2xl font-semibold mb-6 bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">
+                    <h3 className="text-2xl outfit-about font-semibold mb-6 bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">
                       Tech Stack
                     </h3>
-                    <div className="flex flex-wrap gap-4">
+                    <div className="flex outfit-about flex-wrap gap-4">
                       {[
                         "React",
                         "JavaScript",
@@ -437,7 +437,7 @@ function App() {
         <section id="projects" className="py-20 px-4 sm:px-6 lg:px-8 relative">
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/20 to-transparent" />
           <div className="max-w-6xl mx-auto relative">
-            <h2 className="text-4xl font-bold mb-16 bg-gradient-to-r from-purple-400 to-white text-transparent bg-clip-text text-center">
+            <h2 className="text-4xl titillium-web-bold font-bold mb-16 bg-gradient-to-r from-purple-400 to-white text-transparent bg-clip-text text-center">
               Featured Projects
             </h2>
             <div className="grid grid-cols-1 gap-16">
@@ -455,10 +455,10 @@ function App() {
                       />
                     </div>
                     <div className="p-8 flex flex-col justify-center">
-                      <h3 className="text-3xl font-bold mb-4 text-purple-300">
+                      <h3 className="text-3xl exo-2-FeaturedProjects font-bold mb-4 text-purple-300">
                         {project.title}
                       </h3>
-                      <p className="text-gray-300 mb-6 leading-relaxed">
+                      <p className="text-gray-300 outfit-about mb-6 leading-relaxed">
                         {project.description}
                       </p>
                       <div className="flex flex-wrap gap-2 mb-8">
@@ -501,7 +501,7 @@ function App() {
           id="contact"
           className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900/30 backdrop-blur-sm"
         >
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-4xl titillium-web-bold mx-auto text-center">
             <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
               Let's Connect
             </h2>
@@ -555,7 +555,7 @@ function App() {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative">
+        <div className="max-w-7xl outfit-about mx-auto px-4 sm:px-6 lg:px-8 py-12 relative">
           <div className="flex items-center justify-center min-h-[200px] relative px-4">
             {/* Main content */}
             <div className="max-w-2xl w-full relative text-center">
