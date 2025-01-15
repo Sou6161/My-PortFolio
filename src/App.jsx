@@ -560,10 +560,8 @@ function App() {
             {/* Main content */}
             <div className="max-w-2xl w-full relative text-center">
               <p className="text-gray-400 text-lg md:text-xl leading-relaxed">
-              "Code that speaks to the heart,
-Design that touches the soul from the start,
-Pixels that bring it all to life's art."
-
+                "Code that speaks to the heart, Design that touches the soul
+                from the start, Pixels that bring it all to life's art."
               </p>
 
               {/* Animated decorative elements */}
