@@ -560,9 +560,10 @@ function App() {
             {/* Main content */}
             <div className="max-w-2xl w-full relative text-center">
               <p className="text-gray-400 text-lg md:text-xl leading-relaxed">
-                Crafting exceptional digital experiences with cutting-edge
-                animations and interactive designs. Transforming ideas into
-                seamless, beautiful web applications.
+              "Code that speaks to the heart,
+Design that touches the soul from the start,
+Pixels that bring it all to life's art."
+
               </p>
 
               {/* Animated decorative elements */}
