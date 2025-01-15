@@ -12,13 +12,13 @@ const EducationSection = () => {
       title: "Meta JavaScript Certification",
       description:
         "I've achieved the Meta JavaScript Certification, mastering JavaScript fundamentals, advanced concepts, and ecosystem tools. I've gained expertise in building scalable, efficient, and high-performance JavaScript applications.",
-      link: "#",
+      link: "https://drive.google.com/file/d/1DIKPD-ICa1hJ6iQx38Wna7LsC0Ry8WZD/view",
     },
     {
       title: "Meta Advanced React Certification",
       description:
         "Achieved advanced proficiency in React, mastering state management, hooks, and optimization techniques to design and develop high-performance, maintainable, and scalable React applications.",
-      link: "#",
+      link: "https://drive.google.com/file/d/1DLr7BYZzPxbwkq8UmwviE6Gl9y3l3LZB/view",
     },
   ];
 
