@@ -7,6 +7,12 @@ const CustomCursor = () => {
   const [isClicking, setIsClicking] = useState(false);
 
   useEffect(() => {
+    // Add a class to the body to hide the default cursor
+    document.body.classList.add('cursor-none');
+    // Add the same class to all interactive elements
+    const elements = document.querySelectorAll('a, button');
+    elements.forEach(el => el.classList.add('cursor-none'));
+
     const handleMouseMove = (e) => {
       setMousePos({ x: e.clientX, y: e.clientY });
     };
@@ -21,6 +27,11 @@ const CustomCursor = () => {
     window.addEventListener('mouseup', handleMouseUp);
 
     return () => {
+      // Clean up classes
+      document.body.classList.remove('cursor-none');
+      elements.forEach(el => el.classList.remove('cursor-none'));
+      
+      // Clean up event listeners
       window.removeEventListener('mouseenter', () => setIsHovering(true));
       window.removeEventListener('mouseleave', () => setIsHovering(false));
       window.removeEventListener('mousemove', handleMouseMove);
@@ -31,26 +42,9 @@ const CustomCursor = () => {
 
   return (
     <>
-      <style>
-        {`
-          body { cursor: none; }
-          a, button { cursor: none; }
-          
-          @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.2); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 0.5; }
-          }
-          
-          .cursor-pulse {
-            animation: pulse 2s infinite;
-          }
-        `}
-      </style>
-      
       {/* Main cursor dot */}
       <motion.div
-        className="fixed top-0 left-0 w-3 h-3 bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-full mix-blend-difference pointer-events-none z-[9999]"
+        className="fixed top-0 left-0 w-3 h-3 bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-full mix-blend-difference pointer-events-none z-50"
         animate={{
           x: mousePos.x - 6,
           y: mousePos.y - 6,
@@ -66,12 +60,13 @@ const CustomCursor = () => {
 
       {/* Outer ring */}
       <motion.div
-        className="fixed top-0 left-0 w-8 h-8 border border-white rounded-full mix-blend-difference pointer-events-none z-[9998] backdrop-blur-sm"
+        className={`fixed top-0 left-0 w-8 h-8 border rounded-full mix-blend-difference pointer-events-none z-40 backdrop-blur-sm ${
+          isHovering ? 'border-2' : 'border'
+        } border-white`}
         animate={{
           x: mousePos.x - 16,
           y: mousePos.y - 16,
           scale: isClicking ? 1.2 : isHovering ? 2 : 1,
-          borderWidth: isHovering ? '2px' : '1px',
         }}
         transition={{
           type: "spring",
@@ -85,9 +80,9 @@ const CustomCursor = () => {
       {[...Array(5)].map((_, i) => (
         <motion.div
           key={i}
-          className="fixed top-0 left-0 rounded-full mix-blend-difference pointer-events-none opacity-30 z-[9997]"
+          className={`fixed top-0 left-0 rounded-full mix-blend-difference pointer-events-none z-30 bg-white`}
           style={{
-            background: `rgba(255, 255, 255, ${0.8 - i * 0.15})`,
+            opacity: 0.8 - i * 0.15,
             width: `${4 + i * 2}px`,
             height: `${4 + i * 2}px`,
           }}
@@ -108,7 +103,7 @@ const CustomCursor = () => {
 
       {/* Glow effect */}
       <motion.div
-        className="fixed top-0 left-0 w-16 h-16 bg-gradient-to-r from-violet-500/70 to-fuchsia-500/70 rounded-full blur-xl pointer-events-none z-[9996]"
+        className="fixed top-0 left-0 w-16 h-16 bg-gradient-to-r from-violet-500/70 to-fuchsia-500/70 rounded-full blur-xl pointer-events-none z-20"
         animate={{
           x: mousePos.x - 32,
           y: mousePos.y - 32,
