@@ -19,7 +19,7 @@ import CustomCursor from "./Components/CustomCursor";
 import Cineout_Photo from "./Images/Cineout_Portfolio_Project.png"
 import Coinfam_Photo from "./Images/Coinfam_Portfolio_Project.png"
 import FoldXeperince_Photo from "./Images/FoldXeperince_Portfolio_Project.png"
-import TactiShift_Photo from "./Images/TactiShift_Portfolio_Project.png"
+import TactiShift_Photo from "./Images/TactiShift_Portfolio_project.png"
 
 const projects = [
   {
