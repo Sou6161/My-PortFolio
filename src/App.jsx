@@ -16,6 +16,109 @@ import SkillsSection from "./Components/SkillsSection";
 import EducationSection from "./Components/EducationSection";
 import { Globe, Laptop, Sparkles } from "lucide-react";
 import CustomCursor from "./Components/CustomCursor";
+import Cineout_Photo from "./Images/Cineout_Portfolio_Project.png"
+import Coinfam_Photo from "./Images/Coinfam_Portfolio_Project.png"
+import FoldXeperince_Photo from "./Images/FoldXeperince_Portfolio_Project.png"
+import TactiShift_Photo from "./Images/TactiShift_Portfolio_Project.png"
+
+const projects = [
+  {
+    title: "CineOut",
+    description:
+      "A responsive movie browsing website with clean layouts for desktop and mobile. Features optimized search functionality with quick and accurate movie results, including posters and brief information. Built with React Router for seamless navigation.",
+    image:
+    Cineout_Photo,
+    liveLink: "https://cineout.vercel.app/",
+    githubLink: "https://github.com/Sou6161/cineout",
+    technologies: [
+      "ReactJS",
+      "JavaScript (ES6)",
+      "Tailwind CSS",
+      "React-Redux",
+      "External API",
+    ],
+  },
+  {
+    title: "CoinFam",
+    description:
+      "A real-time cryptocurrency tracking platform utilizing the CoinGecko API. Features live price updates, market trends, and comprehensive crypto information. Built with a sleek, intuitive user interface that ensures seamless performance across all devices.",
+    image:
+    Coinfam_Photo,
+    liveLink: "https://coin-fam.vercel.app/",
+    githubLink: "https://github.com/Sou6161/CoinFam",
+    technologies: [
+      "ReactJS",
+      "JavaScript (ES6)",
+      "Tailwind CSS",
+      "React-Redux",
+      "CoinGecko API",
+    ],
+  },
+  {
+    title: "FoldXperience",
+    description:
+      "A reimagined Samsung Galaxy Z Fold6 website showcasing the device through immersive animations. Implemented GSAP for fluid transitions and Lenis for smooth scrolling effects, creating an engaging user experience that highlights the product's features.",
+    image:
+    FoldXeperince_Photo,
+    liveLink: "https://z-fold6-showcase.vercel.app/",
+    githubLink: "https://github.com/Sou6161/Z-Fold6-ShowCase",
+    technologies: [
+      "ReactJS",
+      "JavaScript (ES6)",
+      "Tailwind CSS",
+      "GSAP",
+      "Framer Motion",
+      "Lenis",
+    ],
+  },
+  {
+    title: "TactiShift",
+    description:
+      "An innovative Tic-Tac-Toe game developed for the Appwrite Hackathon, featuring a unique shifting mechanic. Implemented multiplayer functionality and dynamic win-detection algorithms for shifting board positions, showcasing advanced problem-solving skills.",
+    image:
+    TactiShift_Photo,
+    liveLink: "https://shift-tic-tac-toe.vercel.app/",
+    githubLink: "https://github.com/Sou6161/shift-tic-tac-toe",
+    technologies: [
+      "ReactJS",
+      "JavaScript (ES6)",
+      "Socket IO",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Lenis",
+    ],
+  },
+];
+
+const skills = [
+  "HTML5",
+  "CSS3",
+  "Tailwind CSS",
+  "JavaScript",
+  "ReactJS",
+  "React-Redux",
+  "GSAP",
+  "Framer Motion",
+  "Lenis",
+];
+
+const certificates = [
+  {
+    title: "Meta JavaScript Certificate",
+    description:
+      "Demonstrated proficiency in core JavaScript concepts, DOM manipulation, and modern ES6+ features",
+    link: "#",
+  },
+  {
+    title: "Meta Advanced React Certificate",
+    description:
+      "Mastered component development, hooks, state management, and building interactive websites",
+    link: "#",
+  },
+];
+
+export default App;
+
 
 function App() {
   const [isVisible, setIsVisible] = useState(false);
@@ -285,7 +388,7 @@ function App() {
                     : "translate-y-10 opacity-0"
                 }`}
               >
-                <h2 className="text-7xl titillium-web-bold font-bold mb-16 text-center">
+                <h2 className="text-6xl titillium-web-bold font-bold mb-16 text-center">
                   <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-orange-500 text-transparent bg-clip-text">
                     About Me
                   </span>
@@ -355,7 +458,8 @@ function App() {
                           "Tailwind CSS",
                           "GSAP",
                           "Framer-Motion",
-                          "Redux",
+                          "React-Redux",
+                          "Lenis",
                         ].map((tech, index) => (
                           <span
                             key={tech}
@@ -596,100 +700,3 @@ function App() {
   );
 }
 
-const projects = [
-  {
-    title: "CineOut",
-    description:
-      "A responsive movie browsing website with clean layouts for desktop and mobile. Features optimized search functionality with quick and accurate movie results, including posters and brief information. Built with React Router for seamless navigation.",
-    image:
-      "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-    liveLink: "https://cineout.vercel.app/",
-    githubLink: "https://github.com/Sou6161/cineout",
-    technologies: [
-      "ReactJS",
-      "JavaScript (ES6)",
-      "Tailwind CSS",
-      "React-Redux",
-      "External API",
-    ],
-  },
-  {
-    title: "CoinFam",
-    description:
-      "A real-time cryptocurrency tracking platform utilizing the CoinGecko API. Features live price updates, market trends, and comprehensive crypto information. Built with a sleek, intuitive user interface that ensures seamless performance across all devices.",
-    image:
-      "https://images.unsplash.com/photo-1621761191319-c6fb62004040?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-    liveLink: "https://coin-fam.vercel.app/",
-    githubLink: "https://github.com/Sou6161/CoinFam",
-    technologies: [
-      "ReactJS",
-      "JavaScript (ES6)",
-      "Tailwind CSS",
-      "React-Redux",
-      "CoinGecko API",
-    ],
-  },
-  {
-    title: "FoldXperience",
-    description:
-      "A reimagined Samsung Galaxy Z Fold6 website showcasing the device through immersive animations. Implemented GSAP for fluid transitions and Lenis for smooth scrolling effects, creating an engaging user experience that highlights the product's features.",
-    image:
-      "https://images.unsplash.com/photo-1610792516307-ea5acd9c3b00?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-    liveLink: "https://z-fold6-showcase.vercel.app/",
-    githubLink: "https://github.com/Sou6161/Z-Fold6-ShowCase",
-    technologies: [
-      "ReactJS",
-      "JavaScript (ES6)",
-      "Tailwind CSS",
-      "GSAP",
-      "Framer Motion",
-      "Lenis",
-    ],
-  },
-  {
-    title: "TactiShift",
-    description:
-      "An innovative Tic-Tac-Toe game developed for the Appwrite Hackathon, featuring a unique shifting mechanic. Implemented multiplayer functionality and dynamic win-detection algorithms for shifting board positions, showcasing advanced problem-solving skills.",
-    image:
-      "https://images.unsplash.com/photo-1611996575749-79a3a250f948?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-    liveLink: "https://shift-tic-tac-toe.vercel.app/",
-    githubLink: "https://github.com/Sou6161/shift-tic-tac-toe",
-    technologies: [
-      "ReactJS",
-      "JavaScript (ES6)",
-      "Socket IO",
-      "Tailwind CSS",
-      "Framer Motion",
-      "Lenis",
-    ],
-  },
-];
-
-const skills = [
-  "HTML5",
-  "CSS3",
-  "Tailwind CSS",
-  "JavaScript",
-  "ReactJS",
-  "React-Redux",
-  "GSAP",
-  "Framer Motion",
-  "Lenis",
-];
-
-const certificates = [
-  {
-    title: "Meta JavaScript Certificate",
-    description:
-      "Demonstrated proficiency in core JavaScript concepts, DOM manipulation, and modern ES6+ features",
-    link: "#",
-  },
-  {
-    title: "Meta Advanced React Certificate",
-    description:
-      "Mastered component development, hooks, state management, and building interactive websites",
-    link: "#",
-  },
-];
-
-export default App;

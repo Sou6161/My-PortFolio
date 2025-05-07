@@ -8,51 +8,85 @@ const CustomCursor = () => {
   const [isClicking, setIsClicking] = useState(false);
   const [velocity, setVelocity] = useState({ x: 0, y: 0 });
   const [lastPos, setLastPos] = useState({ x: 0, y: 0 });
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   useEffect(() => {
-    document.body.classList.add('cursor-none');
-    const elements = document.querySelectorAll('a, button, input, select, textarea');
-    elements.forEach(el => el.classList.add('cursor-none'));
-
-    let lastTimestamp = 0;
-    const handleMouseMove = (e) => {
-      const currentTimestamp = Date.now();
-      const timeDelta = currentTimestamp - lastTimestamp;
+    // Check if screen is large enough for custom cursor
+    const checkScreenSize = () => {
+      // Using 1024px (lg breakpoint) to exclude tablets and only show on laptops/desktops
+      const largeScreen = window.innerWidth >= 1024;
+      setIsLargeScreen(largeScreen);
       
-      if (timeDelta > 0) {
-        const newVelocity = {
-          x: (e.clientX - lastPos.x) / timeDelta,
-          y: (e.clientY - lastPos.y) / timeDelta
-        };
-        setVelocity(newVelocity);
-        setLastPos({ x: e.clientX, y: e.clientY });
-        lastTimestamp = currentTimestamp;
+      // Only add cursor-none to body if on large screen
+      if (largeScreen) {
+        document.body.classList.add('cursor-none');
+        const elements = document.querySelectorAll('a, button, input, select, textarea');
+        elements.forEach(el => el.classList.add('cursor-none'));
+      } else {
+        document.body.classList.remove('cursor-none');
+        const elements = document.querySelectorAll('a, button, input, select, textarea');
+        elements.forEach(el => el.classList.remove('cursor-none'));
       }
-      
-      setMousePos({ x: e.clientX, y: e.clientY });
     };
+    
+    // Initial check
+    checkScreenSize();
+    
+    // Add resize listener
+    window.addEventListener('resize', checkScreenSize);
 
-    const handleMouseEnter = () => setIsHovering(true);
-    const handleMouseLeave = () => setIsHovering(false);
-    const handleMouseDown = () => setIsClicking(true);
-    const handleMouseUp = () => setIsClicking(false);
+    // Only set up mouse events if on large screen
+    if (isLargeScreen) {
+      let lastTimestamp = 0;
+      const handleMouseMove = (e) => {
+        const currentTimestamp = Date.now();
+        const timeDelta = currentTimestamp - lastTimestamp;
+        
+        if (timeDelta > 0) {
+          const newVelocity = {
+            x: (e.clientX - lastPos.x) / timeDelta,
+            y: (e.clientY - lastPos.y) / timeDelta
+          };
+          setVelocity(newVelocity);
+          setLastPos({ x: e.clientX, y: e.clientY });
+          lastTimestamp = currentTimestamp;
+        }
+        
+        setMousePos({ x: e.clientX, y: e.clientY });
+      };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseenter', handleMouseEnter);
-    window.addEventListener('mouseleave', handleMouseLeave);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
+      const handleMouseEnter = () => setIsHovering(true);
+      const handleMouseLeave = () => setIsHovering(false);
+      const handleMouseDown = () => setIsClicking(true);
+      const handleMouseUp = () => setIsClicking(false);
 
-    return () => {
-      document.body.classList.remove('cursor-none');
-      elements.forEach(el => el.classList.remove('cursor-none'));
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseenter', handleMouseEnter);
-      window.removeEventListener('mouseleave', handleMouseLeave);
-      window.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, [lastPos]);
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('mouseenter', handleMouseEnter);
+      window.addEventListener('mouseleave', handleMouseLeave);
+      window.addEventListener('mousedown', handleMouseDown);
+      window.addEventListener('mouseup', handleMouseUp);
+
+      return () => {
+        document.body.classList.remove('cursor-none');
+        const elements = document.querySelectorAll('a, button, input, select, textarea');
+        elements.forEach(el => el.classList.remove('cursor-none'));
+        window.removeEventListener('mousemove', handleMouseMove);
+        window.removeEventListener('mouseenter', handleMouseEnter);
+        window.removeEventListener('mouseleave', handleMouseLeave);
+        window.removeEventListener('mousedown', handleMouseDown);
+        window.removeEventListener('mouseup', handleMouseUp);
+        window.removeEventListener('resize', checkScreenSize);
+      };
+    } else {
+      // Just remove the resize listener if not on large screen
+      return () => {
+        window.removeEventListener('resize', checkScreenSize);
+      };
+    }
+  }, [lastPos, isLargeScreen]);
+
+  // Don't render anything if not on a large screen
+  if (!isLargeScreen) return null;
 
   const speed = Math.sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
   const angle = Math.atan2(velocity.y, velocity.x);

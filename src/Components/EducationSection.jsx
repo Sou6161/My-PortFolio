@@ -20,6 +20,12 @@ const EducationSection = () => {
         "Achieved advanced proficiency in React, mastering state management, hooks, and optimization techniques to design and develop high-performance, maintainable, and scalable React applications.",
       link: "https://drive.google.com/file/d/1DLr7BYZzPxbwkq8UmwviE6Gl9y3l3LZB/view",
     },
+    {
+      title: "HackerRank Frontend React Certification",
+      description:
+        "Achieved HackerRank Frontend React JS certification, validating expertise in React component architecture and modern frontend development",
+      link: "https://drive.google.com/file/d/1mwcQaqoMrueQvh9oxkLkKpbNN7JLlyAA/view",
+    },
   ];
 
   useEffect(() => {
