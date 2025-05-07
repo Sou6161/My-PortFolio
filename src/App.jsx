@@ -421,7 +421,7 @@ function App() {
                     <div className="flex justify-center mt-8">
                       <a
                         target="_blank"
-                        href="https://drive.google.com/file/d/1Gr6aCU9Wgu2h8U-4aMaxWhXcGkCoCxUR/view?usp=drivesdk"
+                        href="https://drive.google.com/file/d/1s9Bm12xzz5WcNmOj5d6a6lTeAbXi8lIQ/view?usp=drive_link"
                         className="group relative px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25"
                       >
                         <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
