@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   SiHtml5,
   SiCss3,
@@ -28,7 +28,9 @@ const SkillsSection = () => {
     visible: {
       opacity: 1,
       transition: {
+        when: "beforeChildren",
         staggerChildren: 0.2,
+        delayChildren: 0.1,
       },
     },
   };
@@ -36,7 +38,7 @@ const SkillsSection = () => {
   const skillVariants = {
     hidden: {
       opacity: 0,
-      y: 20,
+      y: 24,
       scale: 0.8,
     },
     visible: {
@@ -44,21 +46,23 @@ const SkillsSection = () => {
       y: 0,
       scale: 1,
       transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 10,
+        type: "tween",
+        duration: 0.5,
+        ease: "easeOut",
       },
     },
   };
 
+  const reduceMotion = useReducedMotion();
+
   const iconVariants = {
     hover: {
-      rotate: 360,
-      scale: 1.2,
+      rotate: reduceMotion ? 0 : 180,
+      scale: 1.1,
       transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 10,
+        type: "tween",
+        duration: 0.3,
+        ease: "easeOut",
       },
     },
   };
@@ -67,18 +71,19 @@ const SkillsSection = () => {
     <section className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-gray-900">
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-900/50 via-transparent to-pink-900/50 animate-gradient" />
-        <motion.div
-          animate={{
-            opacity: [0.3, 0.5, 0.3],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_0%,transparent_70%)]"
-        />
+        {!reduceMotion && (
+          <motion.div
+            animate={{
+              scale: [1, 1.05, 1],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08)_0%,transparent_70%)] will-change-transform"
+          />
+        )}
       </div>
 
       <div className="max-w-6xl mx-auto relative">
@@ -112,19 +117,19 @@ const SkillsSection = () => {
             <motion.div
               key={index}
               variants={skillVariants}
+              transition={{ delay: index * 0.12 }}
               whileHover="hover"
               className="relative group"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-300 opacity-75" />
               <motion.div
-                whileHover={{ scale: 1.05 }}
-                className="relative p-6 rounded-xl bg-gray-800/40 border border-gray-700/50 backdrop-blur-sm hover:border-purple-500/50 transition-all duration-300"
+                whileHover={{ scale: 1.03 }}
+                className="relative p-6 rounded-xl bg-gray-800/40 border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300 will-change-transform"
               >
                 <div className="flex flex-col items-center gap-4">
                   <motion.div
                     variants={iconVariants}
-                    whileHover={{ scale: 1.05, rotate: 360 }} // Add the whileHover property here
-                    className="p-4 rounded-full bg-gray-700/50 group-hover:bg-gray-700/70 transition-colors duration-300"
+                    className="p-4 rounded-full bg-gray-700/50 group-hover:bg-gray-700/70 transition-colors duration-300 will-change-transform"
                   >
                     <skill.icon
                       className="w-12 h-12"
@@ -140,31 +145,8 @@ const SkillsSection = () => {
           ))}
         </motion.div>
 
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3],
-          }}
-          transition={{
-            duration: 4,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 rounded-full filter blur-3xl"
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3],
-          }}
-          transition={{
-            duration: 4,
-            delay: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute bottom-0 left-0 w-64 h-64 bg-pink-500/10 rounded-full filter blur-3xl"
-        />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 rounded-full blur-2xl" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-pink-500/10 rounded-full blur-2xl" />
       </div>
     </section>
   );

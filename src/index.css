@@ -60,6 +60,16 @@
     background-size: 200% 200%;
   }
 
+  /* Reduce-motion support to improve performance on low-power devices */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
    /* for footer */
 
   @keyframes scroll-left {
@@ -106,3 +116,8 @@
   
   
   
+  /* Performance utility to avoid white flashes on fast scroll */
+  .content-visibility-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: 800px 1000px;
+  }

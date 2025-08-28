@@ -37,8 +37,8 @@ const EducationSection = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
+        staggerChildren: 0.18,
+        delayChildren: 0.1,
       },
     },
   };
@@ -68,7 +68,8 @@ const EducationSection = () => {
         className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12"
         variants={containerVariants}
         initial="hidden"
-        animate={isLoaded ? "visible" : "hidden"}
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.25 }}
       >
         {/* Education Column */}
         <motion.div variants={itemVariants}>

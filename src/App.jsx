@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import {
   Github,
   ExternalLink,
@@ -125,6 +126,35 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAboutVisible, setIsAboutVisible] = useState(false);
 
+  const sectionVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
+
+  const listContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const listItemVariants = {
+    hidden: { opacity: 0, y: 24 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.45, ease: "easeOut" },
+    },
+  };
+
   useEffect(() => {
     setIsVisible(true);
 
@@ -138,7 +168,11 @@ function App() {
           }
         });
       },
-      { threshold: 0.2 }
+      {
+        // Trigger earlier so content is ready before it enters the viewport
+        rootMargin: "200px 0px -10% 0px",
+        threshold: 0.01,
+      }
     );
 
     const aboutSection = document.querySelector("#about");
@@ -167,9 +201,12 @@ function App() {
             targetPosition + window.pageYOffset - headerHeight;
 
           // Smooth scroll to target
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
+          // Avoid main-thread jank by batching after frame
+          requestAnimationFrame(() => {
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
           });
 
           // Close mobile menu if open
@@ -313,9 +350,13 @@ function App() {
           {" "}
           {/* Added padding-top to account for fixed header */}
           {/* Hero Section */}
-          <section
-            id="about"
-            className="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+          <motion.section
+            id="hero"
+            className="min-h-screen flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 relative overflow-hidden content-visibility-auto"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={sectionVariants}
           >
             {/* Animated Background Elements */}
             <div className="absolute inset-0">
@@ -368,11 +409,15 @@ function App() {
             <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
               <ChevronDown className="w-8 h-8" />
             </div>
-          </section>
+          </motion.section>
           {/* Enhanced About Section */}
-          <section
+          <motion.section
             id="about"
-            className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+            className="py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden content-visibility-auto"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.25 }}
+            variants={sectionVariants}
           >
             {/* Animated background elements */}
             <div className="absolute inset-0">
@@ -413,7 +458,7 @@ function App() {
                           Sourabh Saini
                         </span>
                         , a passionate Frontend Developer crafting digital
-                        experiences in Delhi, India.
+                        experiences in Gurgaon, India.
                       </p>
                       <p className="text-xl leading-relaxed text-gray-300 mb-6 animate-fade-in">
                         I transform ideas into responsive, interactive web
@@ -539,29 +584,42 @@ function App() {
                 </div>
               </div>
             </div>
-          </section>
+          </motion.section>
           {/* Projects Section */}
-          <section
+          <motion.section
             id="projects"
-            className="py-20 px-4 sm:px-6 lg:px-8 relative"
+            className="py-20 px-4 sm:px-6 lg:px-8 relative content-visibility-auto"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={sectionVariants}
           >
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/20 to-transparent" />
             <div className="max-w-6xl mx-auto relative">
               <h2 className="text-4xl titillium-web-bold font-bold mb-16 bg-gradient-to-r from-purple-400 to-white text-transparent bg-clip-text text-center">
                 Featured Projects
               </h2>
-              <div className="grid grid-cols-1 gap-16">
+              <motion.div
+                className="grid grid-cols-1 gap-16"
+                variants={listContainerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+              >
                 {projects.map((project, index) => (
-                  <div
+                  <motion.div
                     key={index}
                     className="group relative bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 shadow-lg shadow-violet-700/30 rounded-2xl overflow-hidden hover:border-purple-500/50 transition-all duration-500"
+                    variants={listItemVariants}
                   >
                     <div className="grid md:grid-cols-2 gap-8">
-                      <div className="overflow-hidden">
+                      <div className="overflow-hidden aspect-[16/9] bg-gray-800/40">
                         <img
                           src={project.image}
                           alt={project.title}
-                          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                          loading="lazy"
+                          decoding="async"
+                          className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 will-change-transform"
                         />
                       </div>
                       <div className="p-8 flex flex-col justify-center">
@@ -597,19 +655,39 @@ function App() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
-          </section>
+          </motion.section>
           {/* Skills Section */}
-          <SkillsSection />
+          <motion.div
+            className="content-visibility-auto"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={sectionVariants}
+          >
+            <SkillsSection />
+          </motion.div>
           {/* Education & Certificates Combined Section */}
-          <EducationSection />
+          <motion.div
+            className="content-visibility-auto"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={sectionVariants}
+          >
+            <EducationSection />
+          </motion.div>
           {/* Contact Section */}
-          <section
+          <motion.section
             id="contact"
-            className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900/30 backdrop-blur-sm"
+            className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900/30 backdrop-blur-sm content-visibility-auto"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={sectionVariants}
           >
             <div className="max-w-4xl titillium-web-bold mx-auto text-center">
               <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
@@ -643,7 +721,7 @@ function App() {
                 </a>
               </div>
             </div>
-          </section>
+          </motion.section>
         </main>
 
         <footer className="bg-gray-900/80 backdrop-blur-md border-t border-gray-800 relative overflow-hidden">
