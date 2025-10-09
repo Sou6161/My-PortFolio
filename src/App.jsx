@@ -233,118 +233,28 @@ function App() {
   return (
     <>
       <CustomCursor />
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-teal-900 to-slate-900 text-white">
         {/* Background Blobs */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-700 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob" />
-          <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-700 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000" />
-          <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-700 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000" />
+          <motion.div
+            className="absolute top-0 -left-4 w-72 h-72 bg-teal-700 rounded-full mix-blend-multiply filter blur-xl opacity-70 will-change-transform"
+            animate={{ y: [0, 20, 0], x: [0, -10, 0], scale: [1, 1.05, 1] }}
+            transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <motion.div
+            className="absolute top-0 -right-4 w-72 h-72 bg-orange-700 rounded-full mix-blend-multiply filter blur-xl opacity-70 will-change-transform"
+            animate={{ y: [0, 15, 0], x: [0, 12, 0], scale: [1, 1.04, 1] }}
+            transition={{ duration: 22, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          />
+          <motion.div
+            className="absolute -bottom-8 left-20 w-72 h-72 bg-teal-700 rounded-full mix-blend-multiply filter blur-xl opacity-70 will-change-transform"
+            animate={{ y: [0, -18, 0], x: [0, 10, 0], scale: [1, 1.03, 1] }}
+            transition={{ duration: 20, repeat: Infinity, ease: "easeInOut", delay: 4 }}
+          />
         </div>
 
         {/* Gradient Overlay */}
         <div className="fixed inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/80 pointer-events-none" />
-        {/* Header */}
-        {/* <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-800">
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex-shrink-0">
-            <a
-              href="#"
-              className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text"
-            >
-              Sourabh.dev
-            </a>
-          </div>
-
-          Desktop Navigation
-          <div className="hidden md:flex items-center space-x-8">
-            <a
-              href="#about"
-              className="text-gray-300 hover:text-purple-400 transition-colors"
-            >
-              About
-            </a>
-            <a
-              href="#projects"
-              className="text-gray-300 hover:text-purple-400 transition-colors"
-            >
-              Projects
-            </a>
-            <a
-              href="#skills"
-              className="text-gray-300 hover:text-purple-400 transition-colors"
-            >
-              Skills
-            </a>
-            <a
-              href="#education"
-              className="text-gray-300 hover:text-purple-400 transition-colors"
-            >
-              Education
-            </a>
-            <a
-              href="#contact"
-              className="px-4 py-2 rounded-full bg-purple-500 hover:bg-purple-600 transition-colors"
-            >
-              Contact
-            </a>
-          </div>
-
-          Mobile Menu Button
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-300 hover:text-white"
-            >
-              {isMenuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
-            </button>
-          </div>
-        </div>
-
-        Mobile Navigation
-        {isMenuOpen && (
-          <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <a
-                href="#about"
-                className="block px-3 py-2 text-gray-300 hover:text-purple-400 transition-colors"
-              >
-                About
-              </a>
-              <a
-                href="#projects"
-                className="block px-3 py-2 text-gray-300 hover:text-purple-400 transition-colors"
-              >
-                Projects
-              </a>
-              <a
-                href="#skills"
-                className="block px-3 py-2 text-gray-300 hover:text-purple-400 transition-colors"
-              >
-                Skills
-              </a>
-              <a
-                href="#education"
-                className="block px-3 py-2 text-gray-300 hover:text-purple-400 transition-colors"
-              >
-                Education
-              </a>
-              <a
-                href="#contact"
-                className="block px-3 py-2 text-purple-400 hover:text-purple-300 transition-colors"
-              >
-                Contact
-              </a>
-            </div>
-          </div>
-        )}
-      </nav>
-    </header> */}
-
         {/* Main Content */}
         <main className="">
           {" "}
@@ -361,12 +271,12 @@ function App() {
             {/* Animated Background Elements */}
             <div className="absolute inset-0">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.1)_0%,transparent_100%)] animate-pulse" />
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/20 to-transparent animate-gradient" />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-teal-900/20 to-transparent animate-gradient" />
             </div>
             {/* Floating Elements */}
             <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-500/30 rounded-full filter blur-3xl animate-blob-spin" />
-              <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-pink-500/30 rounded-full filter blur-3xl animate-blob" />
+              <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-teal-500/30 rounded-full filter blur-3xl animate-blob-spin" />
+              <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-orange-500/30 rounded-full filter blur-3xl animate-blob" />
             </div>
             {/* Hero Content */}
             <div
@@ -377,10 +287,10 @@ function App() {
               }`}
             >
               <div className="relative inline-block">
-                <h1 className="text-6xl ubuntu-medium sm:text-8xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-amber-500 to-purple-400 text-transparent bg-clip-text animate-gradient relative z-10">
+                <h1 className="text-6xl ubuntu-medium sm:text-8xl font-bold mb-6 bg-gradient-to-r from-teal-400 via-orange-500 to-teal-400 text-transparent bg-clip-text animate-gradient relative z-10">
                   Sourabh Saini
                 </h1>
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 filter blur-3xl opacity-30 animate-pulse" />
+                <div className="absolute inset-0 bg-gradient-to-r from-teal-500 to-orange-500 filter blur-3xl opacity-30 animate-pulse" />
               </div>
               <h2 className="text-2xl ubuntu-medium sm:text-4xl text-orange-500 font-semibold mb-8">
                 Frontend Developer
@@ -388,19 +298,19 @@ function App() {
               <div className="flex justify-center space-x-6">
                 <a
                   href="mailto:sourabh61saini@gmail.com"
-                  className="transform hover:scale-110 transition-transform hover:text-purple-400"
+                  className="transform hover:scale-110 transition-transform hover:text-teal-400"
                 >
                   <Mail className="w-8 h-8" />
                 </a>
                 <a
                   href="https://github.com/Sou6161"
-                  className="transform hover:scale-110 transition-transform hover:text-purple-400"
+                  className="transform hover:scale-110 transition-transform hover:text-teal-400"
                 >
                   <Github className="w-8 h-8" />
                 </a>
                 <a
                   href="https://www.linkedin.com/in/sourabhsaini6161/"
-                  className="transform hover:scale-110 transition-transform hover:text-purple-400"
+                  className="transform hover:scale-110 transition-transform hover:text-teal-400"
                 >
                   <Linkedin className="w-8 h-8" />
                 </a>
@@ -421,8 +331,8 @@ function App() {
           >
             {/* Animated background elements */}
             <div className="absolute inset-0">
-              <div className="absolute top-0 left-0 w-72 h-72 bg-purple-500/30 rounded-full filter blur-3xl animate-blob" />
-              <div className="absolute bottom-0 right-0 w-72 h-72 bg-pink-500/30 rounded-full filter blur-3xl animate-blob animation-delay-2000" />
+              <div className="absolute top-0 left-0 w-72 h-72 bg-teal-500/30 rounded-full filter blur-3xl animate-blob" />
+              <div className="absolute bottom-0 right-0 w-72 h-72 bg-orange-500/30 rounded-full filter blur-3xl animate-blob animation-delay-2000" />
             </div>
 
             <div className="max-w-6xl mx-auto relative">
@@ -434,7 +344,7 @@ function App() {
                 }`}
               >
                 <h2 className="text-6xl titillium-web-bold font-bold mb-16 text-center">
-                  <span className="bg-gradient-to-r from-purple-400 via-pink-500 to-orange-500 text-transparent bg-clip-text">
+                  <span className="bg-gradient-to-r from-teal-400 via-orange-500 to-teal-400 text-transparent bg-clip-text">
                     About Me
                   </span>
                 </h2>
@@ -493,7 +403,7 @@ function App() {
                           : "translate-y-10 opacity-0"
                       }`}
                     >
-                      <h3 className="text-2xl outfit-about font-semibold mb-6 bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">
+                      <h3 className="text-2xl outfit-about font-semibold mb-6 bg-gradient-to-r from-teal-400 to-orange-500 text-transparent bg-clip-text">
                         Tech Stack
                       </h3>
                       <div className="flex outfit-about flex-wrap gap-4">
@@ -508,7 +418,7 @@ function App() {
                         ].map((tech, index) => (
                           <span
                             key={tech}
-                            className="px-4 py-2 bg-gradient-to-r from-purple-500/10 to-pink-500/10 border border-purple-500/20 rounded-full text-gray-300 hover:border-purple-500/50 transition-all duration-300 transform hover:scale-105"
+                            className="px-4 py-2 bg-gradient-to-r from-teal-500/10 to-orange-500/10 border border-teal-500/20 rounded-full text-gray-300 hover:border-teal-500/50 transition-all duration-300 transform hover:scale-105"
                             style={{ animationDelay: `${index * 100}ms` }}
                           >
                             {tech}
@@ -551,13 +461,13 @@ function App() {
                       ].map((item, index) => (
                         <div
                           key={item.title}
-                          className="group bg-gradient-to-br from-purple-500/10 via-pink-500/10 to-orange-500/10 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 hover:border-purple-500/50 transition-all duration-500 transform hover:scale-105"
+                          className="group bg-gradient-to-br from-teal-500/10 via-orange-500/10 to-teal-500/10 backdrop-blur-sm border border-gray-700/50 rounded-xl p-6 hover:border-teal-500/50 transition-all duration-500 transform hover:scale-105"
                           style={{ animationDelay: `${index * 200}ms` }}
                         >
-                          <div className="text-purple-400 group-hover:text-pink-400 transition-colors duration-300">
+                          <div className="text-teal-400 group-hover:text-orange-400 transition-colors duration-300">
                             {item.icon}
                           </div>
-                          <h3 className="text-xl font-semibold mt-4 mb-2 bg-gradient-to-r from-purple-400 to-pink-500 text-transparent bg-clip-text">
+                          <h3 className="text-xl font-semibold mt-4 mb-2 bg-gradient-to-r from-teal-400 to-orange-500 text-transparent bg-clip-text">
                             {item.title}
                           </h3>
                           <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
@@ -571,9 +481,9 @@ function App() {
                       <a
                         target="_blank"
                         href="https://drive.google.com/file/d/1s9Bm12xzz5WcNmOj5d6a6lTeAbXi8lIQ/view?usp=drive_link"
-                        className="group relative px-8 py-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25"
+                        className="group relative px-8 py-4 bg-gradient-to-r from-teal-500 to-orange-500 rounded-full overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-lg hover:shadow-teal-500/25"
                       >
-                        <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-teal-600 to-orange-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <span className="relative flex items-center space-x-2 text-white font-semibold">
                           <span>Download Resume</span>
                           <ExternalLink className="w-5 h-5 animate-bounce" />
@@ -594,9 +504,9 @@ function App() {
             viewport={{ once: true, amount: 0.2 }}
             variants={sectionVariants}
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-purple-900/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-teal-900/20 to-transparent" />
             <div className="max-w-6xl mx-auto relative">
-              <h2 className="text-4xl titillium-web-bold font-bold mb-16 bg-gradient-to-r from-purple-400 to-white text-transparent bg-clip-text text-center">
+              <h2 className="text-4xl titillium-web-bold font-bold mb-16 bg-gradient-to-r from-teal-400 to-white text-transparent bg-clip-text text-center">
                 Featured Projects
               </h2>
               <motion.div
@@ -609,11 +519,11 @@ function App() {
                 {projects.map((project, index) => (
                   <motion.div
                     key={index}
-                    className="group relative bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 shadow-lg shadow-violet-700/30 rounded-2xl overflow-hidden hover:border-purple-500/50 transition-all duration-500"
+                    className="group relative bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 shadow-lg shadow-teal-700/30 rounded-2xl overflow-hidden hover:border-teal-500/50 transition-all duration-500"
                     variants={listItemVariants}
                   >
-                    <div className="grid md:grid-cols-2 gap-8">
-                      <div className="overflow-hidden aspect-[16/9] bg-gray-800/40">
+                    <div className="grid md:grid-cols-2 gap-8 p-5">
+                      <div className="overflow-hidden rounded-lg aspect-[16/9] bg-gray-800/40">
                         <img
                           src={project.image}
                           alt={project.title}
@@ -623,7 +533,7 @@ function App() {
                         />
                       </div>
                       <div className="p-8 flex flex-col justify-center">
-                        <h3 className="text-3xl exo-2-FeaturedProjects font-bold mb-4 text-purple-300">
+                        <h3 className="text-3xl exo-2-FeaturedProjects font-bold mb-4 text-teal-300">
                           {project.title}
                         </h3>
                         <p className="text-gray-300 outfit-about mb-6 leading-relaxed">
@@ -633,7 +543,7 @@ function App() {
                           {project.technologies.map((tech, i) => (
                             <span
                               key={i}
-                              className="px-4 py-2 bg-purple-500/20 rounded-full text-sm text-purple-300 hover:bg-purple-500/30 transition-colors"
+                              className="px-4 py-2 bg-teal-500/20 rounded-full text-sm text-teal-300 hover:bg-teal-500/30 transition-colors"
                             >
                               {tech}
                             </span>
@@ -642,13 +552,13 @@ function App() {
                         <div className="flex gap-6">
                           <a
                             href={project.liveLink}
-                            className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors"
+                            className="inline-flex items-center text-teal-400 hover:text-teal-300 transition-colors"
                           >
                             Live Demo <ExternalLink className="ml-2 w-4 h-4" />
                           </a>
                           <a
                             href={project.githubLink}
-                            className="inline-flex items-center text-purple-400 hover:text-purple-300 transition-colors"
+                            className="inline-flex items-center text-teal-400 hover:text-teal-300 transition-colors"
                           >
                             <Github className="mr-2 w-4 h-4" /> View Code
                           </a>
@@ -690,7 +600,7 @@ function App() {
             variants={sectionVariants}
           >
             <div className="max-w-4xl titillium-web-bold mx-auto text-center">
-              <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
+              <h2 className="text-4xl font-bold mb-8 bg-gradient-to-r from-teal-400 to-orange-600 text-transparent bg-clip-text">
                 Let's Connect
               </h2>
               <p className="text-gray-300 mb-12 text-lg">
@@ -700,7 +610,7 @@ function App() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
                 <a
                   href="mailto:sourabh61saini@gmail.com"
-                  className="flex items-center gap-2 px-6 py-3 rounded-full bg-purple-500 hover:bg-purple-600 transition-colors"
+                  className="flex items-center gap-2 px-6 py-3 rounded-full bg-teal-500 hover:bg-teal-600 transition-colors"
                 >
                   <Mail className="w-5 h-5" />
                   Email Me
@@ -730,10 +640,10 @@ function App() {
           {/* Floating Animation Elements */}
           <div className="absolute inset-0 opacity-20">
             <div className="animate-float absolute top-1/4 left-1/4">
-              <Code size={32} className="text-purple-400" />
+              <Code size={32} className="text-teal-400" />
             </div>
             <div className="animate-float-delayed absolute top-1/3 right-1/4">
-              <Globe size={32} className="text-pink-400" />
+              <Globe size={32} className="text-orange-400" />
             </div>
             <div className="animate-float-slow absolute bottom-1/4 left-1/3">
               <Laptop size={32} className="text-blue-400" />
@@ -754,10 +664,10 @@ function App() {
 
                 {/* Animated decorative elements */}
                 <div className="absolute -right-4 top-1/2 -translate-y-1/2 animate-spin-slow">
-                  <div className="w-8 h-8 rounded-full border-t-2 border-r-2 border-purple-500" />
+                  <div className="w-8 h-8 rounded-full border-t-2 border-r-2 border-teal-500" />
                 </div>
                 <div className="absolute -left-4 top-1/2 -translate-y-1/2 animate-spin-slow">
-                  <div className="w-8 h-8 rounded-full border-t-2 border-l-2 border-purple-500" />
+                  <div className="w-8 h-8 rounded-full border-t-2 border-l-2 border-teal-500" />
                 </div>
               </div>
             </div>

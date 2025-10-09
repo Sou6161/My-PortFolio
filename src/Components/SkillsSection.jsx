@@ -70,19 +70,32 @@ const SkillsSection = () => {
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-gray-900">
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/50 via-transparent to-pink-900/50 animate-gradient" />
+        <div className="absolute inset-0 bg-gradient-to-br from-teal-900/50 via-transparent to-orange-900/50 animate-gradient" />
         {!reduceMotion && (
-          <motion.div
-            animate={{
-              scale: [1, 1.05, 1],
-            }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              ease: "linear",
-            }}
-            className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08)_0%,transparent_70%)] will-change-transform"
-          />
+          <>
+            {/* Aurora blob 1 */}
+            <motion.div
+              className="absolute -top-24 -left-24 w-[60vw] h-[60vw] rounded-full opacity-35 blur-3xl will-change-transform"
+              style={{
+                background:
+                  "conic-gradient(from 180deg at 50% 50%, rgba(20,184,166,0.55), rgba(249,115,22,0.35), rgba(20,184,166,0.55))",
+              }}
+              animate={{ x: [0, 40, 0], y: [0, -30, 0], rotate: [0, 25, 0] }}
+              transition={{ duration: 28, ease: "easeInOut", repeat: Infinity }}
+            />
+            {/* Aurora blob 2 */}
+            <motion.div
+              className="absolute -bottom-24 -right-24 w-[55vw] h-[55vw] rounded-full opacity-30 blur-3xl will-change-transform"
+              style={{
+                background:
+                  "conic-gradient(from 0deg at 50% 50%, rgba(249,115,22,0.45), rgba(20,184,166,0.35), rgba(249,115,22,0.45))",
+              }}
+              animate={{ x: [0, -35, 0], y: [0, 25, 0], rotate: [0, -20, 0] }}
+              transition={{ duration: 32, ease: "easeInOut", repeat: Infinity }}
+            />
+            {/* Soft vignette */}
+            <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_60%,rgba(0,0,0,0.5)_100%)]" />
+          </>
         )}
       </div>
 
@@ -93,7 +106,7 @@ const SkillsSection = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl titillium-web-bold font-bold bg-gradient-to-r from-purple-400 via-pink-500 to-purple-400 text-transparent bg-clip-text animate-gradient">
+          <h2 className="text-5xl titillium-web-bold font-bold bg-gradient-to-r from-teal-400 via-orange-500 to-teal-400 text-transparent bg-clip-text animate-gradient">
             Technical Skills
           </h2>
           <motion.p
@@ -121,10 +134,10 @@ const SkillsSection = () => {
               whileHover="hover"
               className="relative group"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-600/20 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-300 opacity-75" />
+              <div className="absolute inset-0 bg-gradient-to-r from-teal-600/20 to-orange-600/20 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-300 opacity-75" />
               <motion.div
                 whileHover={{ scale: 1.03 }}
-                className="relative p-6 rounded-xl bg-gray-800/40 border border-gray-700/50 hover:border-purple-500/50 transition-all duration-300 will-change-transform"
+                className="relative p-6 rounded-xl bg-gray-800/40 border border-gray-700/50 hover:border-teal-500/50 transition-all duration-300 will-change-transform"
               >
                 <div className="flex flex-col items-center gap-4">
                   <motion.div
@@ -136,7 +149,7 @@ const SkillsSection = () => {
                       style={{ color: skill.color }}
                     />
                   </motion.div>
-                  <h3 className="text-lg font-semibold text-gray-200 group-hover:text-purple-400 transition-colors duration-300">
+                  <h3 className="text-lg font-semibold text-gray-200 group-hover:text-teal-400 transition-colors duration-300">
                     {skill.name}
                   </h3>
                 </div>
@@ -145,8 +158,8 @@ const SkillsSection = () => {
           ))}
         </motion.div>
 
-        <div className="absolute top-0 right-0 w-64 h-64 bg-purple-500/10 rounded-full blur-2xl" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-pink-500/10 rounded-full blur-2xl" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/10 rounded-full blur-2xl" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-orange-500/10 rounded-full blur-2xl" />
       </div>
     </section>
   );

@@ -154,7 +154,7 @@ const CustomCursor = () => {
 
       {/* Reactive glow effect */}
       <motion.div
-        className="fixed top-0 left-0 w-24 h-24 bg-gradient-to-r from-purple-500/40 to-pink-500/40 rounded-full blur-2xl pointer-events-none z-20"
+        className="fixed top-0 left-0 w-24 h-24 bg-gradient-to-r from-teal-500/40 to-orange-500/40 rounded-full blur-2xl pointer-events-none z-20"
         animate={{
           x: mousePos.x - 48,
           y: mousePos.y - 48,
