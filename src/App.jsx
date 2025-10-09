@@ -498,13 +498,13 @@ function App() {
           {/* Projects Section */}
           <motion.section
             id="projects"
-            className="py-20 px-4 sm:px-6 lg:px-8 relative content-visibility-auto"
+            className="py-20 px-4 sm:px-6 lg:px-8 relative"
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
+            viewport={{ once: true, amount: 0.1 }}
             variants={sectionVariants}
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-teal-900/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-teal-900/20 to-transparent pointer-events-none" />
             <div className="max-w-6xl mx-auto relative">
               <h2 className="text-4xl titillium-web-bold font-bold mb-16 bg-gradient-to-r from-teal-400 to-white text-transparent bg-clip-text text-center">
                 Featured Projects
