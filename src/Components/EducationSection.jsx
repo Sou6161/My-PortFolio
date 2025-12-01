@@ -60,7 +60,7 @@ const EducationSection = () => {
   };
 
   const gradientTextClass =
-    "font-bold bg-gradient-to-r from-teal-400 via-orange-500 to-teal-600 text-transparent bg-clip-text bg-size-200 animate-gradient";
+    "font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-600 text-transparent bg-clip-text bg-size-200 animate-gradient";
 
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-900 to-black overflow-hidden">
@@ -86,8 +86,8 @@ const EducationSection = () => {
             whileHover={{ scale: 1.02 }}
             transition={{ type: "spring", stiffness: 400, damping: 20 }}
           >
-            <div className="absolute -inset-0.5 bg-gradient-to-r from-teal-600 to-orange-600 rounded-xl blur opacity-30 group-hover:opacity-100 transition duration-1000"></div>
-            <div className="relative outfit-about bg-gray-900 backdrop-blur-xl border border-gray-700/50 rounded-xl p-8 hover:border-teal-500/50 transition-all duration-300">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl blur opacity-30 group-hover:opacity-100 transition duration-1000"></div>
+            <div className="relative outfit-about bg-gray-900 backdrop-blur-xl border border-gray-700/50 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-300">
               <motion.h3
                 className="text-2xl font-bold mb-4 text-white"
                 initial={{ opacity: 0, x: -20 }}
@@ -101,7 +101,7 @@ const EducationSection = () => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.7 }}
               >
-                <p className="text-xl text-teal-300 mb-2">Biotechnology</p>
+                <p className="text-xl text-blue-400 mb-2">Biotechnology</p>
                 <p className="text-gray-300 mb-2">
                   Mangalmay Institute of Engineering and Technology
                 </p>
@@ -131,15 +131,15 @@ const EducationSection = () => {
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 400, damping: 20 }}
               >
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-teal-600 to-orange-600 rounded-xl blur opacity-30 group-hover:opacity-100 transition duration-1000"></div>
-                <div className="relative bg-gray-900 backdrop-blur-xl border border-gray-700/50 rounded-xl p-8 hover:border-teal-500/50 transition-all duration-300">
-                  <h3 className="text-xl font-bold mb-4 text-teal-300">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl blur opacity-30 group-hover:opacity-100 transition duration-1000"></div>
+                <div className="relative bg-gray-900 backdrop-blur-xl border border-gray-700/50 rounded-xl p-8 hover:border-blue-500/50 transition-all duration-300">
+                  <h3 className="text-xl font-bold mb-4 text-blue-400">
                     {cert.title}
                   </h3>
                   <p className="text-gray-300 mb-6">{cert.description}</p>
                   <motion.a
                     href={cert.link}
-                    className="inline-flex hover:underline items-center text-teal-400 hover:text-teal-300 transition-colors"
+                    className="inline-flex hover:underline items-center text-blue-400 hover:text-blue-300 transition-colors"
                     whileHover={{ x: 5 }}
                     whileTap={{ scale: 0.98 }}
                   >

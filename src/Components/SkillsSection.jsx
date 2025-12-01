@@ -70,7 +70,7 @@ const SkillsSection = () => {
   return (
     <section className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-gray-900">
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-teal-900/50 via-transparent to-orange-900/50 animate-gradient" />
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-900/50 via-transparent to-blue-900/50 animate-gradient" />
         {!reduceMotion && (
           <>
             {/* Aurora blob 1 */}
@@ -78,7 +78,7 @@ const SkillsSection = () => {
               className="absolute -top-24 -left-24 w-[60vw] h-[60vw] rounded-full opacity-35 blur-3xl will-change-transform"
               style={{
                 background:
-                  "conic-gradient(from 180deg at 50% 50%, rgba(20,184,166,0.55), rgba(249,115,22,0.35), rgba(20,184,166,0.55))",
+                  "conic-gradient(from 180deg at 50% 50%, rgba(6,182,212,0.55), rgba(59,130,246,0.35), rgba(6,182,212,0.55))",
               }}
               animate={{ x: [0, 40, 0], y: [0, -30, 0], rotate: [0, 25, 0] }}
               transition={{ duration: 28, ease: "easeInOut", repeat: Infinity }}
@@ -88,7 +88,7 @@ const SkillsSection = () => {
               className="absolute -bottom-24 -right-24 w-[55vw] h-[55vw] rounded-full opacity-30 blur-3xl will-change-transform"
               style={{
                 background:
-                  "conic-gradient(from 0deg at 50% 50%, rgba(249,115,22,0.45), rgba(20,184,166,0.35), rgba(249,115,22,0.45))",
+                  "conic-gradient(from 0deg at 50% 50%, rgba(59,130,246,0.45), rgba(6,182,212,0.35), rgba(59,130,246,0.45))",
               }}
               animate={{ x: [0, -35, 0], y: [0, 25, 0], rotate: [0, -20, 0] }}
               transition={{ duration: 32, ease: "easeInOut", repeat: Infinity }}
@@ -106,7 +106,7 @@ const SkillsSection = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl titillium-web-bold font-bold bg-gradient-to-r from-teal-400 via-orange-500 to-teal-400 text-transparent bg-clip-text animate-gradient">
+          <h2 className="text-5xl titillium-web-bold font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 text-transparent bg-clip-text animate-gradient">
             Technical Skills
           </h2>
           <motion.p
@@ -134,10 +134,10 @@ const SkillsSection = () => {
               whileHover="hover"
               className="relative group"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-teal-600/20 to-orange-600/20 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-300 opacity-75" />
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-600/20 to-blue-600/20 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-300 opacity-75" />
               <motion.div
                 whileHover={{ scale: 1.03 }}
-                className="relative p-6 rounded-xl bg-gray-800/40 border border-gray-700/50 hover:border-teal-500/50 transition-all duration-300 will-change-transform"
+                className="relative p-6 rounded-xl bg-gray-800/40 border border-gray-700/50 hover:border-blue-500/50 transition-all duration-300 will-change-transform"
               >
                 <div className="flex flex-col items-center gap-4">
                   <motion.div
@@ -149,7 +149,7 @@ const SkillsSection = () => {
                       style={{ color: skill.color }}
                     />
                   </motion.div>
-                  <h3 className="text-lg font-semibold text-gray-200 group-hover:text-teal-400 transition-colors duration-300">
+                  <h3 className="text-lg font-semibold text-gray-200 group-hover:text-blue-400 transition-colors duration-300">
                     {skill.name}
                   </h3>
                 </div>
@@ -158,8 +158,8 @@ const SkillsSection = () => {
           ))}
         </motion.div>
 
-        <div className="absolute top-0 right-0 w-64 h-64 bg-teal-500/10 rounded-full blur-2xl" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-orange-500/10 rounded-full blur-2xl" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-2xl" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/10 rounded-full blur-2xl" />
       </div>
     </section>
   );
