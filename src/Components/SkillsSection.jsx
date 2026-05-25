@@ -1,165 +1,196 @@
-import React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import {
-  SiHtml5,
-  SiCss3,
   SiJavascript,
+  SiTypescript,
   SiReact,
   SiRedux,
   SiTailwindcss,
   SiGreensock,
   SiFramer,
+  SiExpo,
+  SiNodedotjs,
+  SiExpress,
+  SiSocketdotio,
+  SiPostgresql,
+  SiPrisma,
+  SiFirebase,
+  SiAppwrite,
+  SiVercel,
+  SiVite,
+  SiGit,
+  SiGithub,
+  SiJest,
 } from "react-icons/si";
 
+// Master skill list for the marquee (icon + recognizable brand accent).
+const skills = [
+  { name: "JavaScript", Icon: SiJavascript, color: "#F7DF1E" },
+  { name: "TypeScript", Icon: SiTypescript, color: "#3178C6" },
+  { name: "React", Icon: SiReact, color: "#61DAFB" },
+  { name: "React Native", Icon: SiExpo, color: "#E2E8F0" },
+  { name: "Redux Toolkit", Icon: SiRedux, color: "#7C8AF7" },
+  { name: "Tailwind CSS", Icon: SiTailwindcss, color: "#38BDF8" },
+  { name: "GSAP", Icon: SiGreensock, color: "#88CE02" },
+  { name: "Framer Motion", Icon: SiFramer, color: "#0EA5E9" },
+  { name: "Node.js", Icon: SiNodedotjs, color: "#5FA04E" },
+  { name: "Express", Icon: SiExpress, color: "#CBD5E1" },
+  { name: "Socket.IO", Icon: SiSocketdotio, color: "#E2E8F0" },
+  { name: "PostgreSQL", Icon: SiPostgresql, color: "#4169E1" },
+  { name: "Prisma", Icon: SiPrisma, color: "#94A3B8" },
+  { name: "Firebase", Icon: SiFirebase, color: "#FFCA28" },
+  { name: "Appwrite", Icon: SiAppwrite, color: "#E2E8F0" },
+  { name: "Vercel", Icon: SiVercel, color: "#E2E8F0" },
+  { name: "Vite", Icon: SiVite, color: "#22D3EE" },
+  { name: "Git", Icon: SiGit, color: "#F05032" },
+  { name: "Jest", Icon: SiJest, color: "#C21325" },
+];
+
+// Categorised groups for the bento grid.
+const groups = [
+  {
+    title: "Languages",
+    items: [
+      { name: "JavaScript (ES6+)", Icon: SiJavascript },
+      { name: "TypeScript", Icon: SiTypescript },
+    ],
+  },
+  {
+    title: "Frontend & Mobile",
+    items: [
+      { name: "ReactJS", Icon: SiReact },
+      { name: "React Native (Expo)", Icon: SiExpo },
+      { name: "Redux Toolkit", Icon: SiRedux },
+      { name: "Tailwind CSS", Icon: SiTailwindcss },
+    ],
+  },
+  {
+    title: "Backend & Data",
+    items: [
+      { name: "Node.js", Icon: SiNodedotjs },
+      { name: "Express.js", Icon: SiExpress },
+      { name: "Socket.IO", Icon: SiSocketdotio },
+      { name: "PostgreSQL", Icon: SiPostgresql },
+      { name: "Prisma ORM", Icon: SiPrisma },
+      { name: "Firebase", Icon: SiFirebase },
+    ],
+  },
+  {
+    title: "Cloud & Tooling",
+    items: [
+      { name: "Vercel", Icon: SiVercel },
+      { name: "GitHub", Icon: SiGithub },
+      { name: "Vite", Icon: SiVite },
+      { name: "Jest", Icon: SiJest },
+    ],
+  },
+];
+
+function MarqueeRow({ data, reverse, reduce }) {
+  const track = [...data, ...data];
+  return (
+    <div className="group relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+      <div
+        className={`flex w-max gap-4 py-2 ${
+          reduce
+            ? "flex-wrap justify-center"
+            : reverse
+            ? "animate-marquee-reverse group-hover:[animation-play-state:paused]"
+            : "animate-marquee group-hover:[animation-play-state:paused]"
+        }`}
+      >
+        {track.map((s, i) => (
+          <div
+            key={`${s.name}-${i}`}
+            className="flex shrink-0 items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3 backdrop-blur-sm transition-colors hover:border-white/20 hover:bg-white/[0.06]"
+          >
+            <s.Icon className="h-6 w-6" style={{ color: s.color }} />
+            <span className="font-display text-sm font-medium text-slate-200">
+              {s.name}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 const SkillsSection = () => {
-  const skills = [
-    { name: "HTML5", icon: SiHtml5, color: "#E34F26" },
-    { name: "CSS3", icon: SiCss3, color: "#1572B6" },
-    { name: "JavaScript", icon: SiJavascript, color: "#F7DF1E" },
-    { name: "ReactJS", icon: SiReact, color: "#61DAFB" },
-    { name: "Redux", icon: SiRedux, color: "#764ABC" },
-    { name: "Tailwind", icon: SiTailwindcss, color: "#38B2AC" },
-    { name: "GSAP", icon: SiGreensock, color: "#88CE02" },
-    { name: "Framer", icon: SiFramer, color: "#FF0055" },
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        when: "beforeChildren",
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
-      },
-    },
-  };
-
-  const skillVariants = {
-    hidden: {
-      opacity: 0,
-      y: 24,
-      scale: 0.8,
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: {
-        type: "tween",
-        duration: 0.5,
-        ease: "easeOut",
-      },
-    },
-  };
-
-  const reduceMotion = useReducedMotion();
-
-  const iconVariants = {
-    hover: {
-      rotate: reduceMotion ? 0 : 180,
-      scale: 1.1,
-      transition: {
-        type: "tween",
-        duration: 0.3,
-        ease: "easeOut",
-      },
-    },
-  };
+  const reduce = useReducedMotion();
+  const mid = Math.ceil(skills.length / 2);
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden bg-gray-900">
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-cyan-900/50 via-transparent to-blue-900/50 animate-gradient" />
-        {!reduceMotion && (
-          <>
-            {/* Aurora blob 1 */}
-            <motion.div
-              className="absolute -top-24 -left-24 w-[60vw] h-[60vw] rounded-full opacity-35 blur-3xl will-change-transform"
-              style={{
-                background:
-                  "conic-gradient(from 180deg at 50% 50%, rgba(6,182,212,0.55), rgba(59,130,246,0.35), rgba(6,182,212,0.55))",
-              }}
-              animate={{ x: [0, 40, 0], y: [0, -30, 0], rotate: [0, 25, 0] }}
-              transition={{ duration: 28, ease: "easeInOut", repeat: Infinity }}
-            />
-            {/* Aurora blob 2 */}
-            <motion.div
-              className="absolute -bottom-24 -right-24 w-[55vw] h-[55vw] rounded-full opacity-30 blur-3xl will-change-transform"
-              style={{
-                background:
-                  "conic-gradient(from 0deg at 50% 50%, rgba(59,130,246,0.45), rgba(6,182,212,0.35), rgba(59,130,246,0.45))",
-              }}
-              animate={{ x: [0, -35, 0], y: [0, 25, 0], rotate: [0, -20, 0] }}
-              transition={{ duration: 32, ease: "easeInOut", repeat: Infinity }}
-            />
-            {/* Soft vignette */}
-            <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,rgba(0,0,0,0)_60%,rgba(0,0,0,0.5)_100%)]" />
-          </>
-        )}
+    <section className="relative overflow-hidden bg-ink-900 px-4 py-28 sm:px-6 lg:px-8">
+      {/* ambient glow */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-accent/10 blur-[120px]" />
+        <div className="absolute bottom-0 right-10 h-72 w-72 rounded-full bg-electric/10 blur-[120px]" />
       </div>
 
-      <div className="max-w-6xl mx-auto relative">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-5xl titillium-web-bold font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-cyan-400 text-transparent bg-clip-text animate-gradient">
-            Technical Skills
+      <div className="relative mx-auto max-w-6xl">
+        {/* Heading */}
+        <div className="mb-14 text-center">
+          <span className="eyebrow">Toolkit</span>
+          <h2 className="mt-5 font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">
+            Technical <span className="gradient-text">skills</span>
           </h2>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="mt-4 titillium-web-bold text-gray-300 text-lg"
-          >
-            Technologies I work with to bring ideas to life
-          </motion.p>
-        </motion.div>
+          <p className="mx-auto mt-4 max-w-xl font-body text-lg text-slate-400">
+            Tools I work with day to day.
+          </p>
+        </div>
 
+        {/* Dual marquee */}
+        <div className="mb-16 space-y-4">
+          <MarqueeRow data={skills.slice(0, mid)} reverse={false} reduce={reduce} />
+          <MarqueeRow data={skills.slice(mid)} reverse reduce={reduce} />
+        </div>
+
+        {/* Categorised bento grid */}
         <motion.div
-          variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="grid titillium-web-bold grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.12 } },
+          }}
+          className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
         >
-          {skills.map((skill, index) => (
+          {groups.map((group) => (
             <motion.div
-              key={index}
-              variants={skillVariants}
-              transition={{ delay: index * 0.12 }}
-              whileHover="hover"
-              className="relative group"
+              key={group.title}
+              variants={{
+                hidden: { opacity: 0, y: 24 },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  transition: { duration: 0.5, ease: "easeOut" },
+                },
+              }}
+              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-ink-800/60 p-6 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-glow"
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-600/20 to-blue-600/20 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-300 opacity-75" />
-              <motion.div
-                whileHover={{ scale: 1.03 }}
-                className="relative p-6 rounded-xl bg-gray-800/40 border border-gray-700/50 hover:border-blue-500/50 transition-all duration-300 will-change-transform"
-              >
-                <div className="flex flex-col items-center gap-4">
-                  <motion.div
-                    variants={iconVariants}
-                    className="p-4 rounded-full bg-gray-700/50 group-hover:bg-gray-700/70 transition-colors duration-300 will-change-transform"
+              {/* hover spotlight */}
+              <div className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-accent/0 blur-2xl transition-all duration-500 group-hover:bg-accent/20" />
+
+              <h3 className="font-display text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+                {group.title}
+              </h3>
+
+              <ul className="mt-5 space-y-3">
+                {group.items.map((item) => (
+                  <li
+                    key={item.name}
+                    className="flex items-center gap-3 text-slate-300 transition-colors group-hover:text-white"
                   >
-                    <skill.icon
-                      className="w-12 h-12"
-                      style={{ color: skill.color }}
-                    />
-                  </motion.div>
-                  <h3 className="text-lg font-semibold text-gray-200 group-hover:text-blue-400 transition-colors duration-300">
-                    {skill.name}
-                  </h3>
-                </div>
-              </motion.div>
+                    <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-white/5 text-accent ring-1 ring-white/10 transition-colors group-hover:bg-accent/10">
+                      <item.Icon className="h-4 w-4" />
+                    </span>
+                    <span className="text-sm font-medium">{item.name}</span>
+                  </li>
+                ))}
+              </ul>
             </motion.div>
           ))}
         </motion.div>
-
-        <div className="absolute top-0 right-0 w-64 h-64 bg-cyan-500/10 rounded-full blur-2xl" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-500/10 rounded-full blur-2xl" />
       </div>
     </section>
   );

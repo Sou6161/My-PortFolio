@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { MousePointer2, Sparkles } from 'lucide-react';
 
@@ -95,7 +95,7 @@ const CustomCursor = () => {
     <>
       {/* Main cursor with icon */}
       <motion.div
-        className="fixed top-0 left-0 flex items-center justify-center w-6 h-6 rounded-full mix-blend-difference pointer-events-none z-50"
+        className="fixed top-0 left-0 flex items-center justify-center w-6 h-6 rounded-full mix-blend-difference pointer-events-none z-[100]"
         animate={{
           x: mousePos.x - 12,
           y: mousePos.y - 12,
@@ -114,7 +114,7 @@ const CustomCursor = () => {
 
       {/* Magnetic field effect */}
       <motion.div
-        className="fixed top-0 left-0 w-12 h-12 border-2 border-white/30 rounded-full mix-blend-difference pointer-events-none z-40"
+        className="fixed top-0 left-0 w-12 h-12 border-2 border-white/30 rounded-full mix-blend-difference pointer-events-none z-[99]"
         animate={{
           x: mousePos.x - 24,
           y: mousePos.y - 24,
@@ -132,7 +132,7 @@ const CustomCursor = () => {
       {[...Array(3)].map((_, i) => (
         <motion.div
           key={i}
-          className="fixed top-0 left-0 pointer-events-none z-30"
+          className="fixed top-0 left-0 pointer-events-none z-[98]"
           animate={{
             x: mousePos.x - 8,
             y: mousePos.y - 8,
@@ -154,7 +154,7 @@ const CustomCursor = () => {
 
       {/* Reactive glow effect */}
       <motion.div
-        className="fixed top-0 left-0 w-24 h-24 bg-gradient-to-r from-teal-500/40 to-orange-500/40 rounded-full blur-2xl pointer-events-none z-20"
+        className="fixed top-0 left-0 w-24 h-24 bg-gradient-to-r from-cyan-500/40 to-blue-500/40 rounded-full blur-2xl pointer-events-none z-[97]"
         animate={{
           x: mousePos.x - 48,
           y: mousePos.y - 48,
@@ -171,7 +171,7 @@ const CustomCursor = () => {
       {/* Interactive ripple effect on click */}
       {isClicking && (
         <motion.div
-          className="fixed top-0 left-0 w-16 h-16 border-2 border-white rounded-full mix-blend-difference pointer-events-none z-10"
+          className="fixed top-0 left-0 w-16 h-16 border-2 border-white rounded-full mix-blend-difference pointer-events-none z-[96]"
           initial={{ scale: 0.5, opacity: 1 }}
           animate={{ scale: 2, opacity: 0 }}
           transition={{ duration: 0.5 }}
