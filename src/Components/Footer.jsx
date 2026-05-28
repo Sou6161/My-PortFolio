@@ -95,7 +95,7 @@ const Footer = () => {
         {!isTouch && (
           <span
             aria-hidden="true"
-            className="block whitespace-nowrap text-center font-display text-[18vw] font-bold leading-[0.8] text-white/[0.04] transition-colors duration-500 group-hover:text-white/[0.08]"
+            className="block whitespace-nowrap text-center font-display text-[24vw] sm:text-[18vw] font-bold leading-[0.8] text-white/[0.04] transition-colors duration-500 group-hover:text-white/[0.08]"
           >
             {WATERMARK}
           </span>
@@ -108,7 +108,7 @@ const Footer = () => {
           aria-hidden="true"
           className={`pointer-events-none ${
             isTouch ? "block" : "absolute inset-0 block opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-          } whitespace-nowrap text-center font-display text-[18vw] font-bold leading-[0.8]`}
+          } whitespace-nowrap text-center font-display text-[24vw] sm:text-[18vw] font-bold leading-[0.8]`}
           style={maskStyle}
         >
           {LETTERS.map((l, i) => (

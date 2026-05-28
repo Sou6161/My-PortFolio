@@ -121,13 +121,19 @@ function App() {
               l.color === null ? (
                 <span key={i}>{l.ch}</span>
               ) : isTouch ? (
-                <span key={i} style={{ color: l.color }}>
+                <span
+                  key={i}
+                  style={{
+                    color: l.color,
+                    textShadow: `0 0 8px ${l.color}, 0 0 20px ${l.color}, 0 0 45px ${l.color}, 0 0 90px ${l.color}`,
+                  }}
+                >
                   {l.ch}
                 </span>
               ) : (
                 <span
                   key={i}
-                  className="transition-colors duration-300 hover:text-[var(--c)]"
+                  className="transition-all duration-300 hover:text-[var(--c)] hover:[text-shadow:0_0_8px_var(--c),0_0_20px_var(--c),0_0_45px_var(--c),0_0_90px_var(--c)]"
                   style={{ "--c": l.color }}
                 >
                   {l.ch}
