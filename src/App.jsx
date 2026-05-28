@@ -1,18 +1,9 @@
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   Github,
-  ExternalLink,
   Mail,
   Linkedin,
-  ChevronDown,
-  Code2,
-  Palette,
-  Zap,
-  Server,
   ArrowUpRight,
-  MapPin,
-  Download,
 } from "lucide-react";
 import SkillsSection from "./Components/SkillsSection";
 import EducationSection from "./Components/EducationSection";
@@ -30,450 +21,338 @@ import TactiShift_Photo from "./Images/TactiShift_Portfolio_project.png";
 const projects = [
   {
     title: "CineOut",
-    tagline: "A fast way to find movies",
+    year: "2024",
     description:
       "A movie browser for desktop and mobile, with quick search and clean results.",
     image: Cineout_Photo,
     liveLink: "https://cineout.vercel.app/",
     githubLink: "https://github.com/Sou6161/cineout",
-    technologies: ["ReactJS", "JavaScript", "Tailwind CSS", "Redux", "REST API"],
+    technologies: ["React", "Redux", "Tailwind", "REST API"],
   },
   {
     title: "CoinFam",
-    tagline: "Crypto prices in real time",
+    year: "2024",
     description:
       "A live crypto tracker on the CoinGecko API, with real-time prices and market trends.",
     image: Coinfam_Photo,
     liveLink: "https://coin-fam.vercel.app/",
     githubLink: "https://github.com/Sou6161/CoinFam",
-    technologies: ["ReactJS", "JavaScript", "Tailwind CSS", "Redux", "CoinGecko API"],
+    technologies: ["React", "Redux", "Tailwind", "CoinGecko API"],
   },
   {
     title: "FoldXperience",
-    tagline: "A motion-led product page",
+    year: "2024",
     description:
       "A Samsung Galaxy Z Fold6 showcase built with GSAP and Lenis, so the phone unfolds as you scroll.",
     image: FoldXeperince_Photo,
     liveLink: "https://z-fold6-showcase.vercel.app/",
     githubLink: "https://github.com/Sou6161/Z-Fold6-ShowCase",
-    technologies: ["ReactJS", "GSAP", "Framer Motion", "Lenis", "Tailwind CSS"],
+    technologies: ["React", "GSAP", "Framer Motion", "Lenis"],
   },
   {
     title: "TactiShift",
-    tagline: "Multiplayer with a twist",
+    year: "2024",
     description:
       "Real-time multiplayer Tic-Tac-Toe with a shifting-board twist, built over Socket.IO for the Appwrite Hackathon.",
     image: TactiShift_Photo,
     liveLink: "https://shift-tic-tac-toe.vercel.app/",
     githubLink: "https://github.com/Sou6161/shift-tic-tac-toe",
-    technologies: ["ReactJS", "Socket.IO", "Framer Motion", "Lenis", "Tailwind CSS"],
+    technologies: ["React", "Socket.IO", "Framer Motion"],
   },
 ];
 
-const focusAreas = [
-  {
-    icon: <Code2 className="h-7 w-7" />,
-    title: "Clean Code",
-    desc: "Code that's easy to read and easy to change later.",
-  },
-  {
-    icon: <Palette className="h-7 w-7" />,
-    title: "Good Design",
-    desc: "Interfaces that look right down to the details.",
-  },
-  {
-    icon: <Zap className="h-7 w-7" />,
-    title: "Performance",
-    desc: "Quick to load and smooth to use.",
-  },
-  {
-    icon: <Server className="h-7 w-7" />,
-    title: "Full-Stack",
-    desc: "I can take a feature from the API to the UI.",
-  },
+// Per-letter colours for the hero name. Each letter swaps from white to its
+// own distinct hue on hover (no pink / purple to keep the palette intentional).
+const NAME_LETTERS = [
+  { ch: "S", color: "#22D3EE" }, // cyan
+  { ch: "o", color: "#FBBF24" }, // amber
+  { ch: "u", color: "#34D399" }, // emerald
+  { ch: "r", color: "#F87171" }, // red
+  { ch: "a", color: "#60A5FA" }, // blue
+  { ch: "b", color: "#FB923C" }, // orange
+  { ch: "h", color: "#A3E635" }, // lime
+  { ch: " ", color: null },
+  { ch: "S", color: "#2DD4BF" }, // teal
+  { ch: "a", color: "#FCD34D" }, // yellow
+  { ch: "i", color: "#38BDF8" }, // sky
+  { ch: "n", color: "#4ADE80" }, // green
+  { ch: "i", color: "#F59E0B" }, // gold
+  { ch: ".", color: "#67E8F9" }, // light cyan
 ];
 
-const ROLES = [
-  "Software Engineer",
-  "Full-Stack Developer",
-  "React Specialist",
-  "Mobile App Developer",
-];
-
-const sectionVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-};
-
-const listContainerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.1 },
-  },
-};
-
-const listItemVariants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
-};
-
-/* Rotating role headline */
-function RotatingRole() {
-  const [index, setIndex] = useState(0);
-  const reduce = useReducedMotion();
-
-  useEffect(() => {
-    if (reduce) return;
-    const id = setInterval(() => setIndex((i) => (i + 1) % ROLES.length), 2600);
-    return () => clearInterval(id);
-  }, [reduce]);
-
-  return (
-    <span className="relative inline-flex h-[1.2em] items-center overflow-hidden align-bottom">
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={index}
-          initial={{ y: "100%", opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: "-100%", opacity: 0 }}
-          transition={{ duration: 0.45, ease: "easeOut" }}
-          className="gradient-text whitespace-nowrap"
-        >
-          {ROLES[index]}
-        </motion.span>
-      </AnimatePresence>
-    </span>
-  );
-}
-
-function SectionHeading({ eyebrow, title, accent }) {
-  return (
-    <div className="mb-14 text-center">
-      <span className="eyebrow">{eyebrow}</span>
-      <h2 className="mt-5 font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">
-        {title} <span className="gradient-text">{accent}</span>
-      </h2>
-    </div>
-  );
-}
+const SectionLabel = ({ num, label }) => (
+  <div className="mb-12 flex items-center gap-4">
+    <span className="font-mono text-sm text-accent">0{num}.</span>
+    <h2 className="font-display text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+      {label}
+    </h2>
+    <span className="h-px flex-1 bg-white/10" />
+  </div>
+);
 
 export default App;
 
 function App() {
+  // Touch / no-hover devices render the hero name in its colours by default,
+  // since there's no hover to trigger them.
+  const [isTouch, setIsTouch] = useState(false);
+  useEffect(() => {
+    const mql = window.matchMedia("(hover: none), (pointer: coarse)");
+    setIsTouch(mql.matches);
+    const onChange = (e) => setIsTouch(e.matches);
+    mql.addEventListener?.("change", onChange);
+    return () => mql.removeEventListener?.("change", onChange);
+  }, []);
+
   return (
     <>
       <CustomCursor />
       <Navbar />
 
-      <div className="relative min-h-screen overflow-hidden bg-ink-950 text-slate-200">
-        {/* Global ambient background */}
-        <div className="pointer-events-none fixed inset-0 -z-10">
-          <div className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_85%)]" />
-          <motion.div
-            className="absolute -left-32 top-10 h-[34rem] w-[34rem] rounded-full bg-accent/20 blur-[120px]"
-            animate={{ x: [0, 40, 0], y: [0, -30, 0] }}
-            transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute -right-32 top-1/3 h-[32rem] w-[32rem] rounded-full bg-electric/20 blur-[130px]"
-            animate={{ x: [0, -30, 0], y: [0, 40, 0] }}
-            transition={{ duration: 28, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-ink-950/0 via-ink-950/40 to-ink-950" />
-        </div>
-
-        <main>
-          {/* ===================== HERO ===================== */}
-          <section
-            id="hero"
-            className="relative flex min-h-screen flex-col items-center justify-center px-4 pt-28 sm:px-6 lg:px-8"
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-              className="mx-auto max-w-4xl text-center"
-            >
-              {/* Availability badge */}
-              <div className="mb-8 inline-flex items-center gap-2.5 rounded-full glass px-4 py-2 text-sm text-slate-300">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-pulse-ring rounded-full bg-emerald-400/70" />
-                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
+      <main className="mx-auto max-w-6xl px-5 sm:px-8">
+        {/* ===================== HERO ===================== */}
+        <section
+          id="hero"
+          className="flex min-h-screen flex-col justify-center pt-28"
+        >
+          <p className="font-mono text-sm text-accent">Hi there,</p>
+          <h1 className="mt-5 font-display text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-7xl lg:text-8xl">
+            {NAME_LETTERS.map((l, i) =>
+              l.color === null ? (
+                <span key={i}>{l.ch}</span>
+              ) : isTouch ? (
+                <span key={i} style={{ color: l.color }}>
+                  {l.ch}
                 </span>
-                Open to full-stack &amp; React Native roles
-              </div>
-
-              <p className="mb-3 font-body text-lg text-slate-400">
-                Hi, I'm Sourabh Saini
-              </p>
-
-              <h1 className="font-display text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-7xl">
-                I build <span className="gradient-text animate-gradient">fast, modern</span>
-                <br className="hidden sm:block" /> web &amp; mobile apps
-              </h1>
-
-              <h2 className="mt-6 font-display text-2xl font-semibold sm:text-4xl">
-                <RotatingRole />
-              </h2>
-
-              <p className="mx-auto mt-7 max-w-xl text-balance font-body text-lg leading-relaxed text-slate-400">
-                I build fast web and mobile apps, from frontend to backend.
-              </p>
-
-              {/* CTAs */}
-              <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-                <a
-                  href="#projects"
-                  className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-accent to-electric px-7 py-3.5 font-semibold text-ink-950 shadow-glow transition-transform hover:scale-105"
+              ) : (
+                <span
+                  key={i}
+                  className="transition-colors duration-300 hover:text-[var(--c)]"
+                  style={{ "--c": l.color }}
                 >
-                  View My Work
-                  <ArrowUpRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </a>
-                <a
-                  href={RESUME_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-2 rounded-xl glass px-7 py-3.5 font-semibold text-white transition-colors hover:border-accent/40 hover:bg-white/5"
-                >
-                  <Download className="h-5 w-5" />
-                  Resume
-                </a>
-              </div>
+                  {l.ch}
+                </span>
+              )
+            )}
+          </h1>
+          <h2 className="mt-3 font-display text-3xl font-semibold text-slate-400 sm:text-5xl lg:text-6xl">
+            I build for the web.
+          </h2>
 
-              {/* Socials */}
-              <div className="mt-10 flex items-center justify-center gap-5">
-                {[
-                  { href: `mailto:${SOCIALS.email}`, Icon: Mail, label: "Email" },
-                  { href: SOCIALS.github, Icon: Github, label: "GitHub" },
-                  { href: SOCIALS.linkedin, Icon: Linkedin, label: "LinkedIn" },
-                ].map(({ href, Icon, label }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target={href.startsWith("http") ? "_blank" : undefined}
-                    rel="noopener noreferrer"
-                    aria-label={label}
-                    className="grid h-12 w-12 place-items-center rounded-xl glass text-slate-300 transition-all hover:scale-110 hover:text-accent"
-                  >
-                    <Icon className="h-5 w-5" />
-                  </a>
-                ))}
-              </div>
-            </motion.div>
+          <p className="mt-8 max-w-xl text-base leading-relaxed text-slate-400 sm:text-lg">
+            I&apos;m a full-stack software engineer working with{" "}
+            <span className="text-slate-200">React</span>,{" "}
+            <span className="text-slate-200">React Native</span>, and{" "}
+            <span className="text-slate-200">Node.js</span>. Right now I&apos;m
+            shipping real-time products for a remote team, after a year with a
+            legal-tech startup.
+          </p>
 
+          <div className="mt-10 flex flex-wrap items-center gap-4">
             <a
-              href="#about"
-              aria-label="Scroll to about"
-              className="absolute bottom-8 left-1/2 -translate-x-1/2 text-slate-500 transition-colors hover:text-accent"
+              href={`mailto:${SOCIALS.email}`}
+              className="group inline-flex items-center gap-2 rounded-md border border-accent/50 bg-accent/5 px-5 py-3 text-sm font-medium text-accent transition-colors hover:bg-accent/10"
             >
-              <ChevronDown className="h-7 w-7 animate-bounce" />
+              Get in touch
+              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
-          </section>
-
-          {/* ===================== ABOUT ===================== */}
-          <motion.section
-            id="about"
-            className="relative px-4 py-28 sm:px-6 lg:px-8 content-visibility-auto"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={sectionVariants}
-          >
-            <div className="mx-auto max-w-6xl">
-              <SectionHeading eyebrow="About" title="A bit" accent="about me" />
-
-              <div className="grid items-start gap-14 lg:grid-cols-2">
-                {/* Left: narrative */}
-                <div className="space-y-6">
-                  <p className="font-body text-xl leading-relaxed text-slate-300">
-                    I'm Sourabh, a{" "}
-                    <span className="font-semibold text-white">full-stack</span>{" "}
-                    software engineer. React and React Native on the frontend,{" "}
-                    <span className="font-semibold text-white">
-                      Node.js and PostgreSQL
-                    </span>{" "}
-                    on the backend, mostly real-time apps.
-                  </p>
-                  <p className="font-body text-lg leading-relaxed text-slate-400">
-                    I've worked remotely with teams in Sweden and Jordan, from
-                    legal-tech to social and food apps. Big on performance,
-                    accessibility, and the small details.
-                  </p>
-                  <p className="font-body text-lg leading-relaxed text-slate-400">
-                    Right now I'm building cross-platform apps end to end, and I'm
-                    always poking at something new on the side.
-                  </p>
-
-                  <div className="flex items-center gap-2 pt-2 text-slate-400">
-                    <MapPin className="h-5 w-5 text-accent" />
-                    <span>Based in Gurgaon, India</span>
-                  </div>
-                </div>
-
-                {/* Right: focus cards */}
-                <motion.div
-                  variants={listContainerVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.2 }}
-                  className="grid grid-cols-1 gap-5 sm:grid-cols-2"
-                >
-                  {focusAreas.map((item) => (
-                    <motion.div
-                      key={item.title}
-                      variants={listItemVariants}
-                      className="group rounded-2xl glass p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-glow"
-                    >
-                      <div className="mb-4 grid h-12 w-12 place-items-center rounded-xl bg-gradient-to-br from-accent/20 to-electric/20 text-accent">
-                        {item.icon}
-                      </div>
-                      <h3 className="font-display text-lg font-semibold text-white">
-                        {item.title}
-                      </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-slate-400">
-                        {item.desc}
-                      </p>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </div>
-            </div>
-          </motion.section>
-
-          {/* ===================== EXPERIENCE ===================== */}
-          <div id="experience">
-            <ExperienceSection />
+            <a
+              href={RESUME_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-slate-400 underline-offset-4 transition-colors hover:text-white hover:underline"
+            >
+              Read my CV ↗
+            </a>
           </div>
 
-          {/* ===================== PROJECTS ===================== */}
-          <motion.section
-            id="projects"
-            className="relative px-4 py-28 sm:px-6 lg:px-8 content-visibility-auto"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={sectionVariants}
-          >
-            <div className="mx-auto max-w-6xl">
-              <SectionHeading
-                eyebrow="Portfolio"
-                title="Featured"
-                accent="projects"
-              />
+          <div className="mt-14 flex items-center gap-5 text-slate-500">
+            <a
+              href={`mailto:${SOCIALS.email}`}
+              aria-label="Email"
+              className="transition-colors hover:text-accent"
+            >
+              <Mail className="h-5 w-5" />
+            </a>
+            <a
+              href={SOCIALS.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="transition-colors hover:text-accent"
+            >
+              <Github className="h-5 w-5" />
+            </a>
+            <a
+              href={SOCIALS.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="transition-colors hover:text-accent"
+            >
+              <Linkedin className="h-5 w-5" />
+            </a>
+          </div>
+        </section>
 
-              <motion.div
-                className="grid gap-8"
-                variants={listContainerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.15 }}
-              >
-                {projects.map((project, index) => (
-                  <motion.article
-                    key={project.title}
-                    variants={listItemVariants}
-                    className="group relative overflow-hidden rounded-3xl glass transition-all duration-500 hover:border-accent/30 hover:shadow-card"
-                  >
-                    <div
-                      className={`grid items-center gap-8 p-5 md:grid-cols-2 md:p-7 ${
-                        index % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
-                      }`}
-                    >
-                      {/* Image */}
-                      <div className="relative overflow-hidden rounded-2xl">
-                        <div className="absolute inset-0 z-10 bg-gradient-to-t from-ink-900/60 via-transparent to-transparent" />
-                        <div className="aspect-[16/10] overflow-hidden bg-ink-800">
-                          <img
-                            src={project.image}
-                            alt={project.title}
-                            loading="lazy"
-                            decoding="async"
-                            className="h-full w-full object-cover transition-transform duration-700 will-change-transform group-hover:scale-105"
-                          />
-                        </div>
-                      </div>
+        {/* ===================== ABOUT ===================== */}
+        <section
+          id="about"
+          className="py-28 content-visibility-auto"
+        >
+          <SectionLabel num={1} label="About" />
 
-                      {/* Content */}
-                      <div className="flex flex-col">
-                        <span className="font-display text-sm font-semibold text-accent">
-                          0{index + 1} &middot; {project.tagline}
-                        </span>
-                        <h3 className="mt-2 font-display text-3xl font-bold text-white">
-                          {project.title}
-                        </h3>
-                        <p className="mt-4 font-body leading-relaxed text-slate-400">
-                          {project.description}
-                        </p>
-
-                        <div className="mt-6 flex flex-wrap gap-2">
-                          {project.technologies.map((tech) => (
-                            <span
-                              key={tech}
-                              className="rounded-lg border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-slate-300"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-
-                        <div className="mt-8 flex flex-wrap gap-3">
-                          <a
-                            href={project.liveLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-accent to-electric px-5 py-2.5 text-sm font-semibold text-ink-950 transition-transform hover:scale-105"
-                          >
-                            Live Demo <ExternalLink className="h-4 w-4" />
-                          </a>
-                          <a
-                            href={project.githubLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 rounded-xl border border-white/10 px-5 py-2.5 text-sm font-semibold text-slate-200 transition-colors hover:border-accent/40 hover:text-accent"
-                          >
-                            <Github className="h-4 w-4" /> Code
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.article>
-                ))}
-              </motion.div>
+          <div className="grid gap-12 md:grid-cols-[2fr_1fr]">
+            <div className="space-y-5 text-base leading-relaxed text-slate-400">
+              <p>
+                I started out in biotech, but somewhere along the way I got
+                pulled into writing code and never really stopped. These days I
+                work as a full-stack software engineer, mostly with React on
+                the front and Node.js / PostgreSQL on the back.
+              </p>
+              <p>
+                Most of what I&apos;ve built recently runs in real time, for
+                actual people: a location-based social app for{" "}
+                <span className="text-slate-200">500+ users</span>, a
+                white-label food-ordering platform spun up in under a day, and
+                production UI for a legal-tech SaaS.
+              </p>
+              <p>
+                Off the keyboard I&apos;m a heavy gamer (which is how my{" "}
+                <span className="text-slate-200">GameLog</span> app started),
+                I read more dev blogs than I probably should, and I&apos;m
+                always tinkering with something on the side.
+              </p>
             </div>
-          </motion.section>
 
-          {/* ===================== SKILLS ===================== */}
-          <motion.div
-            id="skills"
-            className="content-visibility-auto"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={sectionVariants}
-          >
-            <SkillsSection />
-          </motion.div>
+            <div>
+              <p className="font-mono text-xs uppercase tracking-wider text-slate-500">
+                Currently
+              </p>
+              <p className="mt-2 text-sm text-slate-300">
+                Software Engineer at{" "}
+                <span className="text-white">Design Field Agency</span>
+                <br />
+                <span className="text-slate-500">Remote</span>
+              </p>
 
-          {/* ===================== EDUCATION ===================== */}
-          <motion.div
-            id="education"
-            className="content-visibility-auto"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={sectionVariants}
-          >
-            <EducationSection />
-          </motion.div>
+              <p className="mt-8 font-mono text-xs uppercase tracking-wider text-slate-500">
+                Open to
+              </p>
+              <p className="mt-2 text-sm text-slate-300">
+                Full-stack & React Native roles
+              </p>
+            </div>
+          </div>
+        </section>
 
-          {/* ===================== CONTACT ===================== */}
-          <ContactSection />
-        </main>
+        {/* ===================== EXPERIENCE ===================== */}
+        <section
+          id="experience"
+          className="py-28 content-visibility-auto"
+        >
+          <SectionLabel num={2} label="Experience" />
+          <ExperienceSection />
+        </section>
 
-        {/* ===================== FOOTER ===================== */}
-        <Footer />
-      </div>
+        {/* ===================== WORK / PROJECTS ===================== */}
+        <section
+          id="projects"
+          className="py-28 content-visibility-auto"
+        >
+          <SectionLabel num={3} label="Selected work" />
+
+          <ul className="divide-y divide-white/5">
+            {projects.map((project) => (
+              <li key={project.title}>
+                <a
+                  href={project.liveLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group grid gap-6 py-8 transition-colors sm:grid-cols-[180px_1fr_auto] sm:items-center"
+                >
+                  <div className="overflow-hidden rounded-md border border-white/10">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      loading="lazy"
+                      className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+
+                  <div>
+                    <div className="flex items-baseline gap-3">
+                      <h3 className="font-display text-xl font-semibold text-white transition-colors group-hover:text-accent">
+                        {project.title}
+                      </h3>
+                      <span className="font-mono text-xs text-slate-500">
+                        {project.year}
+                      </span>
+                    </div>
+                    <p className="mt-2 max-w-lg text-sm leading-relaxed text-slate-400">
+                      {project.description}
+                    </p>
+                    <p className="mt-3 font-mono text-xs text-slate-500">
+                      {project.technologies.join(" · ")}
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-4 sm:justify-end">
+                    <span
+                      onClick={(e) => {
+                        e.preventDefault();
+                        window.open(project.githubLink, "_blank");
+                      }}
+                      className="text-sm text-slate-500 transition-colors hover:text-white"
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          window.open(project.githubLink, "_blank");
+                        }
+                      }}
+                    >
+                      Code
+                    </span>
+                    <ArrowUpRight className="h-5 w-5 text-slate-500 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <p className="mt-10 text-sm text-slate-500">
+            More on{" "}
+            <a
+              href={SOCIALS.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-300 underline underline-offset-4 transition-colors hover:text-accent"
+            >
+              GitHub
+            </a>
+            .
+          </p>
+        </section>
+
+        {/* ===================== SKILLS ===================== */}
+        <section id="skills" className="py-28 content-visibility-auto">
+          <SectionLabel num={4} label="Toolbox" />
+          <SkillsSection />
+        </section>
+
+        {/* ===================== EDUCATION ===================== */}
+        <section id="education" className="py-28 content-visibility-auto">
+          <SectionLabel num={5} label="Education & certifications" />
+          <EducationSection />
+        </section>
+
+        {/* ===================== CONTACT ===================== */}
+        <ContactSection />
+      </main>
+
+      <Footer />
     </>
   );
 }
