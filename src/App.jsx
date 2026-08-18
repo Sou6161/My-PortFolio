@@ -4,6 +4,9 @@ import {
   Mail,
   Linkedin,
   ArrowUpRight,
+  X,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import SkillsSection from "./Components/SkillsSection";
 import EducationSection from "./Components/EducationSection";
@@ -13,53 +16,274 @@ import Footer from "./Components/Footer";
 import CustomCursor from "./Components/CustomCursor";
 import Navbar from "./Components/Navbar";
 import { RESUME_URL, SOCIALS } from "./constants";
-import Cineout_Photo from "./Images/Cineout_Portfolio_Project.png";
-import Coinfam_Photo from "./Images/Coinfam_Portfolio_Project.png";
-import FoldXeperince_Photo from "./Images/FoldXeperince_Portfolio_Project.png";
-import TactiShift_Photo from "./Images/TactiShift_Portfolio_project.png";
+import Decodr_Dashboard from "./Images/decodr/dashboard.png";
+import Decodr_Areas from "./Images/decodr/component-areas.png";
+import Decodr_Graph from "./Images/decodr/dependency-graph.png";
+import Decodr_Explain from "./Images/decodr/explain-answer.png";
+import Decodr_ExplainCode from "./Images/decodr/explain-code.png";
+import GameLog_Home from "./Images/gamelog/home.jpg";
+import GameLog_Discover from "./Images/gamelog/discover.jpg";
+import GameLog_Detail from "./Images/gamelog/game-detail.jpg";
+import GameLog_Review from "./Images/gamelog/write-review.jpg";
+import GameLog_Profile from "./Images/gamelog/profile.jpg";
+import Watchly_Home from "./Images/watchly/home.jpg";
+import Watchly_Setup from "./Images/watchly/session-setup.jpg";
+import Watchly_Title from "./Images/watchly/title-detail.jpg";
+import Watchly_Profile from "./Images/watchly/profile.jpg";
+import Coinfam_List from "./Images/coinfam/all-cryptocurrencies.png";
+import Coinfam_Detail from "./Images/coinfam/coin-detail.png";
+import Coinfam_Chart from "./Images/coinfam/coin-chart.png";
+import Coinfam_Exchanges from "./Images/coinfam/exchanges.png";
+import Coinfam_Nft from "./Images/coinfam/nft-collections.png";
+import Fold_Hero from "./Images/foldxperience/hero.png";
+import Fold_Colours from "./Images/foldxperience/colours.png";
+import Fold_Circle from "./Images/foldxperience/circle-to-search.png";
+import Fold_Gaming from "./Images/foldxperience/gaming-display.png";
+import Fold_Hdr from "./Images/foldxperience/super-hdr.png";
+import Tacti_Hero from "./Images/tactishift/hero.png";
+import Tacti_HowTo from "./Images/tactishift/how-to-play.png";
+import Tacti_Single from "./Images/tactishift/single-player.png";
+import Tacti_Discussion from "./Images/tactishift/discussion.png";
 
+// Each project renders as a case-study row. `shotType` decides how the
+// screenshot strip is laid out: "web" gets a landscape grid, "mobile" gets a
+// row of phone-shaped frames, so neither set gets cropped into nonsense.
 const projects = [
   {
-    title: "CineOut",
-    year: "2024",
-    description:
-      "A movie browser for desktop and mobile, with quick search and clean results.",
-    image: Cineout_Photo,
-    liveLink: "https://cineout.vercel.app/",
-    githubLink: "https://github.com/Sou6161/cineout",
-    technologies: ["React", "Redux", "Tailwind", "REST API"],
+    title: "Decodr",
+    highlights: [
+      "Point it at a project folder and it maps 120+ files into a component dependency graph, so getting your bearings in a React codebase takes minutes instead of days.",
+      "Reads imports through the TypeScript compiler instead of regex, so the dependency graph is actually correct.",
+      "Walks the import graph to hand the model only the 8-34 files a question actually needs. No embeddings, no vector DB, and no context-limit failures.",
+    ],
+    shotType: "web",
+    shots: [
+      { src: Decodr_Dashboard, alt: "Decodr dashboard showing file, component and hook counts" },
+      { src: Decodr_Areas, alt: "Decodr component overview grouped by feature area" },
+      { src: Decodr_Graph, alt: "Decodr interactive component dependency graph" },
+      { src: Decodr_Explain, alt: "Decodr explaining how the graph works" },
+      { src: Decodr_ExplainCode, alt: "Decodr answer citing the relevant source code" },
+    ],
+    liveLink: "https://decodr-web.vercel.app/",
+    liveLabel: "Live",
+    githubLink: "https://github.com/Sou6161/Decodr",
+    technologies: ["React 19", "TypeScript", "Express", "PostgreSQL", "React Flow"],
+  },
+  {
+    title: "GameLog",
+    highlights: [
+      "Letterboxd but for games. One Steam login auto-matched 93% of a 363-game library against IGDB, instead of hours of typing it all in.",
+      "XP is append-only, so deleting a review never claws back levels you already earned.",
+      "A full library sync stays under 30s by batching 60 titles per IGDB query and bulk-upserting into Postgres, rather than one call per game.",
+    ],
+    shotType: "mobile",
+    shots: [
+      { src: GameLog_Home, alt: "GameLog home screen with Steam import prompt and featured games" },
+      { src: GameLog_Discover, alt: "GameLog discover tab with featured and trending games" },
+      { src: GameLog_Detail, alt: "GameLog game detail page for Cyberpunk 2077" },
+      { src: GameLog_Review, alt: "GameLog write-review screen with status, rating and play details" },
+      { src: GameLog_Profile, alt: "GameLog profile with Steam connection, gamer level and stats" },
+    ],
+    liveLink: "https://drive.google.com/file/d/1cVEIssciKpSaWn_z4KB4_bqhQH2pYwmT/view?usp=drive_link",
+    liveLabel: "APK",
+    githubLink: "https://github.com/Sou6161/GameLog",
+    technologies: ["Expo", "React Native", "Express", "PostgreSQL", "IGDB", "Steam"],
+  },
+  {
+    title: "Watchly",
+    highlights: [
+      "You and one other person swipe fifteen trailers each, then only see what you both liked.",
+      "The catalog is fetched from TMDB per session and dealt with weighted-random sampling, so no two nights get the same deck.",
+      "Closed two auth holes I found while testing: token rotation was handing back byte-identical JWTs, and a 1.2s delay on signup quietly leaked which emails were already registered.",
+    ],
+    shotType: "mobile",
+    shots: [
+      { src: Watchly_Home, alt: "Watchly home screen with session modes" },
+      { src: Watchly_Setup, alt: "Watchly session setup: who is watching and tonight's mood" },
+      { src: Watchly_Title, alt: "Watchly title detail with trailers and streaming provider" },
+      { src: Watchly_Profile, alt: "Watchly profile with region and streaming subscriptions" },
+    ],
+    // No web build — Watchly is an Expo app, so the "live" link is the Android
+    // APK hosted on Drive rather than a URL you can just open.
+    liveLink: "https://drive.google.com/file/d/1203QDSl8x1vfViAn8aCZ-lAFcFjMeipe/view?usp=drive_link",
+    liveLabel: "APK",
+    githubLink: "https://github.com/Sou6161/Watchly",
+    technologies: ["Expo", "React Native", "TypeScript", "Prisma", "Socket.IO", "TMDB"],
   },
   {
     title: "CoinFam",
-    year: "2024",
-    description:
-      "A live crypto tracker on the CoinGecko API, with real-time prices and market trends.",
-    image: Coinfam_Photo,
+    highlights: [
+      "Crypto price tracker built on the CoinGecko API.",
+      "More than prices. It also covers exchange rankings, NFT collections, derivatives and the day's biggest gainers and losers.",
+      "Market data sits in Redux, so hopping between coins doesn't refetch what is already loaded.",
+    ],
+    shotType: "web",
+    shots: [
+      { src: Coinfam_List, alt: "CoinFam list of all active cryptocurrencies with live prices" },
+      { src: Coinfam_Detail, alt: "CoinFam Bitcoin detail with USD and BTC pricing" },
+      { src: Coinfam_Chart, alt: "CoinFam Bitcoin price chart across 24H to 1Y ranges" },
+      { src: Coinfam_Exchanges, alt: "CoinFam top crypto exchanges ranked by trust score" },
+      { src: Coinfam_Nft, alt: "CoinFam top NFT collections" },
+    ],
     liveLink: "https://coin-fam.vercel.app/",
+    liveLabel: "Live",
     githubLink: "https://github.com/Sou6161/CoinFam",
     technologies: ["React", "Redux", "Tailwind", "CoinGecko API"],
   },
   {
     title: "FoldXperience",
-    year: "2024",
-    description:
-      "A Samsung Galaxy Z Fold6 showcase built with GSAP and Lenis, so the phone unfolds as you scroll.",
-    image: FoldXeperince_Photo,
+    highlights: [
+      "Product page for the Galaxy Z Fold6 where the phone unfolds as you scroll.",
+      "Scroll-pinned GSAP timelines, with Lenis handling the smoothing.",
+    ],
+    shotType: "web",
+    shots: [
+      { src: Fold_Hero, alt: "FoldXperience Galaxy Z Fold6 landing section" },
+      { src: Fold_Colours, alt: "FoldXperience colour showcase with the 3D phone model" },
+      { src: Fold_Circle, alt: "FoldXperience Circle to Search feature section" },
+      { src: Fold_Gaming, alt: "FoldXperience gaming and display spec cards" },
+      { src: Fold_Hdr, alt: "FoldXperience Super HDR camera section" },
+    ],
     liveLink: "https://z-fold6-showcase.vercel.app/",
+    liveLabel: "Live",
     githubLink: "https://github.com/Sou6161/Z-Fold6-ShowCase",
     technologies: ["React", "GSAP", "Framer Motion", "Lenis"],
   },
   {
     title: "TactiShift",
-    year: "2024",
-    description:
-      "Real-time multiplayer Tic-Tac-Toe with a shifting-board twist, built over Socket.IO for the Appwrite Hackathon.",
-    image: TactiShift_Photo,
+    highlights: [
+      "Tic-tac-toe with a second phase. Once your pieces are down you win by shifting them around.",
+      "Socket.IO rooms keep both players on the same board, move for move.",
+      "Built for the Appwrite hackathon.",
+    ],
+    shotType: "web",
+    shots: [
+      { src: Tacti_Hero, alt: "TactiShift landing page" },
+      { src: Tacti_HowTo, alt: "TactiShift how-to-play: placement, shifting and win phases" },
+      { src: Tacti_Single, alt: "TactiShift single player match against the AI" },
+      { src: Tacti_Discussion, alt: "TactiShift discussion chat, locked until sign in" },
+    ],
     liveLink: "https://shift-tic-tac-toe.vercel.app/",
+    liveLabel: "Live",
     githubLink: "https://github.com/Sou6161/shift-tic-tac-toe",
     technologies: ["React", "Socket.IO", "Framer Motion"],
   },
 ];
+
+// Screenshots stay as a short horizontal strip so a project row costs ~160px of
+// page instead of a full screen. Thumbnails keep their natural aspect ratio
+// (phone captures are simply taller and narrower); clicking one opens it full
+// size, which is where the detail actually gets read.
+const ShotStrip = ({ shotType, shots, onOpen }) => (
+  <div className="relative mt-6">
+    {/* Long strips run past the container; a right-edge fade signals that. */}
+    {shots.length > 3 && (
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-ink-950 to-transparent" />
+    )}
+    <div className="scroll-strip flex gap-3 overflow-x-auto pb-3">
+    {shots.map((shot, i) => (
+      <button
+        key={shot.src}
+        type="button"
+        onClick={() => onOpen(shots, i)}
+        aria-label={`Open screenshot: ${shot.alt}`}
+        className={`shrink-0 cursor-pointer overflow-hidden rounded-lg border border-white/10 bg-white/[0.02] transition-colors hover:border-accent/60 ${
+          shotType === "mobile" ? "h-52" : "h-32 sm:h-40"
+        }`}
+      >
+        <img
+          src={shot.src}
+          alt={shot.alt}
+          loading="lazy"
+          className="h-full w-auto object-cover object-top"
+        />
+      </button>
+      ))}
+    </div>
+  </div>
+);
+
+// Full-size viewer for the strip. Arrow keys step through a project's shots,
+// Escape closes, and the body scroll is locked while it's open.
+const Lightbox = ({ shots, index, onClose, onStep }) => {
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") onStep(1);
+      if (e.key === "ArrowLeft") onStep(-1);
+    };
+    window.addEventListener("keydown", onKey);
+    const { overflow } = document.body.style;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = overflow;
+    };
+  }, [onClose, onStep]);
+
+  const shot = shots[index];
+
+  return (
+    <div
+      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={shot.alt}
+    >
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label="Close"
+        className="absolute right-5 top-5 rounded-full border border-white/15 p-2 text-slate-300 transition-colors hover:border-white/40 hover:text-white"
+      >
+        <X className="h-5 w-5" />
+      </button>
+
+      {shots.length > 1 && (
+        <>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onStep(-1);
+            }}
+            aria-label="Previous screenshot"
+            className="absolute left-3 rounded-full border border-white/15 p-2 text-slate-300 transition-colors hover:border-white/40 hover:text-white sm:left-6"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onStep(1);
+            }}
+            aria-label="Next screenshot"
+            className="absolute right-3 rounded-full border border-white/15 p-2 text-slate-300 transition-colors hover:border-white/40 hover:text-white sm:right-6"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </>
+      )}
+
+      <figure
+        className="flex max-h-full flex-col items-center gap-3"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <img
+          src={shot.src}
+          alt={shot.alt}
+          className="max-h-[80vh] max-w-[92vw] rounded-lg object-contain"
+        />
+        <figcaption className="text-center font-mono text-xs text-slate-500">
+          {shot.alt}
+          {shots.length > 1 && ` · ${index + 1}/${shots.length}`}
+        </figcaption>
+      </figure>
+    </div>
+  );
+};
 
 // Per-letter colours for the hero name. Each letter swaps from white to its
 // own distinct hue on hover (no pink / purple to keep the palette intentional).
@@ -96,6 +320,19 @@ function App() {
   // Touch / no-hover devices render the hero name in its colours by default,
   // since there's no hover to trigger them.
   const [isTouch, setIsTouch] = useState(false);
+  // { shots, index } while a screenshot is open full size, otherwise null.
+  const [lightbox, setLightbox] = useState(null);
+  const openShot = (shots, index) => setLightbox({ shots, index });
+  const closeShot = () => setLightbox(null);
+  const stepShot = (delta) =>
+    setLightbox((cur) =>
+      cur
+        ? {
+            ...cur,
+            index: (cur.index + delta + cur.shots.length) % cur.shots.length,
+          }
+        : cur,
+    );
   useEffect(() => {
     const mql = window.matchMedia("(hover: none), (pointer: coarse)");
     setIsTouch(mql.matches);
@@ -108,6 +345,14 @@ function App() {
     <>
       <CustomCursor />
       <Navbar />
+      {lightbox && (
+        <Lightbox
+          shots={lightbox.shots}
+          index={lightbox.index}
+          onClose={closeShot}
+          onStep={stepShot}
+        />
+      )}
 
       <main className="mx-auto max-w-6xl px-5 sm:px-8">
         {/* ===================== HERO ===================== */}
@@ -268,78 +513,66 @@ function App() {
         >
           <SectionLabel num={3} label="Selected work" />
 
-          <ul className="divide-y divide-white/5">
+          <ul className="space-y-12">
             {projects.map((project) => (
-              <li key={project.title}>
-                <a
-                  href={project.liveLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group grid gap-6 py-8 transition-colors sm:grid-cols-[180px_1fr_auto] sm:items-center"
-                >
-                  <div className="overflow-hidden rounded-md border border-white/10">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      loading="lazy"
-                      className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  </div>
-
-                  <div>
-                    <div className="flex items-baseline gap-3">
-                      <h3 className="font-display text-xl font-semibold text-white transition-colors group-hover:text-accent">
-                        {project.title}
-                      </h3>
-                      <span className="font-mono text-xs text-slate-500">
-                        {project.year}
-                      </span>
-                    </div>
-                    <p className="mt-2 max-w-lg text-sm leading-relaxed text-slate-400">
-                      {project.description}
-                    </p>
-                    <p className="mt-3 font-mono text-xs text-slate-500">
-                      {project.technologies.join(" · ")}
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-4 sm:justify-end">
-                    <span
-                      onClick={(e) => {
-                        e.preventDefault();
-                        window.open(project.githubLink, "_blank");
-                      }}
-                      className="text-sm text-slate-500 transition-colors hover:text-white"
-                      role="button"
-                      tabIndex={0}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter") {
-                          e.preventDefault();
-                          window.open(project.githubLink, "_blank");
-                        }
-                      }}
+              <li
+                key={project.title}
+                className="border-t border-white/10 pt-8 first:border-t-0 first:pt-0"
+              >
+                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-3">
+                  <a
+                    href={project.liveLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group font-display text-2xl font-semibold text-white transition-colors hover:text-accent"
+                  >
+                    {project.title}
+                    <ArrowUpRight className="ml-1 inline h-4 w-4 text-slate-500 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
+                  </a>
+                  <div className="ml-auto flex items-center gap-5 font-mono text-xs">
+                    <a
+                      href={project.liveLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-400 transition-colors hover:text-accent"
+                    >
+                      {project.liveLabel}
+                    </a>
+                    <a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-400 transition-colors hover:text-accent"
                     >
                       Code
-                    </span>
-                    <ArrowUpRight className="h-5 w-5 text-slate-500 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
+                    </a>
                   </div>
-                </a>
+                </div>
+
+                <ul className="mt-4 max-w-2xl space-y-1.5">
+                  {project.highlights.map((point) => (
+                    <li
+                      key={point}
+                      className="flex gap-2.5 text-sm leading-relaxed text-slate-400"
+                    >
+                      <span className="mt-[0.45rem] h-1 w-1 shrink-0 rounded-full bg-accent/70" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <p className="mt-4 font-mono text-xs text-slate-500">
+                  {project.technologies.join(" · ")}
+                </p>
+
+                <ShotStrip
+                  shotType={project.shotType}
+                  shots={project.shots}
+                  onOpen={openShot}
+                />
               </li>
             ))}
           </ul>
-
-          <p className="mt-10 text-sm text-slate-500">
-            More on{" "}
-            <a
-              href={SOCIALS.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-slate-300 underline underline-offset-4 transition-colors hover:text-accent"
-            >
-              GitHub
-            </a>
-            .
-          </p>
         </section>
 
         {/* ===================== SKILLS ===================== */}

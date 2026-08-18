@@ -26,6 +26,7 @@
 
   ::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
   }
   ::-webkit-scrollbar-track {
     background: #0a0a0c;
@@ -40,6 +41,27 @@
 }
 
 @layer utilities {
+  /* Screenshot strips scroll sideways; the page-level scrollbar is far too
+     heavy sitting directly under a row of thumbnails, so they get a thin,
+     low-contrast one that only firms up on hover. */
+  .scroll-strip {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+  }
+  .scroll-strip::-webkit-scrollbar {
+    height: 5px;
+  }
+  .scroll-strip::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scroll-strip::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: 9999px;
+  }
+  .scroll-strip::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.32);
+  }
+
   .animate-gradient {
     background-size: 200% auto;
     animation: gradient 6s ease infinite;

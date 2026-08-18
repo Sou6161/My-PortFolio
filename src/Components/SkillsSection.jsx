@@ -7,9 +7,12 @@ const groups = [
     title: "Frontend & Mobile",
     items: [
       "React",
-      "React Native (Expo)",
+      "React Native (Expo, Expo Router)",
       "Redux Toolkit",
+      "Zustand",
       "Tailwind CSS",
+      "NativeWind",
+      "Ant Design",
       "Framer Motion",
       "GSAP",
     ],
@@ -21,6 +24,7 @@ const groups = [
       "Express",
       "Socket.IO",
       "REST APIs",
+      "JWT",
       "PostgreSQL",
       "Prisma",
       "Firebase",
@@ -29,7 +33,18 @@ const groups = [
   },
   {
     title: "Cloud & Tooling",
-    items: ["Vercel", "GitHub Actions", "Git", "Vite", "Jest"],
+    items: [
+      "DigitalOcean",
+      "Vercel",
+      "GitHub Actions",
+      "Git",
+      "Vite",
+      "Jest",
+    ],
+  },
+  {
+    title: "AI-Assisted Development",
+    items: ["Claude", "Cursor", "GitHub Copilot", "AI-driven code review"],
   },
 ];
 

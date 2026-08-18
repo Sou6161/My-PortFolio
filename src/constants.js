@@ -1,6 +1,6 @@
 // Single source of truth for personal links / config.
 export const RESUME_URL =
-  "https://drive.google.com/file/d/1H3HJ1Bn2R8ma5awq2qB9ImdyIaf0HtkA/view?usp=drive_link";
+  "https://drive.google.com/file/d/1WJPYiiydkpaUxtwySUSpH-vD_-bXhddF/view?usp=drive_link";
 
 // Brand logo (same asset used as the site favicon).
 export const LOGO_URL =
