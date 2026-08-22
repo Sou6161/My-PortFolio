@@ -16,11 +16,11 @@ import Footer from "./Components/Footer";
 import CustomCursor from "./Components/CustomCursor";
 import Navbar from "./Components/Navbar";
 import { RESUME_URL, SOCIALS } from "./constants";
-import Decodr_Dashboard from "./Images/decodr/dashboard.png";
-import Decodr_Areas from "./Images/decodr/component-areas.png";
-import Decodr_Graph from "./Images/decodr/dependency-graph.png";
-import Decodr_Explain from "./Images/decodr/explain-answer.png";
-import Decodr_ExplainCode from "./Images/decodr/explain-code.png";
+import Decodr_Dashboard from "./Images/decodr/dashboard.jpg";
+import Decodr_Areas from "./Images/decodr/component-areas.jpg";
+import Decodr_Graph from "./Images/decodr/dependency-graph.jpg";
+import Decodr_Explain from "./Images/decodr/explain-answer.jpg";
+import Decodr_ExplainCode from "./Images/decodr/explain-code.jpg";
 import GameLog_Home from "./Images/gamelog/home.jpg";
 import GameLog_Discover from "./Images/gamelog/discover.jpg";
 import GameLog_Detail from "./Images/gamelog/game-detail.jpg";
@@ -30,20 +30,20 @@ import Watchly_Home from "./Images/watchly/home.jpg";
 import Watchly_Setup from "./Images/watchly/session-setup.jpg";
 import Watchly_Title from "./Images/watchly/title-detail.jpg";
 import Watchly_Profile from "./Images/watchly/profile.jpg";
-import Coinfam_List from "./Images/coinfam/all-cryptocurrencies.png";
-import Coinfam_Detail from "./Images/coinfam/coin-detail.png";
-import Coinfam_Chart from "./Images/coinfam/coin-chart.png";
-import Coinfam_Exchanges from "./Images/coinfam/exchanges.png";
-import Coinfam_Nft from "./Images/coinfam/nft-collections.png";
-import Fold_Hero from "./Images/foldxperience/hero.png";
-import Fold_Colours from "./Images/foldxperience/colours.png";
-import Fold_Circle from "./Images/foldxperience/circle-to-search.png";
-import Fold_Gaming from "./Images/foldxperience/gaming-display.png";
-import Fold_Hdr from "./Images/foldxperience/super-hdr.png";
-import Tacti_Hero from "./Images/tactishift/hero.png";
-import Tacti_HowTo from "./Images/tactishift/how-to-play.png";
-import Tacti_Single from "./Images/tactishift/single-player.png";
-import Tacti_Discussion from "./Images/tactishift/discussion.png";
+import Coinfam_List from "./Images/coinfam/all-cryptocurrencies.jpg";
+import Coinfam_Detail from "./Images/coinfam/coin-detail.jpg";
+import Coinfam_Chart from "./Images/coinfam/coin-chart.jpg";
+import Coinfam_Exchanges from "./Images/coinfam/exchanges.jpg";
+import Coinfam_Nft from "./Images/coinfam/nft-collections.jpg";
+import Fold_Hero from "./Images/foldxperience/hero.jpg";
+import Fold_Colours from "./Images/foldxperience/colours.jpg";
+import Fold_Circle from "./Images/foldxperience/circle-to-search.jpg";
+import Fold_Gaming from "./Images/foldxperience/gaming-display.jpg";
+import Fold_Hdr from "./Images/foldxperience/super-hdr.jpg";
+import Tacti_Hero from "./Images/tactishift/hero.jpg";
+import Tacti_HowTo from "./Images/tactishift/how-to-play.jpg";
+import Tacti_Single from "./Images/tactishift/single-player.jpg";
+import Tacti_Discussion from "./Images/tactishift/discussion.jpg";
 
 // Each project renders as a case-study row. `shotType` decides how the
 // screenshot strip is laid out: "web" gets a landscape grid, "mobile" gets a
@@ -64,7 +64,7 @@ const projects = [
       { src: Decodr_Explain, alt: "Decodr explaining how the graph works" },
       { src: Decodr_ExplainCode, alt: "Decodr answer citing the relevant source code" },
     ],
-    liveLink: "https://decodr-web.vercel.app/",
+    liveLink: "https://decodr-web.imsrb.in",
     liveLabel: "Live",
     githubLink: "https://github.com/Sou6161/Decodr",
     technologies: ["React 19", "TypeScript", "Express", "PostgreSQL", "React Flow"],
@@ -125,7 +125,7 @@ const projects = [
       { src: Coinfam_Exchanges, alt: "CoinFam top crypto exchanges ranked by trust score" },
       { src: Coinfam_Nft, alt: "CoinFam top NFT collections" },
     ],
-    liveLink: "https://coin-fam.vercel.app/",
+    liveLink: "https://coin-fam.imsrb.in",
     liveLabel: "Live",
     githubLink: "https://github.com/Sou6161/CoinFam",
     technologies: ["React", "Redux", "Tailwind", "CoinGecko API"],
@@ -144,7 +144,7 @@ const projects = [
       { src: Fold_Gaming, alt: "FoldXperience gaming and display spec cards" },
       { src: Fold_Hdr, alt: "FoldXperience Super HDR camera section" },
     ],
-    liveLink: "https://z-fold6-showcase.vercel.app/",
+    liveLink: "https://z-fold6-showcase.imsrb.in",
     liveLabel: "Live",
     githubLink: "https://github.com/Sou6161/Z-Fold6-ShowCase",
     technologies: ["React", "GSAP", "Framer Motion", "Lenis"],
@@ -163,7 +163,7 @@ const projects = [
       { src: Tacti_Single, alt: "TactiShift single player match against the AI" },
       { src: Tacti_Discussion, alt: "TactiShift discussion chat, locked until sign in" },
     ],
-    liveLink: "https://shift-tic-tac-toe.vercel.app/",
+    liveLink: "https://shift-tic-tac-toe.imsrb.in",
     liveLabel: "Live",
     githubLink: "https://github.com/Sou6161/shift-tic-tac-toe",
     technologies: ["React", "Socket.IO", "Framer Motion"],
