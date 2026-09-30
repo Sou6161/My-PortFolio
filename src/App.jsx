@@ -105,7 +105,7 @@ const projects = [
     ],
     // No web build — Watchly is an Expo app, so the "live" link is the Android
     // APK hosted on Drive rather than a URL you can just open.
-    liveLink: "https://drive.google.com/file/d/1203QDSl8x1vfViAn8aCZ-lAFcFjMeipe/view?usp=drive_link",
+    liveLink: "https://drive.google.com/file/d/1ym0XnEhKK6Z5o-ioWOwk8ciWxMHc5hnN/view",
     liveLabel: "APK",
     githubLink: "https://github.com/Sou6161/Watchly",
     technologies: ["Expo", "React Native", "TypeScript", "Prisma", "Socket.IO", "TMDB"],
