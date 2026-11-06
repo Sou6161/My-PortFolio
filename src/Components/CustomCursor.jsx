@@ -1,184 +1,198 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { MousePointer2, Sparkles } from 'lucide-react';
+import { useEffect, useRef, useState } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
+
+// Ring colour per section, matching each section's numbered tab.
+const SECTION_COLORS = {
+  hero: "rgb(var(--tomato))",
+  about: "rgb(var(--tomato))",
+  experience: "rgb(var(--cobalt))",
+  projects: "rgb(var(--leaf))",
+  skills: "rgb(var(--plum))",
+  education: "rgb(var(--ochre))",
+  contact: "rgb(var(--tomato))",
+};
+const FALLBACK = "rgb(var(--ink))";
+const BURST = ["rgb(var(--tomato))", "rgb(var(--cobalt))", "rgb(var(--mustard))", "rgb(var(--leaf))", "rgb(var(--plum))", "rgb(var(--tomato))"];
+// Comet tail behind the dot: each one lags a little more than the last.
+const TRAIL = [
+  { color: "rgb(var(--mustard))", size: 7, stiffness: 300 },
+  { color: "rgb(var(--cobalt))", size: 6, stiffness: 190 },
+  { color: "rgb(var(--leaf))", size: 5, stiffness: 120 },
+];
+// Over filled buttons (ink, turning tomato on hover) a tomato ring would
+// vanish into the fill, so those get mustard instead.
+const ON_FILL = "rgb(var(--mustard))";
+// "rgb(var(--x))" -> "rgb(var(--x) / 0.15)" for the ring's translucent fill.
+const tint = (color) => color.replace(/\)\)$/, ") / 0.15)");
+
+// A link inside a project / job row carries that row's --c, so hovering it
+// fills the ring with the row's own colour.
+const colorFor = (el) => {
+  const bg = getComputedStyle(el).backgroundColor;
+  if (el.matches("a, button") && bg !== "rgba(0, 0, 0, 0)" && bg !== "transparent") {
+    return ON_FILL;
+  }
+  const custom = getComputedStyle(el).getPropertyValue("--c").trim();
+  if (custom) return custom;
+  const section = el.closest("section, footer");
+  return SECTION_COLORS[section?.id] || FALLBACK;
+};
 
 const CustomCursor = () => {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [isHovering, setIsHovering] = useState(false);
-  const [isClicking, setIsClicking] = useState(false);
-  const [velocity, setVelocity] = useState({ x: 0, y: 0 });
-  const [lastPos, setLastPos] = useState({ x: 0, y: 0 });
-  const [isLargeScreen, setIsLargeScreen] = useState(false);
+  const [enabled, setEnabled] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [hovering, setHovering] = useState(false);
+  const [pressed, setPressed] = useState(false);
+  const [color, setColor] = useState(FALLBACK);
+  const [bursts, setBursts] = useState([]);
+  const burstId = useRef(0);
+
+  // Position lives in motion values so moving the mouse never re-renders.
+  const x = useMotionValue(-100);
+  const y = useMotionValue(-100);
+  const ringX = useSpring(x, { stiffness: 350, damping: 28, mass: 0.5 });
+  const ringY = useSpring(y, { stiffness: 350, damping: 28, mass: 0.5 });
+  const t0x = useSpring(x, { stiffness: TRAIL[0].stiffness, damping: 22 });
+  const t0y = useSpring(y, { stiffness: TRAIL[0].stiffness, damping: 22 });
+  const t1x = useSpring(x, { stiffness: TRAIL[1].stiffness, damping: 22 });
+  const t1y = useSpring(y, { stiffness: TRAIL[1].stiffness, damping: 22 });
+  const t2x = useSpring(x, { stiffness: TRAIL[2].stiffness, damping: 22 });
+  const t2y = useSpring(y, { stiffness: TRAIL[2].stiffness, damping: 22 });
+  const trail = [
+    [t0x, t0y],
+    [t1x, t1y],
+    [t2x, t2y],
+  ];
+
+  // Only on real mouse-and-hover devices; phones and tablets keep their own.
+  useEffect(() => {
+    const mql = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const update = () => setEnabled(mql.matches);
+    update();
+    mql.addEventListener?.("change", update);
+    return () => mql.removeEventListener?.("change", update);
+  }, []);
 
   useEffect(() => {
-    // Check if screen is large enough for custom cursor
-    const checkScreenSize = () => {
-      // Using 1024px (lg breakpoint) to exclude tablets and only show on laptops/desktops
-      const largeScreen = window.innerWidth >= 1024;
-      setIsLargeScreen(largeScreen);
-      
-      // Only add cursor-none to body if on large screen
-      if (largeScreen) {
-        document.body.classList.add('cursor-none');
-        const elements = document.querySelectorAll('a, button, input, select, textarea');
-        elements.forEach(el => el.classList.add('cursor-none'));
-      } else {
-        document.body.classList.remove('cursor-none');
-        const elements = document.querySelectorAll('a, button, input, select, textarea');
-        elements.forEach(el => el.classList.remove('cursor-none'));
-      }
+    if (!enabled) return;
+    const root = document.documentElement;
+    root.classList.add("has-cursor");
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    const onMove = (e) => {
+      x.set(e.clientX);
+      y.set(e.clientY);
+      setVisible(true);
     };
-    
-    // Initial check
-    checkScreenSize();
-    
-    // Add resize listener
-    window.addEventListener('resize', checkScreenSize);
+    const onOver = (e) => {
+      const target = e.target.closest?.("a, button, [role='button'], [data-cursor]");
+      setHovering(Boolean(target));
+      setColor(colorFor(target || e.target));
+    };
+    const onDown = (e) => {
+      setPressed(true);
+      if (reduceMotion) return;
+      const id = ++burstId.current;
+      setBursts((b) => [...b, { id, x: e.clientX, y: e.clientY }]);
+      setTimeout(() => setBursts((b) => b.filter((p) => p.id !== id)), 650);
+    };
+    const onUp = () => setPressed(false);
+    const onLeave = () => setVisible(false);
 
-    // Only set up mouse events if on large screen
-    if (isLargeScreen) {
-      let lastTimestamp = 0;
-      const handleMouseMove = (e) => {
-        const currentTimestamp = Date.now();
-        const timeDelta = currentTimestamp - lastTimestamp;
-        
-        if (timeDelta > 0) {
-          const newVelocity = {
-            x: (e.clientX - lastPos.x) / timeDelta,
-            y: (e.clientY - lastPos.y) / timeDelta
-          };
-          setVelocity(newVelocity);
-          setLastPos({ x: e.clientX, y: e.clientY });
-          lastTimestamp = currentTimestamp;
-        }
-        
-        setMousePos({ x: e.clientX, y: e.clientY });
-      };
+    window.addEventListener("mousemove", onMove, { passive: true });
+    document.addEventListener("mouseover", onOver);
+    window.addEventListener("mousedown", onDown);
+    window.addEventListener("mouseup", onUp);
+    document.documentElement.addEventListener("mouseleave", onLeave);
 
-      const handleMouseEnter = () => setIsHovering(true);
-      const handleMouseLeave = () => setIsHovering(false);
-      const handleMouseDown = () => setIsClicking(true);
-      const handleMouseUp = () => setIsClicking(false);
+    return () => {
+      root.classList.remove("has-cursor");
+      window.removeEventListener("mousemove", onMove);
+      document.removeEventListener("mouseover", onOver);
+      window.removeEventListener("mousedown", onDown);
+      window.removeEventListener("mouseup", onUp);
+      document.documentElement.removeEventListener("mouseleave", onLeave);
+    };
+  }, [enabled, x, y]);
 
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseenter', handleMouseEnter);
-      window.addEventListener('mouseleave', handleMouseLeave);
-      window.addEventListener('mousedown', handleMouseDown);
-      window.addEventListener('mouseup', handleMouseUp);
+  if (!enabled) return null;
 
-      return () => {
-        document.body.classList.remove('cursor-none');
-        const elements = document.querySelectorAll('a, button, input, select, textarea');
-        elements.forEach(el => el.classList.remove('cursor-none'));
-        window.removeEventListener('mousemove', handleMouseMove);
-        window.removeEventListener('mouseenter', handleMouseEnter);
-        window.removeEventListener('mouseleave', handleMouseLeave);
-        window.removeEventListener('mousedown', handleMouseDown);
-        window.removeEventListener('mouseup', handleMouseUp);
-        window.removeEventListener('resize', checkScreenSize);
-      };
-    } else {
-      // Just remove the resize listener if not on large screen
-      return () => {
-        window.removeEventListener('resize', checkScreenSize);
-      };
-    }
-  }, [lastPos, isLargeScreen]);
-
-  // Don't render anything if not on a large screen
-  if (!isLargeScreen) return null;
-
-  const speed = Math.sqrt(velocity.x * velocity.x + velocity.y * velocity.y);
-  const angle = Math.atan2(velocity.y, velocity.x);
+  const ringScale = pressed ? 0.75 : hovering ? 1.9 : 1;
 
   return (
-    <>
-      {/* Main cursor with icon */}
-      <motion.div
-        className="fixed top-0 left-0 flex items-center justify-center w-6 h-6 rounded-full mix-blend-difference pointer-events-none z-[100]"
-        animate={{
-          x: mousePos.x - 12,
-          y: mousePos.y - 12,
-          rotate: angle * (180 / Math.PI),
-          scale: isClicking ? 0.8 : isHovering ? 1.5 : 1,
-        }}
-        transition={{
-          type: "spring",
-          damping: 20,
-          stiffness: 400,
-          mass: 0.2,
-        }}
-      >
-        <MousePointer2 className="w-4 h-4 text-white" />
-      </motion.div>
-
-      {/* Magnetic field effect */}
-      <motion.div
-        className="fixed top-0 left-0 w-12 h-12 border-2 border-white/30 rounded-full mix-blend-difference pointer-events-none z-[99]"
-        animate={{
-          x: mousePos.x - 24,
-          y: mousePos.y - 24,
-          scale: isClicking ? 0.5 : isHovering ? 2 : 1 + speed * 2,
-          rotate: angle * (180 / Math.PI),
-        }}
-        transition={{
-          type: "spring",
-          damping: 15,
-          stiffness: 200,
-        }}
-      />
-
-      {/* Dynamic particles based on movement */}
-      {[...Array(3)].map((_, i) => (
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100]">
+      {/* Comet tail, drawn first so it sits under the ring and dot */}
+      {TRAIL.map((t, i) => (
         <motion.div
-          key={i}
-          className="fixed top-0 left-0 pointer-events-none z-[98]"
-          animate={{
-            x: mousePos.x - 8,
-            y: mousePos.y - 8,
-            opacity: speed > 0.2 ? 0.6 - i * 0.2 : 0,
+          key={t.color}
+          className="absolute left-0 top-0 rounded-full"
+          style={{
+            x: trail[i][0],
+            y: trail[i][1],
+            translateX: "-50%",
+            translateY: "-50%",
+            width: t.size,
+            height: t.size,
+            backgroundColor: t.color,
           }}
-          transition={{
-            delay: i * 0.05,
-            duration: 0.5,
-          }}
-        >
-          <Sparkles 
-            className="text-white w-4 h-4" 
-            style={{
-              transform: `translate(${Math.cos(angle + i * Math.PI/4) * (20 + i * 10)}px, ${Math.sin(angle + i * Math.PI/4) * (20 + i * 10)}px)`,
-            }}
-          />
-        </motion.div>
+          animate={{ opacity: visible && !hovering ? 1 : 0 }}
+          transition={{ duration: 0.2 }}
+        />
       ))}
 
-      {/* Reactive glow effect */}
+      {/* Trailing ring: section colour, fills in over links */}
       <motion.div
-        className="fixed top-0 left-0 w-24 h-24 bg-gradient-to-r from-cyan-500/40 to-blue-500/40 rounded-full blur-2xl pointer-events-none z-[97]"
-        animate={{
-          x: mousePos.x - 48,
-          y: mousePos.y - 48,
-          scale: isClicking ? 1.5 : isHovering ? 2 : 1 + speed * 3,
-          opacity: 0.6 + speed * 0.4,
+        className="absolute left-0 top-0 h-10 w-10 rounded-full border-2"
+        style={{
+          x: ringX,
+          y: ringY,
+          translateX: "-50%",
+          translateY: "-50%",
+          borderColor: color,
+          backgroundColor:
+            hovering && color !== ON_FILL ? tint(color) : "transparent",
         }}
-        transition={{
-          type: "spring",
-          damping: 30,
-          stiffness: 200,
-        }}
+        animate={{ scale: ringScale, opacity: visible ? 1 : 0 }}
+        transition={{ type: "spring", stiffness: 300, damping: 22 }}
       />
 
-      {/* Interactive ripple effect on click */}
-      {isClicking && (
-        <motion.div
-          className="fixed top-0 left-0 w-16 h-16 border-2 border-white rounded-full mix-blend-difference pointer-events-none z-[96]"
-          initial={{ scale: 0.5, opacity: 1 }}
-          animate={{ scale: 2, opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          style={{ x: mousePos.x - 32, y: mousePos.y - 32 }}
-        />
+      {/* Exact pointer: a solid dot in the section colour that shrinks over links */}
+      <motion.div
+        className="absolute left-0 top-0 h-2.5 w-2.5 rounded-full"
+        style={{
+          x,
+          y,
+          translateX: "-50%",
+          translateY: "-50%",
+          backgroundColor: color,
+        }}
+        animate={{ scale: hovering ? 0.5 : 1, opacity: visible ? 1 : 0 }}
+        transition={{ duration: 0.15 }}
+      />
+
+      {/* Click burst: a handful of palette dots flung outwards */}
+      {bursts.map((b) =>
+        BURST.map((c, i) => {
+          const angle = (i / BURST.length) * Math.PI * 2 + b.id;
+          return (
+            <span
+              key={`${b.id}-${i}`}
+              className="absolute h-1.5 w-1.5 rounded-full"
+              style={{
+                left: b.x,
+                top: b.y,
+                backgroundColor: c,
+                "--x": `${Math.cos(angle) * 34}px`,
+                "--y": `${Math.sin(angle) * 34}px`,
+                animation: "pop-out 0.6s cubic-bezier(0.2, 0.7, 0.3, 1) forwards",
+              }}
+            />
+          );
+        }),
       )}
-    </>
+    </div>
   );
 };
 

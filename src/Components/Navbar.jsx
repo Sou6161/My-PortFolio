@@ -1,11 +1,27 @@
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
-import { NAV_LINKS, RESUME_URL, LOGO_URL } from "../constants";
+import { motion } from "framer-motion";
+import { Menu, X, Sun, Moon } from "lucide-react";
+import { NAV_LINKS, RESUME_URL } from "../constants";
+import useTheme from "../hooks/useTheme";
+import { scrollToId } from "../lib/scroll";
+import Monogram from "./Monogram";
+
+// Number colour per link, matching each section's numbered tab below.
+const NUM_COLORS = [
+  "rgb(var(--ink))",
+  "rgb(var(--tomato))",
+  "rgb(var(--cobalt))",
+  "rgb(var(--leaf))",
+  "rgb(var(--plum))",
+  "rgb(var(--ochre))",
+  "rgb(var(--tomato))",
+];
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [active, setActive] = useState("hero");
+  const { theme, toggle } = useTheme();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -32,12 +48,7 @@ const Navbar = () => {
 
   const handleNav = (e, id) => {
     e.preventDefault();
-    const target = document.getElementById(id);
-    if (target) {
-      const top =
-        target.getBoundingClientRect().top + window.pageYOffset - 80;
-      window.scrollTo({ top, behavior: "smooth" });
-    }
+    scrollToId(id);
     setIsOpen(false);
   };
 
@@ -45,7 +56,7 @@ const Navbar = () => {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "border-b border-white/5 bg-ink-950/80 backdrop-blur-md"
+          ? "border-b border-ink/10 bg-paper/95"
           : "border-b border-transparent"
       }`}
     >
@@ -56,14 +67,8 @@ const Navbar = () => {
           onClick={(e) => handleNav(e, "hero")}
           className="flex items-center gap-2.5"
         >
-          <span className="grid h-8 w-8 place-items-center overflow-hidden rounded-md ring-1 ring-white/10">
-            <img
-              src={LOGO_URL}
-              alt=""
-              className="h-full w-full object-cover"
-            />
-          </span>
-          <span className="font-display text-base font-semibold text-white">
+          <Monogram />
+          <span className="font-display text-base font-semibold text-ink">
             Sourabh Saini
           </span>
         </a>
@@ -75,27 +80,50 @@ const Navbar = () => {
               <a
                 href={`#${link.id}`}
                 onClick={(e) => handleNav(e, link.id)}
-                className={`group flex items-center gap-1.5 text-sm transition-colors ${
+                className={`group relative flex items-center gap-1.5 py-1 text-sm transition-colors ${
                   active === link.id
-                    ? "text-white"
-                    : "text-slate-400 hover:text-white"
+                    ? "text-ink"
+                    : "text-ink-soft hover:text-ink"
                 }`}
               >
-                <span className="font-mono text-xs text-accent/70">
+                <span className="font-mono text-xs" style={{ color: NUM_COLORS[i] }}>
                   0{i + 1}.
                 </span>
                 {link.label}
+                {/* One underline shared by every link (same layoutId), so it
+                    glides to whichever section is active, in that colour. */}
+                {active === link.id && (
+                  <motion.span
+                    layoutId="nav-underline"
+                    className="absolute -bottom-0.5 left-0 right-0 h-[2px] rounded-full"
+                    style={{ backgroundColor: NUM_COLORS[i] }}
+                    transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                  />
+                )}
               </a>
             </li>
           ))}
         </ul>
 
         <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={toggle}
+            aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+            title={theme === "dark" ? "Light mode" : "Dark mode"}
+            className="grid h-9 w-9 place-items-center rounded-md border border-ink/15 text-ink transition-colors hover:border-ink/40"
+          >
+            {theme === "dark" ? (
+              <Sun className="h-4 w-4 text-mustard" />
+            ) : (
+              <Moon className="h-4 w-4 text-cobalt" />
+            )}
+          </button>
           <a
             href={RESUME_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden rounded-md border border-accent/40 px-4 py-1.5 text-sm font-medium text-accent transition-colors hover:bg-accent/10 sm:inline-block"
+            className="hidden rounded-md bg-ink px-4 py-1.5 text-sm font-medium text-paper transition-colors hover:bg-tomato sm:inline-block"
           >
             Resume
           </a>
@@ -103,7 +131,7 @@ const Navbar = () => {
           <button
             aria-label="Toggle menu"
             onClick={() => setIsOpen((v) => !v)}
-            className="grid h-9 w-9 place-items-center rounded-md border border-white/10 text-white lg:hidden"
+            className="grid h-9 w-9 place-items-center rounded-md border border-ink/15 text-ink lg:hidden"
           >
             {isOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -112,7 +140,7 @@ const Navbar = () => {
 
       {/* Mobile drawer */}
       {isOpen && (
-        <div className="border-t border-white/5 bg-ink-950 lg:hidden">
+        <div className="border-t border-ink/10 bg-paper lg:hidden">
           <ul className="mx-auto flex max-w-6xl flex-col px-5 py-4 sm:px-8">
             {NAV_LINKS.map((link, i) => (
               <li key={link.id}>
@@ -121,11 +149,11 @@ const Navbar = () => {
                   onClick={(e) => handleNav(e, link.id)}
                   className={`flex items-center gap-2 py-2.5 text-base transition-colors ${
                     active === link.id
-                      ? "text-white"
-                      : "text-slate-400 hover:text-white"
+                      ? "text-ink"
+                      : "text-ink-soft hover:text-ink"
                   }`}
                 >
-                  <span className="font-mono text-xs text-accent/70">
+                  <span className="font-mono text-xs" style={{ color: NUM_COLORS[i] }}>
                     0{i + 1}.
                   </span>
                   {link.label}
@@ -137,7 +165,7 @@ const Navbar = () => {
                 href={RESUME_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block rounded-md border border-accent/40 px-4 py-2 text-sm font-medium text-accent"
+                className="inline-block rounded-md bg-ink px-4 py-2 text-sm font-medium text-paper"
               >
                 Resume ↗
               </a>

@@ -2,10 +2,6 @@
 export const RESUME_URL =
   "https://drive.google.com/file/d/1AHMLIsu8X8eP6kr2XXS4ZPzbI-NKiQxb/view?usp=drive_link";
 
-// Brand logo (same asset used as the site favicon).
-export const LOGO_URL =
-  "https://img.freepik.com/free-vector/colorful-letter-s-with-black-background_483537-4543.jpg?semt=ais_hybrid";
-
 export const SOCIALS = {
   email: "sourabh61saini@gmail.com",
   github: "https://github.com/Sou6161",

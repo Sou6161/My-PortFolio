@@ -3,41 +3,31 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      // Print-style palette: paper, ink, and a handful of flat spot colours.
+      // Values live in index.css as RGB channels (light on :root, dark on
+      // .dark) so opacity modifiers like `ink/15` keep working in both themes.
+      // Mustard is too light to carry text on paper; it's only used as a fill.
       colors: {
+        paper: {
+          DEFAULT: "rgb(var(--paper) / <alpha-value>)",
+          dark: "rgb(var(--paper-dark) / <alpha-value>)",
+        },
         ink: {
-          950: "#0a0a0c",
-          900: "#0e0f12",
-          800: "#15171c",
-          700: "#1d2026",
+          DEFAULT: "rgb(var(--ink) / <alpha-value>)",
+          soft: "rgb(var(--ink-soft) / <alpha-value>)",
+          muted: "rgb(var(--ink-muted) / <alpha-value>)",
         },
-        accent: {
-          DEFAULT: "#22d3ee",
-          soft: "#67e8f9",
-          deep: "#06b6d4",
-        },
-        electric: {
-          DEFAULT: "#3b82f6",
-          deep: "#2563eb",
-        },
+        tomato: "rgb(var(--tomato) / <alpha-value>)",
+        cobalt: "rgb(var(--cobalt) / <alpha-value>)",
+        mustard: "rgb(var(--mustard) / <alpha-value>)",
+        leaf: "rgb(var(--leaf) / <alpha-value>)",
+        plum: "rgb(var(--plum) / <alpha-value>)",
+        ochre: "rgb(var(--ochre) / <alpha-value>)",
       },
       fontFamily: {
-        sans: ['"Inter"', "system-ui", "sans-serif"],
-        display: ['"Space Grotesk"', "system-ui", "sans-serif"],
-        mono: ['"JetBrains Mono"', "ui-monospace", "Menlo", "monospace"],
-      },
-      keyframes: {
-        gradient: {
-          "0%, 100%": { backgroundPosition: "0% 50%" },
-          "50%": { backgroundPosition: "100% 50%" },
-        },
-        "fade-up": {
-          "0%": { opacity: "0", transform: "translateY(20px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-      },
-      animation: {
-        gradient: "gradient 6s ease infinite",
-        "fade-up": "fade-up 0.7s ease-out forwards",
+        sans: ['"IBM Plex Sans"', "system-ui", "sans-serif"],
+        display: ['"Fraunces"', "Georgia", "serif"],
+        mono: ['"IBM Plex Mono"', "ui-monospace", "Menlo", "monospace"],
       },
     },
   },

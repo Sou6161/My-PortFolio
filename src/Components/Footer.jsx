@@ -1,18 +1,37 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUp } from "lucide-react";
+import { scrollToTop } from "../lib/scroll";
 
 const WATERMARK = "Sourabh";
 
-// Highly contrasting colours so each letter pops next to its neighbours.
+// Same spot inks as the hero name, so neighbouring letters never share one.
 const LETTERS = [
-  { ch: "S", color: "#22D3EE" }, // cyan
-  { ch: "o", color: "#FBBF24" }, // amber
-  { ch: "u", color: "#34D399" }, // emerald
-  { ch: "r", color: "#F87171" }, // red
-  { ch: "a", color: "#60A5FA" }, // blue
-  { ch: "b", color: "#FB923C" }, // orange
-  { ch: "h", color: "#A3E635" }, // lime
+  { ch: "S", color: "rgb(var(--tomato))" }, // tomato
+  { ch: "o", color: "rgb(var(--cobalt))" }, // cobalt
+  { ch: "u", color: "rgb(var(--mustard))" }, // mustard
+  { ch: "r", color: "rgb(var(--leaf))" }, // leaf
+  { ch: "a", color: "rgb(var(--plum))" }, // plum
+  { ch: "b", color: "rgb(var(--tomato))" }, // tomato
+  { ch: "h", color: "rgb(var(--cobalt))" }, // cobalt
 ];
+
+// Current time where I am, refreshed every half minute.
+const formatIndiaTime = () =>
+  new Intl.DateTimeFormat("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(new Date());
+
+const LocalTime = () => {
+  const [time, setTime] = useState(formatIndiaTime);
+  useEffect(() => {
+    const id = setInterval(() => setTime(formatIndiaTime()), 30_000);
+    return () => clearInterval(id);
+  }, []);
+  return <time className="tabular-nums">{time}</time>;
+};
 
 const Footer = () => {
   const year = new Date().getFullYear();
@@ -29,7 +48,6 @@ const Footer = () => {
     return () => mql.removeEventListener?.("change", onChange);
   }, []);
 
-  const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   const handleSpot = (e) => {
     const el = spotRef.current;
@@ -59,14 +77,23 @@ const Footer = () => {
       };
 
   return (
-    <footer className="relative overflow-hidden border-t border-white/5">
+    <footer className="relative overflow-hidden border-t border-ink/10 bg-paper-dark">
       {/* top row */}
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <div className="flex flex-wrap items-center justify-between gap-3 py-10 text-sm">
-          <p className="text-slate-500">Hand-coded by me.</p>
+          <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-ink-soft">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-leaf opacity-60" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-leaf" />
+            </span>
+            <span className="text-ink">Available for work</span>
+            <span className="text-ink-muted">
+              · <LocalTime /> in India
+            </span>
+          </p>
           <button
-            onClick={scrollTop}
-            className="group inline-flex items-center gap-2 text-slate-500 transition-colors hover:text-white"
+            onClick={scrollToTop}
+            className="group inline-flex items-center gap-2 text-ink-muted transition-colors hover:text-ink"
           >
             Back to top
             <ArrowUp className="h-4 w-4 transition-transform group-hover:-translate-y-0.5" />
@@ -95,7 +122,7 @@ const Footer = () => {
         {!isTouch && (
           <span
             aria-hidden="true"
-            className="block whitespace-nowrap text-center font-display text-[24vw] sm:text-[18vw] font-bold leading-[0.8] text-white/[0.04] transition-colors duration-500 group-hover:text-white/[0.08]"
+            className="block whitespace-nowrap text-center font-display text-[24vw] sm:text-[18vw] font-bold leading-[0.8] text-ink/[0.06] transition-colors duration-500 group-hover:text-ink/[0.1]"
           >
             {WATERMARK}
           </span>
@@ -121,8 +148,8 @@ const Footer = () => {
 
       {/* bottom row */}
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
-        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-white/5 py-6 text-xs text-slate-500">
-          <p>© {year} Sourabh Saini</p>
+        <div className="flex flex-wrap items-center justify-between gap-2 border-t border-ink/10 py-6 text-xs text-ink-muted">
+          <p>© {year} Sourabh Saini · Hand-coded by me</p>
           <p className="font-mono">Thanks for stopping by.</p>
         </div>
       </div>

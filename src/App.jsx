@@ -15,46 +15,53 @@ import ContactSection from "./Components/ContactSection";
 import Footer from "./Components/Footer";
 import CustomCursor from "./Components/CustomCursor";
 import Navbar from "./Components/Navbar";
+import Rich from "./Components/Rich";
+import CountUp from "./Components/CountUp";
+import HeroArt from "./Components/HeroArt";
+import useReveal from "./hooks/useReveal";
+import { startSmoothScroll, lockScroll } from "./lib/scroll";
 import { RESUME_URL, SOCIALS } from "./constants";
-import Decodr_Dashboard from "./Images/decodr/dashboard.jpg";
-import Decodr_Areas from "./Images/decodr/component-areas.jpg";
-import Decodr_Graph from "./Images/decodr/dependency-graph.jpg";
-import Decodr_Explain from "./Images/decodr/explain-answer.jpg";
-import Decodr_ExplainCode from "./Images/decodr/explain-code.jpg";
-import GameLog_Home from "./Images/gamelog/home.jpg";
-import GameLog_Discover from "./Images/gamelog/discover.jpg";
-import GameLog_Detail from "./Images/gamelog/game-detail.jpg";
-import GameLog_Review from "./Images/gamelog/write-review.jpg";
-import GameLog_Profile from "./Images/gamelog/profile.jpg";
-import Watchly_Home from "./Images/watchly/home.jpg";
-import Watchly_Setup from "./Images/watchly/session-setup.jpg";
-import Watchly_Title from "./Images/watchly/title-detail.jpg";
-import Watchly_Profile from "./Images/watchly/profile.jpg";
-import Coinfam_List from "./Images/coinfam/all-cryptocurrencies.jpg";
-import Coinfam_Detail from "./Images/coinfam/coin-detail.jpg";
-import Coinfam_Chart from "./Images/coinfam/coin-chart.jpg";
-import Coinfam_Exchanges from "./Images/coinfam/exchanges.jpg";
-import Coinfam_Nft from "./Images/coinfam/nft-collections.jpg";
-import Fold_Hero from "./Images/foldxperience/hero.jpg";
-import Fold_Colours from "./Images/foldxperience/colours.jpg";
-import Fold_Circle from "./Images/foldxperience/circle-to-search.jpg";
-import Fold_Gaming from "./Images/foldxperience/gaming-display.jpg";
-import Fold_Hdr from "./Images/foldxperience/super-hdr.jpg";
-import Tacti_Hero from "./Images/tactishift/hero.jpg";
-import Tacti_HowTo from "./Images/tactishift/how-to-play.jpg";
-import Tacti_Single from "./Images/tactishift/single-player.jpg";
-import Tacti_Discussion from "./Images/tactishift/discussion.jpg";
-
-// Each project renders as a case-study row. `shotType` decides how the
+import Decodr_Dashboard from "./Images/decodr/dashboard.webp";
+import Decodr_Areas from "./Images/decodr/component-areas.webp";
+import Decodr_Graph from "./Images/decodr/dependency-graph.webp";
+import Decodr_Explain from "./Images/decodr/explain-answer.webp";
+import Decodr_ExplainCode from "./Images/decodr/explain-code.webp";
+import GameLog_Home from "./Images/gamelog/home.webp";
+import GameLog_Discover from "./Images/gamelog/discover.webp";
+import GameLog_Detail from "./Images/gamelog/game-detail.webp";
+import GameLog_Review from "./Images/gamelog/write-review.webp";
+import GameLog_Profile from "./Images/gamelog/profile.webp";
+import Watchly_Home from "./Images/watchly/home.webp";
+import Watchly_Setup from "./Images/watchly/session-setup.webp";
+import Watchly_Title from "./Images/watchly/title-detail.webp";
+import Watchly_Profile from "./Images/watchly/profile.webp";
+import Coinfam_List from "./Images/coinfam/all-cryptocurrencies.webp";
+import Coinfam_Detail from "./Images/coinfam/coin-detail.webp";
+import Coinfam_Chart from "./Images/coinfam/coin-chart.webp";
+import Coinfam_Exchanges from "./Images/coinfam/exchanges.webp";
+import Coinfam_Nft from "./Images/coinfam/nft-collections.webp";
+import Fold_Hero from "./Images/foldxperience/hero.webp";
+import Fold_Colours from "./Images/foldxperience/colours.webp";
+import Fold_Circle from "./Images/foldxperience/circle-to-search.webp";
+import Fold_Gaming from "./Images/foldxperience/gaming-display.webp";
+import Fold_Hdr from "./Images/foldxperience/super-hdr.webp";
+import Tacti_Hero from "./Images/tactishift/hero.webp";
+import Tacti_HowTo from "./Images/tactishift/how-to-play.webp";
+import Tacti_Single from "./Images/tactishift/single-player.webp";
+import Tacti_Discussion from "./Images/tactishift/discussion.webp";
+// Each project renders as a case-study row and carries its own spot colour
+// (title hover, bullets, screenshot outline). `shotType` decides how the
 // screenshot strip is laid out: "web" gets a landscape grid, "mobile" gets a
 // row of phone-shaped frames, so neither set gets cropped into nonsense.
 const projects = [
   {
     title: "Decodr",
+    color: "rgb(var(--cobalt))",
+    tagline: "AI tool for understanding codebases",
     highlights: [
-      "Point it at a project folder and it maps 120+ files into a component dependency graph, so getting your bearings in a React codebase takes minutes instead of days.",
-      "Reads imports through the TypeScript compiler instead of regex, so the dependency graph is actually correct.",
-      "Walks the import graph to hand the model only the 8-34 files a question actually needs. No embeddings, no vector DB, and no context-limit failures.",
+      "An AI tool that maps any React project into a **component graph** and answers plain-English questions about the code.",
+      "Picks the relevant files by walking the import graph, then lets the model pull in more files itself through **tool calls**.",
+      "Parses code with the **TypeScript Compiler API**, resolving path aliases and barrel files so the graph matches real-world imports.",
     ],
     shotType: "web",
     shots: [
@@ -71,10 +78,12 @@ const projects = [
   },
   {
     title: "GameLog",
+    color: "rgb(var(--tomato))",
+    tagline: "Game tracking app",
     highlights: [
-      "Letterboxd but for games. One Steam login auto-matched 93% of a 363-game library against IGDB, instead of hours of typing it all in.",
-      "XP is append-only, so deleting a review never claws back levels you already earned.",
-      "A full library sync stays under 30s by batching 60 titles per IGDB query and bulk-upserting into Postgres, rather than one call per game.",
+      "Letterboxd for games: a full-stack app for tracking and reviewing what you play.",
+      "**One-tap Steam import** pulls in a 300+ game library and auto-matches **90%+** of it to the IGDB database.",
+      "Matches games in 3 passes (exact, case-insensitive, fuzzy), sending **60 names per request** instead of one call per game.",
     ],
     shotType: "mobile",
     shots: [
@@ -91,15 +100,17 @@ const projects = [
   },
   {
     title: "Watchly",
+    color: "rgb(var(--plum))",
+    tagline: "Movie night matching app",
     highlights: [
-      "You and one other person swipe fifteen trailers each, then only see what you both liked.",
-      "The catalog is fetched from TMDB per session and dealt with weighted-random sampling, so no two nights get the same deck.",
-      "Closed two auth holes I found while testing: token rotation was handing back byte-identical JWTs, and a 1.2s delay on signup quietly leaked which emails were already registered.",
+      "Two people **swipe the same trailers** and only see the titles they both liked.",
+      "Both phones stay in sync live over **Socket.IO**, and every vote is saved first, so a dropped connection never loses progress.",
+      "Picks are ranked with weighted random sampling tuned to each person’s favourite genres, **never repeating a title within 30 days**.",
     ],
     shotType: "mobile",
     shots: [
       { src: Watchly_Home, alt: "Watchly home screen with session modes" },
-      { src: Watchly_Setup, alt: "Watchly session setup: who is watching and tonight's mood" },
+      { src: Watchly_Setup, alt: "Watchly session setup: who is watching and tonight’s mood" },
       { src: Watchly_Title, alt: "Watchly title detail with trailers and streaming provider" },
       { src: Watchly_Profile, alt: "Watchly profile with region and streaming subscriptions" },
     ],
@@ -112,10 +123,12 @@ const projects = [
   },
   {
     title: "CoinFam",
+    color: "rgb(var(--leaf))",
+    tagline: "Crypto market tracker",
     highlights: [
       "Crypto price tracker built on the CoinGecko API.",
-      "More than prices. It also covers exchange rankings, NFT collections, derivatives and the day's biggest gainers and losers.",
-      "Market data sits in Redux, so hopping between coins doesn't refetch what is already loaded.",
+      "More than prices. It also covers exchange rankings, NFT collections, derivatives and the day’s biggest gainers and losers.",
+      "Market data sits in Redux, so hopping between coins doesn’t refetch what is already loaded.",
     ],
     shotType: "web",
     shots: [
@@ -132,6 +145,8 @@ const projects = [
   },
   {
     title: "FoldXperience",
+    color: "rgb(var(--ochre))",
+    tagline: "Scroll-driven product page",
     highlights: [
       "Product page for the Galaxy Z Fold6 where the phone unfolds as you scroll.",
       "Scroll-pinned GSAP timelines, with Lenis handling the smoothing.",
@@ -151,6 +166,8 @@ const projects = [
   },
   {
     title: "TactiShift",
+    color: "rgb(var(--cobalt))",
+    tagline: "Two-phase multiplayer tic-tac-toe",
     highlights: [
       "Tic-tac-toe with a second phase. Once your pieces are down you win by shifting them around.",
       "Socket.IO rooms keep both players on the same board, move for move.",
@@ -170,38 +187,95 @@ const projects = [
   },
 ];
 
-// Screenshots stay as a short horizontal strip so a project row costs ~160px of
-// page instead of a full screen. Thumbnails keep their natural aspect ratio
-// (phone captures are simply taller and narrower); clicking one opens it full
-// size, which is where the detail actually gets read.
-const ShotStrip = ({ shotType, shots, onOpen }) => (
-  <div className="relative mt-6">
-    {/* Long strips run past the container; a right-edge fade signals that. */}
-    {shots.length > 3 && (
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-ink-950 to-transparent" />
-    )}
+// The rest of a project's screens, after the lead image(s): a short strip of
+// small thumbnails. Clicking one opens the full-size viewer at that screen.
+const ShotStrip = ({ shotType, shots, start, color, onOpen }) => (
+  <div className="mt-8">
+    <p className="mb-3 font-mono text-[0.7rem] uppercase tracking-wider text-ink-muted">
+      More screens
+    </p>
     <div className="scroll-strip flex gap-3 overflow-x-auto pb-3">
-    {shots.map((shot, i) => (
-      <button
-        key={shot.src}
-        type="button"
-        onClick={() => onOpen(shots, i)}
-        aria-label={`Open screenshot: ${shot.alt}`}
-        className={`shrink-0 cursor-pointer overflow-hidden rounded-lg border border-white/10 bg-white/[0.02] transition-colors hover:border-accent/60 ${
-          shotType === "mobile" ? "h-52" : "h-32 sm:h-40"
-        }`}
-      >
-        <img
-          src={shot.src}
-          alt={shot.alt}
-          loading="lazy"
-          className="h-full w-auto object-cover object-top"
-        />
-      </button>
+      {shots.slice(start).map((shot, i) => (
+        <button
+          key={shot.src}
+          type="button"
+          onClick={() => onOpen(shots, start + i)}
+          aria-label={`Open screenshot: ${shot.alt}`}
+          style={{ "--c": color }}
+          className={`shrink-0 cursor-pointer overflow-hidden rounded-md border border-ink/15 bg-paper-dark transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-[var(--c)] ${
+            shotType === "mobile" ? "h-36" : "h-24 sm:h-28"
+          }`}
+        >
+          <img
+            src={shot.src}
+            alt={shot.alt}
+            loading="lazy"
+            className="h-full w-auto object-cover object-top"
+          />
+        </button>
       ))}
     </div>
   </div>
 );
+
+// The big image beside a project's write-up. Web projects sit in a plain
+// browser frame (with the real address), app projects in two phone frames.
+// Both cast a hard offset shadow in the project's colour, like a print block.
+const LeadShot = ({ project, onOpen }) => {
+  const { shots, shotType, liveLink } = project;
+
+  if (shotType === "mobile") {
+    return (
+      <div className="flex justify-center gap-5 sm:gap-7">
+        {shots.slice(0, 2).map((shot, i) => (
+          <button
+            key={shot.src}
+            type="button"
+            onClick={() => onOpen(shots, i)}
+            aria-label={`Open screenshot: ${shot.alt}`}
+            className={`group w-[44%] max-w-[220px] ${i === 1 ? "mt-12" : ""}`}
+          >
+            <div className="overflow-hidden rounded-[1.75rem] border-[6px] border-[#14110F] bg-[#14110F] shadow-[6px_6px_0_var(--c)] transition-[transform,box-shadow] duration-300 group-hover:-translate-y-1 group-hover:shadow-[9px_9px_0_var(--c)]">
+              <img
+                src={shot.src}
+                alt={shot.alt}
+                loading="lazy"
+                className="aspect-[9/20] w-full rounded-[1.3rem] object-cover object-top"
+              />
+            </div>
+          </button>
+        ))}
+      </div>
+    );
+  }
+
+  const host = new URL(liveLink).host;
+  return (
+    <button
+      type="button"
+      onClick={() => onOpen(shots, 0)}
+      aria-label={`Open screenshot: ${shots[0].alt}`}
+      className="group block w-full text-left"
+    >
+      <div className="overflow-hidden rounded-lg border border-ink/20 bg-paper-dark shadow-[6px_6px_0_var(--c)] transition-[transform,box-shadow] duration-300 group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:shadow-[9px_9px_0_var(--c)]">
+        <div className="flex items-center gap-1.5 border-b border-ink/10 px-3 py-2">
+          <span className="h-2 w-2 rounded-full bg-tomato" />
+          <span className="h-2 w-2 rounded-full bg-mustard" />
+          <span className="h-2 w-2 rounded-full bg-leaf" />
+          <span className="ml-3 truncate font-mono text-[0.7rem] text-ink-muted">
+            {host}
+          </span>
+        </div>
+        <img
+          src={shots[0].src}
+          alt={shots[0].alt}
+          loading="lazy"
+          className="aspect-[16/10] w-full object-cover object-top"
+        />
+      </div>
+    </button>
+  );
+};
 
 // Full-size viewer for the strip. Arrow keys step through a project's shots,
 // Escape closes, and the body scroll is locked while it's open.
@@ -215,9 +289,11 @@ const Lightbox = ({ shots, index, onClose, onStep }) => {
     window.addEventListener("keydown", onKey);
     const { overflow } = document.body.style;
     document.body.style.overflow = "hidden";
+    lockScroll(true);
     return () => {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = overflow;
+      lockScroll(false);
     };
   }, [onClose, onStep]);
 
@@ -225,7 +301,7 @@ const Lightbox = ({ shots, index, onClose, onStep }) => {
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[60] flex items-center justify-center bg-[#14110F]/95 p-4"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
@@ -235,7 +311,7 @@ const Lightbox = ({ shots, index, onClose, onStep }) => {
         type="button"
         onClick={onClose}
         aria-label="Close"
-        className="absolute right-5 top-5 rounded-full border border-white/15 p-2 text-slate-300 transition-colors hover:border-white/40 hover:text-white"
+        className="absolute right-5 top-5 rounded-full border border-white/20 p-2 text-white/80 transition-colors hover:border-white/50 hover:text-white"
       >
         <X className="h-5 w-5" />
       </button>
@@ -249,7 +325,7 @@ const Lightbox = ({ shots, index, onClose, onStep }) => {
               onStep(-1);
             }}
             aria-label="Previous screenshot"
-            className="absolute left-3 rounded-full border border-white/15 p-2 text-slate-300 transition-colors hover:border-white/40 hover:text-white sm:left-6"
+            className="absolute left-3 rounded-full border border-white/20 p-2 text-white/80 transition-colors hover:border-white/50 hover:text-white sm:left-6"
           >
             <ChevronLeft className="h-5 w-5" />
           </button>
@@ -260,7 +336,7 @@ const Lightbox = ({ shots, index, onClose, onStep }) => {
               onStep(1);
             }}
             aria-label="Next screenshot"
-            className="absolute right-3 rounded-full border border-white/15 p-2 text-slate-300 transition-colors hover:border-white/40 hover:text-white sm:right-6"
+            className="absolute right-3 rounded-full border border-white/20 p-2 text-white/80 transition-colors hover:border-white/50 hover:text-white sm:right-6"
           >
             <ChevronRight className="h-5 w-5" />
           </button>
@@ -276,7 +352,7 @@ const Lightbox = ({ shots, index, onClose, onStep }) => {
           alt={shot.alt}
           className="max-h-[80vh] max-w-[92vw] rounded-lg object-contain"
         />
-        <figcaption className="text-center font-mono text-xs text-slate-500">
+        <figcaption className="text-center font-mono text-xs text-white/60">
           {shot.alt}
           {shots.length > 1 && ` · ${index + 1}/${shots.length}`}
         </figcaption>
@@ -285,41 +361,141 @@ const Lightbox = ({ shots, index, onClose, onStep }) => {
   );
 };
 
-// Per-letter colours for the hero name. Each letter swaps from white to its
-// own distinct hue on hover (no pink / purple to keep the palette intentional).
+// One case study: write-up on one side, lead screenshot on the other
+// (alternating sides row to row), remaining screens in a strip underneath.
+const ProjectRow = ({ project, index, onOpen }) => {
+  const flip = index % 2 === 1;
+  const leadCount = project.shotType === "mobile" ? 2 : 1;
+
+  return (
+    <li
+      data-reveal
+      style={{ "--c": project.color }}
+      className="border-t border-ink/15 pt-14 first:border-t-0 first:pt-0"
+    >
+      <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className={flip ? "lg:order-2" : ""}>
+          <p className="font-mono text-xs tabular-nums text-[var(--c)]">
+            No. {String(index + 1).padStart(2, "0")}
+          </p>
+          <a
+            href={project.liveLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group mt-2 inline-block font-display text-3xl font-semibold text-ink transition-colors hover:text-[var(--c)] sm:text-4xl"
+          >
+            {project.title}
+            <ArrowUpRight className="ml-1 inline h-5 w-5 text-ink-muted transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[var(--c)]" />
+          </a>
+          <p className="mt-1 font-display text-lg italic text-ink-muted">
+            {project.tagline}
+          </p>
+
+          <ul className="mt-5 space-y-2">
+            {project.highlights.map((point) => (
+              <li
+                key={point}
+                className="flex gap-2.5 text-[0.95rem] leading-relaxed text-ink-soft"
+              >
+                <span className="mt-[0.55rem] h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--c)]" />
+                <span>
+                  <Rich text={point} />
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          <p className="mt-5 font-mono text-xs text-ink-muted">
+            {project.technologies.join(" · ")}
+          </p>
+
+          <div className="mt-6 flex items-center gap-6">
+            <a
+              href={project.liveLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-xs text-ink-soft underline decoration-[var(--c)] decoration-2 underline-offset-4 transition-colors hover:text-[var(--c)]"
+            >
+              {project.liveLabel} ↗
+            </a>
+            {project.githubLink && (
+              <a
+                href={project.githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-xs text-ink-soft underline decoration-[var(--c)] decoration-2 underline-offset-4 transition-colors hover:text-[var(--c)]"
+              >
+                Code ↗
+              </a>
+            )}
+          </div>
+        </div>
+
+        <div className={flip ? "lg:order-1" : ""}>
+          <LeadShot project={project} onOpen={onOpen} />
+        </div>
+      </div>
+
+      {project.shots.length > leadCount && (
+        <ShotStrip
+          shotType={project.shotType}
+          shots={project.shots}
+          start={leadCount}
+          color={project.color}
+          onOpen={onOpen}
+        />
+      )}
+    </li>
+  );
+};
+
+// Per-letter colours for the hero name, cycling through the site's spot
+// inks. On hover a letter picks up its colour and hops slightly; touch devices
+// get the colours straight away since there's no hover.
 const NAME_LETTERS = [
-  { ch: "S", color: "#22D3EE" }, // cyan
-  { ch: "o", color: "#FBBF24" }, // amber
-  { ch: "u", color: "#34D399" }, // emerald
-  { ch: "r", color: "#F87171" }, // red
-  { ch: "a", color: "#60A5FA" }, // blue
-  { ch: "b", color: "#FB923C" }, // orange
-  { ch: "h", color: "#A3E635" }, // lime
+  { ch: "S", color: "rgb(var(--tomato))" }, // tomato
+  { ch: "o", color: "rgb(var(--cobalt))" }, // cobalt
+  { ch: "u", color: "rgb(var(--mustard))" }, // mustard
+  { ch: "r", color: "rgb(var(--leaf))" }, // leaf
+  { ch: "a", color: "rgb(var(--plum))" }, // plum
+  { ch: "b", color: "rgb(var(--tomato))" }, // tomato
+  { ch: "h", color: "rgb(var(--cobalt))" }, // cobalt
   { ch: " ", color: null },
-  { ch: "S", color: "#2DD4BF" }, // teal
-  { ch: "a", color: "#FCD34D" }, // yellow
-  { ch: "i", color: "#38BDF8" }, // sky
-  { ch: "n", color: "#4ADE80" }, // green
-  { ch: "i", color: "#F59E0B" }, // gold
-  { ch: ".", color: "#67E8F9" }, // light cyan
+  { ch: "S", color: "rgb(var(--mustard))" }, // mustard
+  { ch: "a", color: "rgb(var(--leaf))" }, // leaf
+  { ch: "i", color: "rgb(var(--plum))" }, // plum
+  { ch: "n", color: "rgb(var(--tomato))" }, // tomato
+  { ch: "i", color: "rgb(var(--cobalt))" }, // cobalt
+  { ch: ".", color: "rgb(var(--mustard))" }, // mustard
 ];
 
-const SectionLabel = ({ num, label }) => (
-  <div className="mb-12 flex items-center gap-4">
-    <span className="font-mono text-sm text-accent">0{num}.</span>
-    <h2 className="font-display text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+// Headline numbers from current work, shown under the About copy.
+const FIGURES = [
+  { value: "30+", label: "screens in a live social app", color: "rgb(var(--tomato))" },
+  { value: "170+", label: "API endpoints behind it", color: "rgb(var(--cobalt))" },
+  { value: "180+", label: "automated tests on a restaurant ordering system", color: "rgb(var(--leaf))" },
+  { value: "2", label: "bilingual English/Arabic sites with full RTL", color: "rgb(var(--plum))" },
+];
+
+// Each section gets its own ink: a solid numbered tab, then the heading.
+const SectionLabel = ({ num, label, color }) => (
+  <div data-reveal className="mb-12 flex items-center gap-4">
+    <span
+      className="rounded-sm px-2 py-0.5 font-mono text-xs font-medium text-paper"
+      style={{ backgroundColor: color }}
+    >
+      0{num}
+    </span>
+    <h2 className="font-display text-3xl font-semibold tracking-tight text-ink sm:text-4xl">
       {label}
     </h2>
-    <span className="h-px flex-1 bg-white/10" />
+    <span className="rule h-px flex-1 bg-ink/15" />
   </div>
 );
 
 export default App;
 
 function App() {
-  // Touch / no-hover devices render the hero name in its colours by default,
-  // since there's no hover to trigger them.
-  const [isTouch, setIsTouch] = useState(false);
   // { shots, index } while a screenshot is open full size, otherwise null.
   const [lightbox, setLightbox] = useState(null);
   const openShot = (shots, index) => setLightbox({ shots, index });
@@ -333,13 +509,8 @@ function App() {
           }
         : cur,
     );
-  useEffect(() => {
-    const mql = window.matchMedia("(hover: none), (pointer: coarse)");
-    setIsTouch(mql.matches);
-    const onChange = (e) => setIsTouch(e.matches);
-    mql.addEventListener?.("change", onChange);
-    return () => mql.removeEventListener?.("change", onChange);
-  }, []);
+  useReveal();
+  useEffect(() => startSmoothScroll(), []);
 
   return (
     <>
@@ -358,51 +529,60 @@ function App() {
         {/* ===================== HERO ===================== */}
         <section
           id="hero"
-          className="flex min-h-screen flex-col justify-center pt-28"
+          className="relative flex flex-col justify-center pb-10 pt-32 lg:min-h-screen lg:pb-0 lg:pt-28"
         >
-          <p className="font-mono text-sm text-accent">Hi there,</p>
-          <h1 className="mt-5 font-display text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-7xl lg:text-8xl">
+          <HeroArt />
+          <p data-reveal className="font-mono text-sm text-tomato">
+            Hi there,
+          </p>
+          <h1 className="mt-5 font-display text-5xl font-bold leading-[1.05] tracking-tight text-ink sm:text-7xl lg:text-8xl">
             {NAME_LETTERS.map((l, i) =>
               l.color === null ? (
-                <span key={i}>{l.ch}</span>
-              ) : isTouch ? (
-                <span
-                  key={i}
-                  style={{
-                    color: l.color,
-                    textShadow: `0 0 8px ${l.color}, 0 0 20px ${l.color}, 0 0 45px ${l.color}, 0 0 90px ${l.color}`,
-                  }}
-                >
-                  {l.ch}
-                </span>
+                <span key={i}> </span>
               ) : (
                 <span
                   key={i}
-                  className="transition-all duration-300 hover:text-[var(--c)] hover:[text-shadow:0_0_8px_var(--c),0_0_20px_var(--c),0_0_45px_var(--c),0_0_90px_var(--c)]"
-                  style={{ "--c": l.color }}
+                  className="letter-in inline-block transition-transform duration-200 hover:-translate-y-2 hover:-rotate-6"
+                  style={{ color: l.color, "--d": `${150 + i * 55}ms` }}
                 >
                   {l.ch}
                 </span>
               )
             )}
           </h1>
-          <h2 className="mt-3 font-display text-3xl font-semibold text-slate-400 sm:text-5xl lg:text-6xl">
-            I build for the web.
+          <h2
+            data-reveal
+            style={{ "--d": "700ms" }}
+            className="mt-3 font-display text-3xl font-medium italic text-ink-soft sm:text-5xl lg:text-6xl"
+          >
+            I build for the{" "}
+            <span className="marker text-ink" style={{ "--mark": "rgb(var(--mk-yellow))" }}>
+              web
+            </span>
+            .
           </h2>
 
-          <p className="mt-8 max-w-xl text-base leading-relaxed text-slate-400 sm:text-lg">
-            I&apos;m a full-stack software engineer working with{" "}
-            <span className="text-slate-200">React</span>,{" "}
-            <span className="text-slate-200">React Native</span>, and{" "}
-            <span className="text-slate-200">Node.js</span>. Right now I&apos;m
+          <p
+            data-reveal
+            style={{ "--d": "850ms" }}
+            className="mt-8 max-w-xl text-base leading-relaxed text-ink-soft sm:text-lg"
+          >
+            I’m a full-stack software developer working with{" "}
+            <span className="marker text-ink" style={{ "--mark": "rgb(var(--mk-blue))" }}>React</span>,{" "}
+            <span className="marker text-ink" style={{ "--mark": "rgb(var(--mk-red))" }}>React Native</span>, and{" "}
+            <span className="marker text-ink" style={{ "--mark": "rgb(var(--mk-green))" }}>Node.js</span>. Right now I’m
             shipping real-time products for a remote team, after a year with a
             legal-tech startup.
           </p>
 
-          <div className="mt-10 flex flex-wrap items-center gap-4">
+          <div
+            data-reveal
+            style={{ "--d": "1000ms" }}
+            className="mt-10 flex flex-wrap items-center gap-4"
+          >
             <a
               href={`mailto:${SOCIALS.email}`}
-              className="group inline-flex items-center gap-2 rounded-md border border-accent/50 bg-accent/5 px-5 py-3 text-sm font-medium text-accent transition-colors hover:bg-accent/10"
+              className="group inline-flex items-center gap-2 rounded-md bg-ink px-5 py-3 text-sm font-medium text-paper transition-colors hover:bg-tomato"
             >
               Get in touch
               <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -411,17 +591,21 @@ function App() {
               href={RESUME_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-slate-400 underline-offset-4 transition-colors hover:text-white hover:underline"
+              className="text-sm text-ink-soft underline decoration-mustard decoration-2 underline-offset-4 transition-colors hover:text-ink"
             >
               Read my CV ↗
             </a>
           </div>
 
-          <div className="mt-14 flex items-center gap-5 text-slate-500">
+          <div
+            data-reveal
+            style={{ "--d": "1100ms" }}
+            className="mt-14 flex items-center gap-5 text-ink-muted"
+          >
             <a
               href={`mailto:${SOCIALS.email}`}
               aria-label="Email"
-              className="transition-colors hover:text-accent"
+              className="transition-colors hover:text-tomato"
             >
               <Mail className="h-5 w-5" />
             </a>
@@ -430,7 +614,7 @@ function App() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="transition-colors hover:text-accent"
+              className="transition-colors hover:text-ink"
             >
               <Github className="h-5 w-5" />
             </a>
@@ -439,151 +623,120 @@ function App() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="transition-colors hover:text-accent"
+              className="transition-colors hover:text-cobalt"
             >
               <Linkedin className="h-5 w-5" />
             </a>
           </div>
+          <HeroArt compact />
         </section>
 
         {/* ===================== ABOUT ===================== */}
         <section
           id="about"
-          className="py-28 content-visibility-auto"
+          className="py-28"
         >
-          <SectionLabel num={1} label="About" />
+          <SectionLabel num={1} label="About" color="rgb(var(--tomato))" />
 
           <div className="grid gap-12 md:grid-cols-[2fr_1fr]">
-            <div className="space-y-5 text-base leading-relaxed text-slate-400">
+            <div data-reveal className="space-y-5 text-base leading-relaxed text-ink-soft">
               <p>
                 I started out in biotech, but somewhere along the way I got
                 pulled into writing code and never really stopped. These days I
-                work as a full-stack software engineer, mostly with React on
-                the front and Node.js / PostgreSQL on the back.
+                work as a full-stack software developer, mostly with React and
+                React Native on the front and Node.js / PostgreSQL on the back.
               </p>
               <p>
-                Most of what I&apos;ve built recently runs in real time, for
-                actual people: a location-based social app for{" "}
-                <span className="text-slate-200">500+ users</span>, a
-                white-label food-ordering platform spun up in under a day, and
-                production UI for a legal-tech SaaS.
+                Most of what I’ve built recently is in the hands of real
+                people: a{" "}
+                <span className="marker text-ink">location-based social app</span>{" "}
+                with live maps and stories, online ordering for a restaurant
+                chain, bilingual English/Arabic sites with full right-to-left
+                layouts, and a learning platform for contract automation.
               </p>
               <p>
-                Off the keyboard I&apos;m a heavy gamer (which is how my{" "}
-                <span className="text-slate-200">GameLog</span> app started),
-                I read more dev blogs than I probably should, and I&apos;m
+                Off the keyboard I’m a heavy gamer (which is how my{" "}
+                <span className="marker text-ink" style={{ "--mark": "rgb(var(--mk-red))" }}>GameLog</span> app started),
+                I read more dev blogs than I probably should, and I’m
                 always tinkering with something on the side.
               </p>
             </div>
 
-            <div>
-              <p className="font-mono text-xs uppercase tracking-wider text-slate-500">
+            <div data-reveal style={{ "--d": "150ms" }}>
+              <p className="font-mono text-xs uppercase tracking-wider text-ink-muted">
                 Currently
               </p>
-              <p className="mt-2 text-sm text-slate-300">
-                Software Engineer at{" "}
-                <span className="text-white">Design Field Agency</span>
+              <p className="mt-2 text-sm text-ink">
+                Software Developer at{" "}
+                <span className="font-medium text-cobalt">Designs Field Agency</span>
                 <br />
-                <span className="text-slate-500">Remote</span>
+                <span className="text-ink-muted">Remote</span>
               </p>
 
-              <p className="mt-8 font-mono text-xs uppercase tracking-wider text-slate-500">
+              <p className="mt-8 font-mono text-xs uppercase tracking-wider text-ink-muted">
                 Open to
               </p>
-              <p className="mt-2 text-sm text-slate-300">
+              <p className="mt-2 text-sm text-ink">
                 Full-stack & React Native roles
               </p>
             </div>
           </div>
+
+          <dl className="mt-16 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-ink/15 pt-10 sm:grid-cols-4">
+            {FIGURES.map((f, i) => (
+              <div key={f.label} data-reveal style={{ "--d": `${i * 120}ms` }}>
+                <dt className="sr-only">{f.label}</dt>
+                <dd
+                  className="font-display text-5xl font-semibold leading-none tabular-nums"
+                  style={{ color: f.color }}
+                >
+                  <CountUp value={f.value} />
+                </dd>
+                <dd className="mt-3 max-w-[12rem] text-sm leading-snug text-ink-soft">
+                  {f.label}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </section>
 
         {/* ===================== EXPERIENCE ===================== */}
         <section
           id="experience"
-          className="py-28 content-visibility-auto"
+          className="relative isolate py-28 before:absolute before:inset-y-0 before:left-1/2 before:-z-10 before:w-screen before:-translate-x-1/2 before:bg-[rgb(var(--band-blue))]"
         >
-          <SectionLabel num={2} label="Experience" />
+          <SectionLabel num={2} label="Experience" color="rgb(var(--cobalt))" />
           <ExperienceSection />
         </section>
 
         {/* ===================== WORK / PROJECTS ===================== */}
         <section
           id="projects"
-          className="py-28 content-visibility-auto"
+          className="py-28"
         >
-          <SectionLabel num={3} label="Selected work" />
+          <SectionLabel num={3} label="Selected work" color="rgb(var(--leaf))" />
 
-          <ul className="space-y-12">
-            {projects.map((project) => (
-              <li
+          <ul className="space-y-20">
+            {projects.map((project, i) => (
+              <ProjectRow
                 key={project.title}
-                className="border-t border-white/10 pt-8 first:border-t-0 first:pt-0"
-              >
-                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-3">
-                  <a
-                    href={project.liveLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group font-display text-2xl font-semibold text-white transition-colors hover:text-accent"
-                  >
-                    {project.title}
-                    <ArrowUpRight className="ml-1 inline h-4 w-4 text-slate-500 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent" />
-                  </a>
-                  <div className="ml-auto flex items-center gap-5 font-mono text-xs">
-                    <a
-                      href={project.liveLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-slate-400 transition-colors hover:text-accent"
-                    >
-                      {project.liveLabel}
-                    </a>
-                    <a
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-slate-400 transition-colors hover:text-accent"
-                    >
-                      Code
-                    </a>
-                  </div>
-                </div>
-
-                <ul className="mt-4 max-w-2xl space-y-1.5">
-                  {project.highlights.map((point) => (
-                    <li
-                      key={point}
-                      className="flex gap-2.5 text-sm leading-relaxed text-slate-400"
-                    >
-                      <span className="mt-[0.45rem] h-1 w-1 shrink-0 rounded-full bg-accent/70" />
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <p className="mt-4 font-mono text-xs text-slate-500">
-                  {project.technologies.join(" · ")}
-                </p>
-
-                <ShotStrip
-                  shotType={project.shotType}
-                  shots={project.shots}
-                  onOpen={openShot}
-                />
-              </li>
+                project={project}
+                index={i}
+                onOpen={openShot}
+              />
             ))}
           </ul>
         </section>
 
         {/* ===================== SKILLS ===================== */}
-        <section id="skills" className="py-28 content-visibility-auto">
-          <SectionLabel num={4} label="Toolbox" />
+        <section id="skills" className="relative isolate py-28 before:absolute before:inset-y-0 before:left-1/2 before:-z-10 before:w-screen before:-translate-x-1/2 before:bg-[rgb(var(--band-plum))]">
+          <SectionLabel num={4} label="Toolbox" color="rgb(var(--plum))" />
           <SkillsSection />
         </section>
 
         {/* ===================== EDUCATION ===================== */}
-        <section id="education" className="py-28 content-visibility-auto">
-          <SectionLabel num={5} label="Education & certifications" />
+        <section id="education" className="py-28">
+          <SectionLabel num={5} label="Education & certifications" color="rgb(var(--ochre))" />
           <EducationSection />
         </section>
 
