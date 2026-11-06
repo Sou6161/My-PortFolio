@@ -4,18 +4,17 @@ import { scrollToTop } from "../lib/scroll";
 
 const WATERMARK = "Sourabh";
 
-// Same spot inks as the hero name, so neighbouring letters never share one.
+// Highly contrasting colours so each letter pops next to its neighbours.
 const LETTERS = [
-  { ch: "S", color: "rgb(var(--tomato))" }, // tomato
-  { ch: "o", color: "rgb(var(--cobalt))" }, // cobalt
-  { ch: "u", color: "rgb(var(--mustard))" }, // mustard
-  { ch: "r", color: "rgb(var(--leaf))" }, // leaf
-  { ch: "a", color: "rgb(var(--plum))" }, // plum
-  { ch: "b", color: "rgb(var(--tomato))" }, // tomato
-  { ch: "h", color: "rgb(var(--cobalt))" }, // cobalt
+  { ch: "S", color: "rgb(var(--tomato))" },
+  { ch: "o", color: "rgb(var(--cobalt))" },
+  { ch: "u", color: "rgb(var(--mustard))" },
+  { ch: "r", color: "rgb(var(--leaf))" },
+  { ch: "a", color: "rgb(var(--plum))" },
+  { ch: "b", color: "rgb(var(--tomato))" },
+  { ch: "h", color: "rgb(var(--cobalt))" },
 ];
 
-// Current time where I am, refreshed every half minute.
 const formatIndiaTime = () =>
   new Intl.DateTimeFormat("en-IN", {
     timeZone: "Asia/Kolkata",
@@ -47,7 +46,6 @@ const Footer = () => {
     mql.addEventListener?.("change", onChange);
     return () => mql.removeEventListener?.("change", onChange);
   }, []);
-
 
   const handleSpot = (e) => {
     const el = spotRef.current;

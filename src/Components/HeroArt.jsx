@@ -4,9 +4,6 @@ import { motion } from "framer-motion";
 const INKS = ["tomato", "cobalt", "mustard", "leaf", "plum", "ink"];
 const ink = (name) => `rgb(var(--${name}))`;
 
-// The composition is laid out on a 420 x 440 grid; each piece is placed by
-// its bounding box on that grid so the whole thing scales with the container.
-// `paint` draws the piece into its own little SVG, `drift` is its idle loop.
 const PIECES = [
   {
     id: "quarter",
@@ -88,13 +85,8 @@ const W = 420;
 const H = 440;
 const pct = (v, of) => `${(v / of) * 100}%`;
 
-// One draggable shape. Dragging moves it (and it stays where it lands);
-// a tap without dragging steps it to the next ink. `canDrag` is off in the
-// compact phone version so touching a shape never hijacks page scrolling.
 const Piece = ({ piece, bounds, canDrag, onPlay }) => {
   const [colorIdx, setColorIdx] = useState(INKS.indexOf(piece.color));
-  // framer-motion still reports a tap when a drag ends over the piece (it
-  // moved along with the pointer), so a drag marks the gesture as "not a tap".
   const dragged = useRef(false);
   const [x, y, w, h] = piece.box;
   const color = ink(INKS[colorIdx]);
@@ -142,12 +134,8 @@ const Piece = ({ piece, bounds, canDrag, onPlay }) => {
   );
 };
 
-// Full version: absolutely placed on the right of the hero, laptop and up.
-// Compact version: in the flow under the hero text on phones and tablets.
 const HeroArt = ({ compact = false }) => {
   const bounds = useRef(null);
-  // Bumping `round` remounts every piece, which puts them all back in place
-  // with their original colours.
   const [round, setRound] = useState(0);
   const [played, setPlayed] = useState(false);
 

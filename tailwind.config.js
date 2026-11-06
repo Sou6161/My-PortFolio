@@ -3,10 +3,6 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      // Print-style palette: paper, ink, and a handful of flat spot colours.
-      // Values live in index.css as RGB channels (light on :root, dark on
-      // .dark) so opacity modifiers like `ink/15` keep working in both themes.
-      // Mustard is too light to carry text on paper; it's only used as a fill.
       colors: {
         paper: {
           DEFAULT: "rgb(var(--paper) / <alpha-value>)",

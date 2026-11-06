@@ -1,6 +1,3 @@
-// The site mark: a serif "S" set in the display face on an ink tile, with a
-// tomato full stop, echoing the "Sourabh Saini." headline. public/favicon.png
-// is the same mark rendered for the browser tab.
 const Monogram = ({ className = "h-8 w-8 text-lg" }) => (
   <span
     aria-hidden="true"

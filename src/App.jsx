@@ -49,8 +49,7 @@ import Tacti_Hero from "./Images/tactishift/hero.webp";
 import Tacti_HowTo from "./Images/tactishift/how-to-play.webp";
 import Tacti_Single from "./Images/tactishift/single-player.webp";
 import Tacti_Discussion from "./Images/tactishift/discussion.webp";
-// Each project renders as a case-study row and carries its own spot colour
-// (title hover, bullets, screenshot outline). `shotType` decides how the
+// Each project renders as a case-study row. `shotType` decides how the
 // screenshot strip is laid out: "web" gets a landscape grid, "mobile" gets a
 // row of phone-shaped frames, so neither set gets cropped into nonsense.
 const projects = [
@@ -187,8 +186,6 @@ const projects = [
   },
 ];
 
-// The rest of a project's screens, after the lead image(s): a short strip of
-// small thumbnails. Clicking one opens the full-size viewer at that screen.
 const ShotStrip = ({ shotType, shots, start, color, onOpen }) => (
   <div className="mt-8">
     <p className="mb-3 font-mono text-[0.7rem] uppercase tracking-wider text-ink-muted">
@@ -218,9 +215,6 @@ const ShotStrip = ({ shotType, shots, start, color, onOpen }) => (
   </div>
 );
 
-// The big image beside a project's write-up. Web projects sit in a plain
-// browser frame (with the real address), app projects in two phone frames.
-// Both cast a hard offset shadow in the project's colour, like a print block.
 const LeadShot = ({ project, onOpen }) => {
   const { shots, shotType, liveLink } = project;
 
@@ -361,8 +355,6 @@ const Lightbox = ({ shots, index, onClose, onStep }) => {
   );
 };
 
-// One case study: write-up on one side, lead screenshot on the other
-// (alternating sides row to row), remaining screens in a strip underneath.
 const ProjectRow = ({ project, index, onOpen }) => {
   const flip = index % 2 === 1;
   const leadCount = project.shotType === "mobile" ? 2 : 1;
@@ -449,27 +441,23 @@ const ProjectRow = ({ project, index, onOpen }) => {
   );
 };
 
-// Per-letter colours for the hero name, cycling through the site's spot
-// inks. On hover a letter picks up its colour and hops slightly; touch devices
-// get the colours straight away since there's no hover.
 const NAME_LETTERS = [
-  { ch: "S", color: "rgb(var(--tomato))" }, // tomato
-  { ch: "o", color: "rgb(var(--cobalt))" }, // cobalt
-  { ch: "u", color: "rgb(var(--mustard))" }, // mustard
-  { ch: "r", color: "rgb(var(--leaf))" }, // leaf
-  { ch: "a", color: "rgb(var(--plum))" }, // plum
-  { ch: "b", color: "rgb(var(--tomato))" }, // tomato
-  { ch: "h", color: "rgb(var(--cobalt))" }, // cobalt
+  { ch: "S", color: "rgb(var(--tomato))" },
+  { ch: "o", color: "rgb(var(--cobalt))" },
+  { ch: "u", color: "rgb(var(--mustard))" },
+  { ch: "r", color: "rgb(var(--leaf))" },
+  { ch: "a", color: "rgb(var(--plum))" },
+  { ch: "b", color: "rgb(var(--tomato))" },
+  { ch: "h", color: "rgb(var(--cobalt))" },
   { ch: " ", color: null },
-  { ch: "S", color: "rgb(var(--mustard))" }, // mustard
-  { ch: "a", color: "rgb(var(--leaf))" }, // leaf
-  { ch: "i", color: "rgb(var(--plum))" }, // plum
-  { ch: "n", color: "rgb(var(--tomato))" }, // tomato
-  { ch: "i", color: "rgb(var(--cobalt))" }, // cobalt
-  { ch: ".", color: "rgb(var(--mustard))" }, // mustard
+  { ch: "S", color: "rgb(var(--mustard))" },
+  { ch: "a", color: "rgb(var(--leaf))" },
+  { ch: "i", color: "rgb(var(--plum))" },
+  { ch: "n", color: "rgb(var(--tomato))" },
+  { ch: "i", color: "rgb(var(--cobalt))" },
+  { ch: ".", color: "rgb(var(--mustard))" },
 ];
 
-// Headline numbers from current work, shown under the About copy.
 const FIGURES = [
   { value: "30+", label: "screens in a live social app", color: "rgb(var(--tomato))" },
   { value: "170+", label: "API endpoints behind it", color: "rgb(var(--cobalt))" },
@@ -477,7 +465,6 @@ const FIGURES = [
   { value: "2", label: "bilingual English/Arabic sites with full RTL", color: "rgb(var(--plum))" },
 ];
 
-// Each section gets its own ink: a solid numbered tab, then the heading.
 const SectionLabel = ({ num, label, color }) => (
   <div data-reveal className="mb-12 flex items-center gap-4">
     <span

@@ -1,9 +1,5 @@
 import { useEffect } from "react";
 
-// Marks [data-reveal] blocks and .marker highlights with `is-in` the first
-// time they scroll into view; the CSS in index.css does the actual motion.
-// `js-reveal` on <html> is what arms the hidden starting state, so if this
-// never runs the page just renders normally.
 export default function useReveal() {
   useEffect(() => {
     const root = document.documentElement;

@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 
-// Ring colour per section, matching each section's numbered tab.
 const SECTION_COLORS = {
   hero: "rgb(var(--tomato))",
   about: "rgb(var(--tomato))",
@@ -13,20 +12,14 @@ const SECTION_COLORS = {
 };
 const FALLBACK = "rgb(var(--ink))";
 const BURST = ["rgb(var(--tomato))", "rgb(var(--cobalt))", "rgb(var(--mustard))", "rgb(var(--leaf))", "rgb(var(--plum))", "rgb(var(--tomato))"];
-// Comet tail behind the dot: each one lags a little more than the last.
 const TRAIL = [
   { color: "rgb(var(--mustard))", size: 7, stiffness: 300 },
   { color: "rgb(var(--cobalt))", size: 6, stiffness: 190 },
   { color: "rgb(var(--leaf))", size: 5, stiffness: 120 },
 ];
-// Over filled buttons (ink, turning tomato on hover) a tomato ring would
-// vanish into the fill, so those get mustard instead.
 const ON_FILL = "rgb(var(--mustard))";
-// "rgb(var(--x))" -> "rgb(var(--x) / 0.15)" for the ring's translucent fill.
 const tint = (color) => color.replace(/\)\)$/, ") / 0.15)");
 
-// A link inside a project / job row carries that row's --c, so hovering it
-// fills the ring with the row's own colour.
 const colorFor = (el) => {
   const bg = getComputedStyle(el).backgroundColor;
   if (el.matches("a, button") && bg !== "rgba(0, 0, 0, 0)" && bg !== "transparent") {
@@ -47,7 +40,6 @@ const CustomCursor = () => {
   const [bursts, setBursts] = useState([]);
   const burstId = useRef(0);
 
-  // Position lives in motion values so moving the mouse never re-renders.
   const x = useMotionValue(-100);
   const y = useMotionValue(-100);
   const ringX = useSpring(x, { stiffness: 350, damping: 28, mass: 0.5 });
@@ -64,7 +56,6 @@ const CustomCursor = () => {
     [t2x, t2y],
   ];
 
-  // Only on real mouse-and-hover devices; phones and tablets keep their own.
   useEffect(() => {
     const mql = window.matchMedia("(hover: hover) and (pointer: fine)");
     const update = () => setEnabled(mql.matches);
@@ -123,7 +114,6 @@ const CustomCursor = () => {
 
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100]">
-      {/* Comet tail, drawn first so it sits under the ring and dot */}
       {TRAIL.map((t, i) => (
         <motion.div
           key={t.color}
@@ -142,7 +132,6 @@ const CustomCursor = () => {
         />
       ))}
 
-      {/* Trailing ring: section colour, fills in over links */}
       <motion.div
         className="absolute left-0 top-0 h-10 w-10 rounded-full border-2"
         style={{
@@ -158,7 +147,6 @@ const CustomCursor = () => {
         transition={{ type: "spring", stiffness: 300, damping: 22 }}
       />
 
-      {/* Exact pointer: a solid dot in the section colour that shrinks over links */}
       <motion.div
         className="absolute left-0 top-0 h-2.5 w-2.5 rounded-full"
         style={{
@@ -172,7 +160,6 @@ const CustomCursor = () => {
         transition={{ duration: 0.15 }}
       />
 
-      {/* Click burst: a handful of palette dots flung outwards */}
       {bursts.map((b) =>
         BURST.map((c, i) => {
           const angle = (i / BURST.length) * Math.PI * 2 + b.id;

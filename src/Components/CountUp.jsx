@@ -1,7 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 
-// "180+" counts up from 0 to 180 (keeping the "+") the first time it is
-// scrolled into view. Reduced-motion users just get the final value.
 const CountUp = ({ value, duration = 1400 }) => {
   const [, num, suffix] = value.match(/^(\d+)(.*)$/) || [null, null, value];
   const target = Number(num);
@@ -38,7 +36,6 @@ const CountUp = ({ value, duration = 1400 }) => {
     };
   }, [value, num, target, suffix, duration]);
 
-  // Screen readers get the real figure, not the ticking one.
   return (
     <>
       <span ref={ref} aria-hidden="true">

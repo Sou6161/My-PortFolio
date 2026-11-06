@@ -6,7 +6,6 @@ import useTheme from "../hooks/useTheme";
 import { scrollToId } from "../lib/scroll";
 import Monogram from "./Monogram";
 
-// Number colour per link, matching each section's numbered tab below.
 const NUM_COLORS = [
   "rgb(var(--ink))",
   "rgb(var(--tomato))",
@@ -90,8 +89,6 @@ const Navbar = () => {
                   0{i + 1}.
                 </span>
                 {link.label}
-                {/* One underline shared by every link (same layoutId), so it
-                    glides to whichever section is active, in that colour. */}
                 {active === link.id && (
                   <motion.span
                     layoutId="nav-underline"

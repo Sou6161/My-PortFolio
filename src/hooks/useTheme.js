@@ -1,9 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 
-// The inline script in index.html sets the starting theme before React loads
-// (saved choice, else the OS setting), so this just reads it back and keeps
-// <html class="dark"> and localStorage in sync when the toggle is used.
 export default function useTheme() {
   const [theme, setTheme] = useState(() =>
     document.documentElement.classList.contains("dark") ? "dark" : "light",
@@ -15,7 +12,6 @@ export default function useTheme() {
     document.documentElement.classList.toggle("dark", theme === "dark");
   }, [theme]);
 
-  // Until someone picks a theme here, keep following the OS if it changes.
   useEffect(() => {
     const mql = window.matchMedia("(prefers-color-scheme: dark)");
     const onChange = (e) => {
@@ -25,9 +21,6 @@ export default function useTheme() {
     return () => mql.removeEventListener?.("change", onChange);
   }, []);
 
-  // Pass the click event so the new theme can grow out of the button as a
-  // circle (View Transitions API). Without support, or with reduced motion,
-  // it just switches.
   const toggle = useCallback((event) => {
     const next = themeRef.current === "dark" ? "light" : "dark";
     const apply = () => {
@@ -36,7 +29,7 @@ export default function useTheme() {
       try {
         localStorage.setItem("theme", next);
       } catch {
-        /* private mode: the toggle still works for this visit */
+        return;
       }
     };
 

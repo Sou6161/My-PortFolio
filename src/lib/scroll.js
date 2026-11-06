@@ -1,10 +1,6 @@
 import Lenis from "lenis";
 import "lenis/dist/lenis.css";
 
-// One Lenis instance for the whole page. Wheel/trackpad scrolling gets eased;
-// touch keeps the phone's native scrolling. Anything that scrolls in code
-// (nav links, back-to-top) or needs to freeze the page (lightbox) goes through
-// the helpers below so it works the same with or without Lenis.
 let lenis = null;
 
 export function startSmoothScroll() {
@@ -26,9 +22,6 @@ export function startSmoothScroll() {
   };
 }
 
-// Scroll to a section. The gap for the fixed navbar comes from
-// `scroll-padding-top` on <html> (index.css), which both Lenis and the native
-// fallback respect, so there's no extra offset here.
 export function scrollToId(id) {
   const target = document.getElementById(id);
   if (!target) return;
@@ -41,7 +34,6 @@ export function scrollToTop() {
   else window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-// Pause/resume page scrolling (e.g. while the lightbox is open).
 export function lockScroll(locked) {
   if (!lenis) return;
   if (locked) lenis.stop();

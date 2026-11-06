@@ -75,8 +75,6 @@ const groups = [
   },
 ];
 
-// Each skill is a little sticker in its group's colour, set at a slight,
-// repeatable tilt so the grid looks hand-placed rather than generated.
 const TILTS = [-1.6, 1.1, -0.6, 1.8, -1.2, 0.7, 1.4, -0.9];
 
 const SkillsSection = () => {
