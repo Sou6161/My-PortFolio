@@ -21,11 +21,11 @@ import HeroArt from "./Components/HeroArt";
 import useReveal from "./hooks/useReveal";
 import { startSmoothScroll, lockScroll } from "./lib/scroll";
 import { RESUME_URL, SOCIALS } from "./constants";
+import Decodr_Landing from "./Images/decodr/landing.webp";
 import Decodr_Dashboard from "./Images/decodr/dashboard.webp";
-import Decodr_Areas from "./Images/decodr/component-areas.webp";
+import Decodr_Overview from "./Images/decodr/overview.webp";
 import Decodr_Graph from "./Images/decodr/dependency-graph.webp";
-import Decodr_Explain from "./Images/decodr/explain-answer.webp";
-import Decodr_ExplainCode from "./Images/decodr/explain-code.webp";
+import Decodr_Explain from "./Images/decodr/explain.webp";
 import GameLog_Home from "./Images/gamelog/home.webp";
 import GameLog_Discover from "./Images/gamelog/discover.webp";
 import GameLog_Detail from "./Images/gamelog/game-detail.webp";
@@ -46,6 +46,7 @@ import Fold_Circle from "./Images/foldxperience/circle-to-search.webp";
 import Fold_Gaming from "./Images/foldxperience/gaming-display.webp";
 import Fold_Hdr from "./Images/foldxperience/super-hdr.webp";
 import Tacti_Hero from "./Images/tactishift/hero.webp";
+import Tacti_Play from "./Images/tactishift/play.webp";
 import Tacti_HowTo from "./Images/tactishift/how-to-play.webp";
 import Tacti_Single from "./Images/tactishift/single-player.webp";
 import Tacti_Discussion from "./Images/tactishift/discussion.webp";
@@ -64,11 +65,11 @@ const projects = [
     ],
     shotType: "web",
     shots: [
-      { src: Decodr_Dashboard, alt: "Decodr dashboard showing file, component and hook counts" },
-      { src: Decodr_Areas, alt: "Decodr component overview grouped by feature area" },
-      { src: Decodr_Graph, alt: "Decodr interactive component dependency graph" },
-      { src: Decodr_Explain, alt: "Decodr explaining how the graph works" },
-      { src: Decodr_ExplainCode, alt: "Decodr answer citing the relevant source code" },
+      { src: Decodr_Landing, alt: "Decodr landing page with a React app drawn as a transit map" },
+      { src: Decodr_Dashboard, alt: "Decodr dashboard with a departure-board summary of files, components and hooks" },
+      { src: Decodr_Overview, alt: "Decodr overview of the biggest and most depended-on components" },
+      { src: Decodr_Graph, alt: "Decodr dependency graph with the Button component selected" },
+      { src: Decodr_Explain, alt: "Decodr Explain page with suggested questions about the project" },
     ],
     liveLink: "https://decodr-web.imsrb.in",
     liveLabel: "Live",
@@ -174,10 +175,11 @@ const projects = [
     ],
     shotType: "web",
     shots: [
-      { src: Tacti_Hero, alt: "TactiShift landing page" },
-      { src: Tacti_HowTo, alt: "TactiShift how-to-play: placement, shifting and win phases" },
-      { src: Tacti_Single, alt: "TactiShift single player match against the AI" },
-      { src: Tacti_Discussion, alt: "TactiShift discussion chat, locked until sign in" },
+      { src: Tacti_Hero, alt: "TactiShift landing page: three in a row, then everything moves" },
+      { src: Tacti_Single, alt: "TactiShift game against the computer on medium difficulty" },
+      { src: Tacti_Play, alt: "TactiShift choice between playing the computer or a friend" },
+      { src: Tacti_HowTo, alt: "TactiShift how it works: place, shift, line them up" },
+      { src: Tacti_Discussion, alt: "TactiShift table talk, open to signed-in players" },
     ],
     liveLink: "https://shift-tic-tac-toe.imsrb.in",
     liveLabel: "Live",
